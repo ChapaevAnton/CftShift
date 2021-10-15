@@ -1,6 +1,8 @@
 # Домашняя работа
 
-- 01_kotlin_unit_testing Задание:
+- 14.10.21 Kotlin, Unit-testing 
+  
+(ветка 01_kotlin_unit_testing) Задание:
 
 1. https://play.kotlinlang.org/koans/overview - пройдите, по возможности на 100%
 
