@@ -50,6 +50,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        binding.buttonNext.setOnClickListener(null)
         _binding = null
         Log.i(tag, "onDestroy")
         super.onDestroy()
