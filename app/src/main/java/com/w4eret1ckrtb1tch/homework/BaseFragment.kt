@@ -78,4 +78,19 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
         super.onDestroy()
     }
 
+    companion object {
+        inline fun <reified FRAGMENT : Fragment> newInstance(color: Int): Fragment {
+            val fragment = FRAGMENT::class.java.newInstance()
+            fragment.apply {
+                arguments = Bundle().apply {
+                    putInt(getKey<FRAGMENT>(), color)
+                }
+            }
+            return fragment
+        }
+
+        inline fun <reified FRAGMENT : Fragment> getKey() =
+            "com.homework.${FRAGMENT::class.simpleName}.COLOR_PARAM"
+    }
+
 }

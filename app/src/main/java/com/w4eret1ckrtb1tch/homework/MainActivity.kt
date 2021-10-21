@@ -5,6 +5,6 @@ import androidx.fragment.app.Fragment
 
 class MainActivity : BaseActivity() {
 
-    override fun createFragment(): Fragment = FragmentA.newInstance(Color.RED)
+    override fun createFragment(): Fragment = BaseFragment.newInstance<FragmentA>(Color.RED)
 
 }

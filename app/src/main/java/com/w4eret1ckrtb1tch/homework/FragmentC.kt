@@ -1,12 +1,11 @@
 package com.w4eret1ckrtb1tch.homework
 
-import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 
 class FragmentC : BaseFragment(R.layout.fragment_layout) {
 
     override val color: Int?
-        get() = arguments?.getInt(COLOR_PARAM)
+        get() = arguments?.getInt(getKey<FragmentC>())
     override val name: String?
         get() = this::class.simpleName
 
@@ -19,13 +18,4 @@ class FragmentC : BaseFragment(R.layout.fragment_layout) {
         }
     }
 
-    companion object {
-        fun newInstance(color: Int): FragmentC = FragmentC().apply {
-            arguments = Bundle().apply {
-                putInt(COLOR_PARAM, color)
-            }
-        }
-
-        private const val COLOR_PARAM = "com.homework.FragmentC.COLOR_PARAM"
-    }
 }
