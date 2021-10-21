@@ -1,5 +1,8 @@
 package com.w4eret1ckrtb1tch.homework
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +57,17 @@ abstract class BaseActivity : AppCompatActivity() {
         _binding = null
         Log.i(tag, "onDestroy")
         super.onDestroy()
+    }
+
+    companion object {
+
+        inline fun <reified ACTIVITY : Activity> newIntent(
+            context: Context,
+            color: Int
+        ) = Intent(context, ACTIVITY::class.java).putExtra(getKey<ACTIVITY>(), color)
+
+        inline fun <reified ACTIVITY : Activity> getKey() =
+            "com.homework.${ACTIVITY::class.simpleName}.COLOR_EXTRA"
     }
 
 }
