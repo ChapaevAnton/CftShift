@@ -12,7 +12,7 @@ abstract class BaseActivity : AppCompatActivity() {
         get() = "Lifecycle/${this::class.simpleName}"
 
     private var _binding: ActivityMainBinding? = null
-    open val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     abstract fun createFragment(): Fragment
 

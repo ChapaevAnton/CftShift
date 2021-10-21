@@ -15,7 +15,7 @@ abstract class BaseFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
         get() = "Lifecycle/${this::class.simpleName}"
 
     private var _binding: FragmentLayoutBinding? = null
-    open val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     abstract fun startFragment()
     abstract val color: Int?
