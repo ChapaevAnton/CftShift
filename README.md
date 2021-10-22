@@ -7,3 +7,5 @@
     03_main_components_activity - навигация на активностях
 
     03_main_components_fragment - навигация на фрагментах
+
+- 20.10.21 UI-тесты (ветка 04_ui_test)
