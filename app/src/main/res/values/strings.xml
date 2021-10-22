@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">HomeWork</string>
+    <string name="app_name">FocusStart</string>
+    <string name="title_date">Курс валют ЦБ РФ на: %1$s</string>
+    <string name="load_currencies">обновить данные</string>
+    <string name="nominal">1 лот = %1$d шт.</string>
+    <string name="amount_currency">%1$.4f</string>
+    <string name="value">%1$.4f ₽</string>
+    <string name="rate">( %1$.4f ₽ )</string>
+    <string name="cash">введите сумму ₽</string>
+
 </resources>

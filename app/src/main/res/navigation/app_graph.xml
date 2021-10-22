@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_graph"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.w4eret1ckrtb1tch.homework.presentation.list.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_open_item"
+            app:destination="@id/itemFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.w4eret1ckrtb1tch.homework.presentation.item.ItemFragment"
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" >
+        <argument
+            android:name="currency"
+            app:argType="com.w4eret1ckrtb1tch.homework.domain.model.Currency" />
+    </fragment>
+
+</navigation>
