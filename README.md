@@ -4,6 +4,6 @@
 
 - 18.10.21 Основные компоненты (ветка 03_main_components)
 
-- 03_main_components_activity - навигация на активностях
+    03_main_components_activity - навигация на активностях
 
-- 03_main_components_fragment - навигация на фрагментах
+    03_main_components_fragment - навигация на фрагментах
