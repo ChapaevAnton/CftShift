@@ -4,9 +4,9 @@ import com.kaspersky.kaspresso.kaspresso.Kaspresso
 import com.kaspersky.kaspresso.testcases.api.testcase.BaseTestCase
 
 abstract class KTestCase(
-    kaspressoBuilder: Kaspresso.Builder = getBuilder()
+    builder: Kaspresso.Builder = getBuilder()
 ) : BaseTestCase<Unit, Unit>(
-    kaspressoBuilder = kaspressoBuilder,
+    kaspressoBuilder = builder,
     dataProducer = { action -> action?.invoke(Unit) }
 ) {
 

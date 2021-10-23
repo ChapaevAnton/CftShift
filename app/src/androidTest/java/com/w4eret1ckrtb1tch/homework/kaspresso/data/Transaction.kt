@@ -2,7 +2,7 @@ package com.w4eret1ckrtb1tch.homework.kaspresso.data
 
 import androidx.annotation.DrawableRes
 import com.w4eret1ckrtb1tch.homework.R
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.ConfigTest.INPUT_CASH
+import com.w4eret1ckrtb1tch.homework.kaspresso.config.Config.INPUT_CASH
 import java.math.BigDecimal
 
 data class Transaction(

@@ -2,10 +2,7 @@ package com.w4eret1ckrtb1tch.homework.kaspresso
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.KTestCase
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.TestCase
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.toRate
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.toValue
+import com.w4eret1ckrtb1tch.homework.kaspresso.config.*
 import com.w4eret1ckrtb1tch.homework.kaspresso.data.Transaction
 import com.w4eret1ckrtb1tch.homework.kaspresso.data.TransactionData
 import com.w4eret1ckrtb1tch.homework.kaspresso.screen.MainScreen
@@ -47,7 +44,7 @@ class ListCurrencyTransactionTest : KTestCase() {
                 MainScreen {
                     titleInfo {
                         isDisplayed()
-                        hasText("Курс валют ЦБ РФ на: 22 окт. 2021 г.")
+                        hasText(Config.TITLE_MAIN_SCREEN)
                     }
                 }
             }

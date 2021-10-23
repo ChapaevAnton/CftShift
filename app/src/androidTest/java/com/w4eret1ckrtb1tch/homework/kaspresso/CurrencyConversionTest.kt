@@ -3,9 +3,9 @@ package com.w4eret1ckrtb1tch.homework.kaspresso
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.w4eret1ckrtb1tch.homework.kaspresso.config.*
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.ConfigTest.INPUT_CASH
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.ConfigTest.INPUT_CASH_ZERO
-import com.w4eret1ckrtb1tch.homework.kaspresso.config.ConfigTest.TRANSACTION_INDEX
+import com.w4eret1ckrtb1tch.homework.kaspresso.config.Config.INPUT_CASH
+import com.w4eret1ckrtb1tch.homework.kaspresso.config.Config.INPUT_CASH_ZERO
+import com.w4eret1ckrtb1tch.homework.kaspresso.config.Config.TRANSACTION_INDEX
 import com.w4eret1ckrtb1tch.homework.kaspresso.data.Transaction
 import com.w4eret1ckrtb1tch.homework.kaspresso.data.TransactionData
 import com.w4eret1ckrtb1tch.homework.kaspresso.screen.CurrencyConversionScreen
@@ -29,13 +29,14 @@ class CurrencyConversionTest : KTestCase() {
     fun checkCurrencyConversion() {
 
         before {
-            checkClickTransaction(TRANSACTION_INDEX)
+
         }.after {
 
+            openTransactionDetails(TRANSACTION_INDEX)
         }.run {
 
-            step("Check transactions detailed content") {
-                checkDetailTransaction(TransactionData.transaction[TRANSACTION_INDEX])
+            step("Check transaction details") {
+                checkTransactionDetails(TransactionData.transaction[TRANSACTION_INDEX])
             }
 
             step("Check conversion logic") {
@@ -45,7 +46,7 @@ class CurrencyConversionTest : KTestCase() {
 
     }
 
-    private fun checkClickTransaction(index: Int) {
+    private fun openTransactionDetails(index: Int) {
         MainScreen {
             transactionList {
                 childAt<MainScreen.TransactionItem>(index) {
@@ -55,7 +56,7 @@ class CurrencyConversionTest : KTestCase() {
         }
     }
 
-    private fun checkDetailTransaction(transaction: Transaction) {
+    private fun checkTransactionDetails(transaction: Transaction) {
         CurrencyConversionScreen {
             charCode {
                 isDisplayed()
