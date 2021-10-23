@@ -2,6 +2,7 @@ package com.w4eret1ckrtb1tch.homework.kaspresso
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.agoda.kakao.common.utilities.getResourceDrawable
 import com.w4eret1ckrtb1tch.homework.kaspresso.config.*
 import com.w4eret1ckrtb1tch.homework.kaspresso.config.Config.INPUT_CASH
 import com.w4eret1ckrtb1tch.homework.kaspresso.config.Config.INPUT_CASH_ZERO
@@ -80,7 +81,7 @@ class CurrencyConversionTest : KTestCase() {
 
             arrowId {
                 isDisplayed()
-                hasDrawable(transaction.arrowId)
+                getResourceDrawable(transaction.arrowId)?.let { hasDrawable(it) }
             }
 
             amountCurrency {
