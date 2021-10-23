@@ -30,9 +30,9 @@ class CurrencyConversionTest : KTestCase() {
 
         before {
 
+            openTransactionDetails(TRANSACTION_INDEX)
         }.after {
 
-            openTransactionDetails(TRANSACTION_INDEX)
         }.run {
 
             step("Check transaction details") {
