@@ -75,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/accept"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/barrier_button" />
@@ -86,7 +85,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/cancel"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
         app:layout_constraintStart_toEndOf="@id/accept"
         app:layout_constraintTop_toBottomOf="@id/barrier_button" />
