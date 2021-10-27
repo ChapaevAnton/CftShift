@@ -1,11 +1,22 @@
 # Домашняя работа
 
-- 14.10.21 Kotlin, Unit-testing (ветка 01_kotlin_unit_testing) 
+- 25.10.21 Анатомия UI-компонентов (ветка 05_anatomy_ui_components) 
 
-- 18.10.21 Основные компоненты (ветка 03_main_components)
+Домашнее задание:
 
-    03_main_components_activity - навигация на активностях
+Сверстать экран согласно макету [https://www.figma.com/file/fLxQYJ9iTXMoK7wOTevAlR/FocusStart?node-id=0%3A1](https://www.figma.com/file/fLxQYJ9iTXMoK7wOTevAlR/FocusStart?node-id=0%3A1)
 
-    03_main_components_fragment - навигация на фрагментах
+- Не использовать findViewById()!
 
-- 20.10.21 UI-тесты (ветка 04_ui_test)
+- Поддержка тёмной темы
+  
+- Переиспользуемость ресурсов
+
+Ознакомиться с Material Design Guidelines
+
+- [https://material.io/components](https://material.io/components)
+- [https://material.io/design](https://material.io/design)
+
+Тест “Практикуем UI/UX”
+
+- [https://t.me/QuizBot?start=p7ua5omt](https://t.me/QuizBot?start=p7ua5omt)

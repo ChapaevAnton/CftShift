@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HomeWork</string>
+    <string name="title_fragment_list_item">ШИФТ Курсы</string>
+    <string name="add">добавить</string>
+    <string name="description">подробнее</string>
+    <string name="icon">иконка</string>
 </resources>
