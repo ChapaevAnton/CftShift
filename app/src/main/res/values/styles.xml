@@ -22,4 +22,10 @@
         <item name="fontFamily">@font/roboto</item>
     </style>
 
+    <style name="Widget.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/purple_500</item>
+    </style>
+
 </resources>
