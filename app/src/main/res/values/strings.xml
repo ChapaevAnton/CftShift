@@ -4,4 +4,6 @@
     <string name="add">добавить</string>
     <string name="description">подробнее</string>
     <string name="icon">иконка</string>
+    <string name="accept">принять</string>
+    <string name="cancel">отклонить</string>
 </resources>

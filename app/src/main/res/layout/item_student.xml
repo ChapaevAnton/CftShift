@@ -34,7 +34,7 @@
         app:layout_constraintGuide_end="7dp" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -50,46 +50,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="end"
-        app:constraint_referenced_ids="icon" />
+        app:constraint_referenced_ids="history" />
 
     <TextView
-        android:id="@+id/second_name"
-        style="@style/TextAppearance.Subtitle1"
-        android:layout_width="wrap_content"
+        android:id="@+id/full_name"
+        style="@style/TextAppearance.Text.Subtitle1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/description"
+        app:layout_constraintEnd_toEndOf="@id/barrier_end"
         app:layout_constraintStart_toStartOf="@id/barrier_start"
-        app:layout_constraintTop_toTopOf="@id/icon"
-        tools:text="@tools:sample/last_names" />
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        tools:text="@tools:sample/full_names" />
 
     <TextView
-        android:id="@+id/name"
-        style="@style/TextAppearance.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/icon"
+        android:id="@+id/description"
+        style="@style/TextAppearance.Text.Body2"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="@id/barrier_end"
         app:layout_constraintStart_toStartOf="@id/barrier_start"
-        app:layout_constraintTop_toBottomOf="@id/second_name"
-        tools:text="@tools:sample/last_names" />
+        app:layout_constraintTop_toBottomOf="@id/full_name"
+        tools:text="@tools:sample/lorem/random" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="end"
-        app:constraint_referenced_ids="name,second_name" />
+        app:constraint_referenced_ids="description,full_name" />
 
     <ImageButton
-        android:id="@+id/description"
+        android:id="@+id/has_portfolio"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_marginStart="24dp"
         android:alpha="0.54"
         android:backgroundTint="@color/white"
         android:contentDescription="@string/description"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-        app:layout_constraintBottom_toBottomOf="@id/second_name"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@id/full_name"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="@id/barrier_end"
-        app:layout_constraintTop_toTopOf="@id/icon" />
+        app:layout_constraintTop_toTopOf="@id/history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
