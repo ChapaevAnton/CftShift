@@ -16,12 +16,11 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="?attr/toolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:alpha="0.87"
             app:menu="@menu/top_bar_fragment_list"
-            app:title="@string/title_fragment_list_item"
-            app:titleTextColor="@color/black" />
+            app:title="@string/title_fragment_list_item" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

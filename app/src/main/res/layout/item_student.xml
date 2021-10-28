@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ItemLayoutStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top"
@@ -90,11 +90,10 @@
 
     <ImageButton
         android:id="@+id/has_portfolio"
+        style="?attr/imageButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
-        android:alpha="0.54"
-        android:backgroundTint="@color/white"
         android:contentDescription="@string/description"
         android:src="@drawable/ic_arrow_forward"
         app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"

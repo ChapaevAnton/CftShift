@@ -16,7 +16,9 @@
         <item name="textAppearanceSubtitle1">@style/TextAppearance.Text.Subtitle1</item>
         <item name="textAppearanceBody2">@style/TextAppearance.Text.Body2</item>
         <item name="borderlessButtonStyle">@style/Widget.App.Button.TextButton</item>
+        <item name="imageButtonStyle">@style/Widget.App.ImageButton</item>
         <item name="snackbarTextViewStyle">@style/Snackbar.TextView</item>
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
     </style>
 
 </resources>
