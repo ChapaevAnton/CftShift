@@ -69,8 +69,8 @@ class ItemAdapter(
                     fullName.text = name
                     description.text = student.description
                     hasPortfolio.visibility =
-                        if (student.hasPortfolio) View.VISIBLE else View.INVISIBLE
-                    hasPortfolio.setOnClickListener { onClickPortfolio.invoke(name) }
+                        if (student.hasPortfolio) View.VISIBLE else View.GONE
+                    hasPortfolio.setOnClickListener { onClickPortfolio.invoke("$name\n ${student.description}") }
                 }
             }
         }

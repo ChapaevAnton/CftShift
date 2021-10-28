@@ -39,7 +39,7 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/TextAppearance.Text.Headline6"
+            style="?attr/textAppearanceHeadline6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/description"
-            style="@style/TextAppearance.Text.Body2"
+            style="?attr/textAppearanceBody2"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
@@ -75,7 +75,7 @@
 
         <Button
             android:id="@+id/accept"
-            style="@style/Widget.Button"
+            style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -86,7 +86,7 @@
 
         <Button
             android:id="@+id/cancel"
-            style="@style/Widget.Button"
+            style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

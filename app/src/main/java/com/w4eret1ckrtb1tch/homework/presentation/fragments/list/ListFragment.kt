@@ -12,6 +12,7 @@ import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.ItemAdapter
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
 
+
 class ListFragment : Fragment(R.layout.fragment_list) {
 
     private var _binding: FragmentListBinding? = null
@@ -31,7 +32,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onViewCreated(view, savedInstanceState)
         val itemAdapter = ItemAdapter(
             onClickPortfolio = { name ->
-                Snackbar.make(view, name, Snackbar.LENGTH_SHORT).show()
+                showDescription(name)
             },
             onClickBannerAccept = {
                 Snackbar.make(view, getString(R.string.accept), Snackbar.LENGTH_SHORT).show()
@@ -58,6 +59,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun showDescription(description: String) {
+        Snackbar.make(binding.root, description, Snackbar.LENGTH_SHORT).setMaxInlineActionWidth(
+            resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width)
+        ).show()
     }
 
     companion object {
