@@ -10,11 +10,13 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.data.Data
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.ItemAdapter
+import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
+    private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +41,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             }
         )
         itemAdapter.listItem = (0..100).map { Data.data }.flatten()
+        binding.recyclerView.addItemDecoration(decorator)
         binding.recyclerView.adapter = itemAdapter
-
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.add -> {
