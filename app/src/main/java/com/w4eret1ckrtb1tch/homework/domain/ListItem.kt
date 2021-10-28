@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.data
+package com.w4eret1ckrtb1tch.homework.domain
 
 sealed class ListItem {
 

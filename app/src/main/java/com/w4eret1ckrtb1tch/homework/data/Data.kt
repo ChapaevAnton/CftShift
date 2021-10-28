@@ -1,9 +1,10 @@
 package com.w4eret1ckrtb1tch.homework.data
 
-import com.w4eret1ckrtb1tch.homework.data.ListItem.BannerItem
-import com.w4eret1ckrtb1tch.homework.data.ListItem.StudentItem
+import com.w4eret1ckrtb1tch.homework.domain.ListItem
+import com.w4eret1ckrtb1tch.homework.domain.ListItem.BannerItem
+import com.w4eret1ckrtb1tch.homework.domain.ListItem.StudentItem
 
-class Data {
+object Data {
 
     val data: List<ListItem> = listOf(
         StudentItem(

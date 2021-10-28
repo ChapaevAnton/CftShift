@@ -63,6 +63,7 @@
         app:layout_constraintEnd_toEndOf="@id/barrier_end"
         app:layout_constraintStart_toStartOf="@id/barrier_start"
         app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="@tools:sample/full_names" />
 
     <TextView
@@ -82,22 +83,22 @@
         android:id="@+id/barrier_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="end"
-        app:constraint_referenced_ids="description,full_name" />
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="has_portfolio" />
 
     <ImageButton
         android:id="@+id/has_portfolio"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:alpha="0.54"
         android:backgroundTint="@color/white"
         android:contentDescription="@string/description"
         android:src="@drawable/ic_arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@id/full_name"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="@id/barrier_end"
-        app:layout_constraintTop_toTopOf="@id/history" />
+        app:layout_constraintTop_toTopOf="@id/guideline_top" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
