@@ -13,8 +13,9 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.R
+import com.w4eret1ckrtb1tch.homework.data.db.AppDataBase
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
-import com.w4eret1ckrtb1tch.homework.domain.model.Contact
+import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.ContactAdapter
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
 
@@ -99,9 +100,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun getContacts() {
-        val contacts = mutableListOf<Contact>()
-        val telNumber = mutableListOf<String>()
-        var contact: Contact
+        val contacts = mutableListOf<ContactEntity>()
         val uri: Uri = ContactsContract.Contacts.CONTENT_URI
         val sort = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
         val cursor = requireActivity().contentResolver.query(uri, null, null, null, sort)
@@ -111,7 +110,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
                     val name =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    contact = Contact(name)
                     val uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
                     val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} =?"
                     val phoneCursor =
@@ -125,7 +123,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     phoneCursor?.let {
                         if (phoneCursor.count > 0) {
                             Log.d("TAG", "getContacts: ${phoneCursor.count}")
-                            while (phoneCursor.moveToNext()) {
+                            if (phoneCursor.moveToNext()) {
                                 val number =
                                     phoneCursor.getString(
                                         phoneCursor.getColumnIndex(
@@ -134,20 +132,21 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                                     )
                                 Log.d("TAG", "getContacts: $name $number ${phoneCursor.position}")
                                 when (phoneCursor.getInt(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))) {
-                                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE ->
-                                        telNumber.add(number)
+                                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> {
+                                        val contact = ContactEntity(name = name, number = number)
+                                        contacts.add(contact)
+                                    }
                                 }
                             }
                         }
                     }
                     phoneCursor?.close()
-                    contact.number.addAll(telNumber.filterIndexed { index, _ -> index == 1 })
-                    contacts.add(contact)
                 }
             }
         }
         cursor?.close()
-        contactAdapter.contacts = contacts
+        saveState(contacts)
+        contactAdapter.contactEntities = restoreState()
     }
 
     companion object {
@@ -158,5 +157,15 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
 
         const val CONTACTS_REQUEST = 100
+    }
+
+    fun saveState(contacts: List<ContactEntity>) {
+        val database = AppDataBase.getDatabase(requireActivity())
+        database.contactsDao().insertAll(contacts)
+    }
+
+    fun restoreState(): List<ContactEntity> {
+        val database = AppDataBase.getDatabase(requireActivity())
+        return database.contactsDao().selectAll()
     }
 }

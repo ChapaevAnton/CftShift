@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.w4eret1ckrtb1tch.homework.databinding.ItemContactBinding
-import com.w4eret1ckrtb1tch.homework.domain.model.Contact
+import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
 
 class ContactAdapter(
     private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
-    var contacts: List<Contact> = emptyList()
+    var contactEntities: List<ContactEntity> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,10 +23,10 @@ class ContactAdapter(
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(contacts[position])
+        holder.bind(contactEntities[position])
     }
 
-    override fun getItemCount(): Int = contacts.size
+    override fun getItemCount(): Int = contactEntities.size
 
     class ContactViewHolder(
         private val binding: ItemContactBinding,
@@ -34,10 +34,10 @@ class ContactAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(contact: Contact) {
+        fun bind(contactEntity: ContactEntity) {
             with(binding) {
-                name.text = contact.name
-                number.text = contact.number.toString()
+                name.text = contactEntity.name
+                number.text = contactEntity.number.toString()
             }
         }
     }
