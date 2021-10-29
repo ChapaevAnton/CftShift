@@ -1,7 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.presentation.fragments.list
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -68,7 +67,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
         viewModel.checkPermission()
         viewModel.getContacts()
-            .observe(viewLifecycleOwner) { contacts -> contactAdapter.contactEntities = contacts }
+            .observe(viewLifecycleOwner) { contacts -> contactAdapter.contacts = contacts }
         viewModel.getPermission().observe(viewLifecycleOwner) { showPermission() }
     }
 
@@ -76,23 +75,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         _binding = null
         super.onDestroyView()
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == CONTACTS_REQUEST &&
-//            grantResults.isNotEmpty() &&
-//            grantResults[0] == PackageManager.PERMISSION_GRANTED
-//        ) {
-//            Log.d("TAG", "onRequestPermissionsResult: ok")
-//            viewModel.loadContacts()
-//        } else {
-//            showDescription("Permission denied")
-//        }
-//    }
 
     private fun showPermission() {
         mPermissionResult?.launch(Manifest.permission.READ_CONTACTS, null)
@@ -110,8 +92,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 arguments = bundle
             }
         }
-
-        const val CONTACTS_REQUEST = 100
     }
 
 }

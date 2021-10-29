@@ -73,6 +73,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                             arrayOf(id),
                             null
                         )
+                    // TODO: 29.10.2021 while only the mobile phone is loaded
                     phoneCursor?.let {
                         if (phoneCursor.count > 0) {
                             Log.d("TAG", "getContacts: ${phoneCursor.count}")

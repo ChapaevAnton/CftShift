@@ -10,7 +10,7 @@ class ContactAdapter(
     private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
-    var contactEntities: List<ContactEntity> = emptyList()
+    var contacts: List<ContactEntity> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,10 +23,10 @@ class ContactAdapter(
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(contactEntities[position])
+        holder.bind(contacts[position])
     }
 
-    override fun getItemCount(): Int = contactEntities.size
+    override fun getItemCount(): Int = contacts.size
 
     class ContactViewHolder(
         private val binding: ItemContactBinding,
@@ -37,7 +37,7 @@ class ContactAdapter(
         fun bind(contactEntity: ContactEntity) {
             with(binding) {
                 name.text = contactEntity.name
-                number.text = contactEntity.number.toString()
+                number.text = contactEntity.number
             }
         }
     }

@@ -20,12 +20,14 @@ abstract class AppDataBase : RoomDatabase() {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDataBase::class.java,
-                    "app_db"
+                    DATABASE_NAME
                 )
                     .allowMainThreadQueries()
                     .build()
             }
             return instance as AppDataBase
         }
+
+        const val DATABASE_NAME = "app_db"
     }
 }
