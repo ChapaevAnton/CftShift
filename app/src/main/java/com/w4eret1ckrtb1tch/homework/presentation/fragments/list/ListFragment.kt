@@ -10,13 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.domain.model.Contact
-import com.w4eret1ckrtb1tch.homework.presentation.adapters.ItemAdapter
+import com.w4eret1ckrtb1tch.homework.presentation.adapters.ContactAdapter
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
 
 
@@ -25,7 +24,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
-    private lateinit var itemAdapter: ItemAdapter
+    private lateinit var contactAdapter: ContactAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +37,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        itemAdapter = ItemAdapter(onClick = { })
+        contactAdapter = ContactAdapter(onClick = { })
         // TODO: 29.10.2021 set contacts to adapter
         binding.recyclerView.addItemDecoration(decorator)
-        binding.recyclerView.adapter = itemAdapter
+        binding.recyclerView.adapter = contactAdapter
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.add -> {
@@ -101,6 +100,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun getContacts() {
         val contacts = mutableListOf<Contact>()
+        val telNumber = mutableListOf<String>()
+        var contact: Contact
         val uri: Uri = ContactsContract.Contacts.CONTENT_URI
         val sort = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
         val cursor = requireActivity().contentResolver.query(uri, null, null, null, sort)
@@ -110,7 +111,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
                     val name =
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-
+                    contact = Contact(name)
                     val uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
                     val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} =?"
                     val phoneCursor =
@@ -122,19 +123,31 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                             null
                         )
                     phoneCursor?.let {
-                        if (phoneCursor.moveToNext()) {
-                            val number =
-                                phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                            val contact = Contact(name, number)
-                            contacts.add(contact)
+                        if (phoneCursor.count > 0) {
+                            Log.d("TAG", "getContacts: ${phoneCursor.count}")
+                            while (phoneCursor.moveToNext()) {
+                                val number =
+                                    phoneCursor.getString(
+                                        phoneCursor.getColumnIndex(
+                                            ContactsContract.CommonDataKinds.Phone.NUMBER
+                                        )
+                                    )
+                                Log.d("TAG", "getContacts: $name $number ${phoneCursor.position}")
+                                when (phoneCursor.getInt(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))) {
+                                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE ->
+                                        telNumber.add(number)
+                                }
+                            }
                         }
                     }
                     phoneCursor?.close()
+                    contact.number.addAll(telNumber.filterIndexed { index, _ -> index == 1 })
+                    contacts.add(contact)
                 }
             }
         }
         cursor?.close()
-        itemAdapter.contacts = contacts
+        contactAdapter.contacts = contacts
     }
 
     companion object {

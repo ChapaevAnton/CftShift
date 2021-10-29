@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.w4eret1ckrtb1tch.homework.databinding.ItemContactBinding
 import com.w4eret1ckrtb1tch.homework.domain.model.Contact
 
-class ItemAdapter(
+class ContactAdapter(
     private val onClick: (String) -> Unit
-) : RecyclerView.Adapter<ItemAdapter.ContactViewHolder>() {
+) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
     var contacts: List<Contact> = emptyList()
         set(value) {
@@ -37,7 +37,7 @@ class ItemAdapter(
         fun bind(contact: Contact) {
             with(binding) {
                 name.text = contact.name
-                number.text = contact.number
+                number.text = contact.number.toString()
             }
         }
     }
