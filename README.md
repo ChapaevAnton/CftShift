@@ -1,22 +1,15 @@
 # Домашняя работа
 
-- 25.10.21 Анатомия UI-компонентов (ветка 05_anatomy_ui_components) 
+- 27.10.21 Анатомия UI-компонентов (ветка 06_saving_state) 
 
 Домашнее задание:
 
-Сверстать экран согласно макету [https://www.figma.com/file/fLxQYJ9iTXMoK7wOTevAlR/FocusStart?node-id=0%3A1](https://www.figma.com/file/fLxQYJ9iTXMoK7wOTevAlR/FocusStart?node-id=0%3A1)
+При 1 входе в приложение сохранить в локальную БД список контактов пользователя (Room). Вывести на экран этот список.
 
-- Не использовать findViewById()!
+- Использовать ViewModel для управления данными.
 
-- Поддержка тёмной темы
-  
-- Переиспользуемость ресурсов
+- Поддержать CRUD операции для контакта.
 
-Ознакомиться с Material Design Guidelines
+- Добавить возможность очистки всех сохраненных контактов.
 
-- [https://material.io/components](https://material.io/components)
-- [https://material.io/design](https://material.io/design)
-
-Тест “Практикуем UI/UX”
-
-- [https://t.me/QuizBot?start=p7ua5omt](https://t.me/QuizBot?start=p7ua5omt)
+- Предоставить возможность выбора пользователю куда сохранить контакты: БД или файл.
