@@ -24,7 +24,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     fun getPermission(): LiveData<Unit> = showPermission
 
     fun checkPermission() {
-        if (isPermission()) {
+        if (isPermissionGranted()) {
             showPermission.value = Unit
         } else {
             contacts.value = restoreState()
@@ -36,7 +36,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         contacts.value = restoreState()
     }
 
-    private fun isPermission(): Boolean {
+    private fun isPermissionGranted(): Boolean {
         return ActivityCompat.checkSelfPermission(
             getApplication(),
             Manifest.permission.READ_CONTACTS
@@ -57,7 +57,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         val sort = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
         val cursor =
             getApplication<Application>().contentResolver.query(uri, null, null, null, sort)
-        cursor?.let {
+        cursor?.use {
             if (cursor.count > 0) {
                 while (cursor.moveToNext()) {
                     val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
@@ -74,7 +74,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                             null
                         )
                     // TODO: 29.10.2021 while only the mobile phone is loaded
-                    phoneCursor?.let {
+                    phoneCursor?.use {
                         if (phoneCursor.count > 0) {
                             Log.d("TAG", "getContacts: ${phoneCursor.count}")
                             if (phoneCursor.moveToNext()) {
@@ -94,11 +94,9 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                             }
                         }
                     }
-                    phoneCursor?.close()
                 }
             }
         }
-        cursor?.close()
         saveState(contacts)
     }
 }

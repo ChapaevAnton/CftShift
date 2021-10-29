@@ -30,8 +30,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onCreate(savedInstanceState)
         mPermissionResult = registerForActivityResult(
             RequestPermission()
-        ) { result: Boolean ->
-            if (result) {
+        ) { granted: Boolean ->
+            if (granted) {
                 Log.d("TEST", "Permission granted...!")
                 viewModel.loadContacts()
             } else {
@@ -72,6 +72,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     override fun onDestroyView() {
+        mPermissionResult = null
         _binding = null
         super.onDestroyView()
     }
