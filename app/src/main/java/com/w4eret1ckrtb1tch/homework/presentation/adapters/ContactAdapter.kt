@@ -7,19 +7,24 @@ import com.w4eret1ckrtb1tch.homework.databinding.ItemContactBinding
 import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
 
 class ContactAdapter(
-    private val onClick: (String) -> Unit
+    private val onClickDelete: (contact: ContactEntity, position: Int) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
-    var contacts: List<ContactEntity> = emptyList()
+    var contacts: MutableList<ContactEntity> = mutableListOf()
         set(value) {
             field = value
-            notifyDataSetChanged()
+            notifyItemRangeInserted(0, field.lastIndex)
         }
+
+    fun removeItem(position: Int) {
+        contacts.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemContactBinding.inflate(inflater, parent, false)
-        return ContactViewHolder(binding, onClick)
+        return ContactViewHolder(binding, onClickDelete)
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
@@ -30,7 +35,7 @@ class ContactAdapter(
 
     class ContactViewHolder(
         private val binding: ItemContactBinding,
-        private val onClick: (String) -> Unit
+        private val onClickDelete: (contact: ContactEntity, position: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -38,6 +43,9 @@ class ContactAdapter(
             with(binding) {
                 name.text = contactEntity.name
                 number.text = contactEntity.number
+                delete.setOnClickListener {
+                    onClickDelete.invoke(contactEntity, adapterPosition)
+                }
             }
         }
     }

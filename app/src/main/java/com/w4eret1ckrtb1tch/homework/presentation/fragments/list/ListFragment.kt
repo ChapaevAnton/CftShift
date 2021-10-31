@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
+import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.ContactAdapter
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
 
@@ -52,7 +53,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        contactAdapter = ContactAdapter(onClick = { })
+        contactAdapter = ContactAdapter(onClickDelete = { contact, position ->
+            deleteContact(contact, position)
+        })
         binding.recyclerView.addItemDecoration(decorator)
         binding.recyclerView.adapter = contactAdapter
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
@@ -63,11 +66,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 }
                 else -> false
             }
-
         }
         viewModel.checkPermission()
         viewModel.getContacts()
-            .observe(viewLifecycleOwner) { contacts -> contactAdapter.contacts = contacts }
+            .observe(viewLifecycleOwner) { contacts ->
+                contactAdapter.contacts = contacts.toMutableList()
+            }
         viewModel.getPermission().observe(viewLifecycleOwner) { showPermission() }
     }
 
@@ -75,6 +79,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         mPermissionResult = null
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun deleteContact(contact: ContactEntity, position: Int) {
+        viewModel.deleteContact(contact)
+        contactAdapter.removeItem(position)
     }
 
     private fun showPermission() {

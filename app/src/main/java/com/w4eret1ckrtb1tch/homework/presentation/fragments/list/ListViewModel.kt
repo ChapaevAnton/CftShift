@@ -36,6 +36,10 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         contacts.value = restoreState()
     }
 
+    fun deleteContact(contact: ContactEntity) {
+        database.contactsDao().delete(contact)
+    }
+
     private fun isPermissionGranted(): Boolean {
         return ActivityCompat.checkSelfPermission(
             getApplication(),
