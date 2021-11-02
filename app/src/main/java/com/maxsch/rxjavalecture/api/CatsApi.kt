@@ -2,6 +2,7 @@ package com.maxsch.rxjavalecture.api
 
 import com.maxsch.rxjavalecture.entities.Cat
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 interface CatsApi {
 
@@ -11,9 +12,9 @@ interface CatsApi {
 class CatsApiImpl : CatsApi {
 
 	override fun getCats(): Single<List<Cat>> =
-		Single.create { emitter ->
+		Single.create<List<Cat>> { emitter ->
 			emitter.onSuccess(
 				listOf(Cat("John", "10"))
 			)
-		}
+		}.subscribeOn(Schedulers.io())
 }

@@ -13,6 +13,7 @@ import com.maxsch.rxjavalecture.api.PriceApiImpl
 import com.maxsch.rxjavalecture.api.RatsApi
 import com.maxsch.rxjavalecture.api.RatsApiImpl
 import com.maxsch.rxjavalecture.entities.Animal
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.toMap
@@ -35,6 +36,7 @@ class MainViewModel(
 			.flattenAsObservable { it }
 			.flatMapSingle { animal -> priceApi.getPrice(animal).map { price -> animal to price } }
 			.toMap()
+			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(::handleAnimalPrices, ::handleLoadingError)
 	}
 

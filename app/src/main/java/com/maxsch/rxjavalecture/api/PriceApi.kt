@@ -5,6 +5,7 @@ import com.maxsch.rxjavalecture.entities.Cat
 import com.maxsch.rxjavalecture.entities.Dog
 import com.maxsch.rxjavalecture.entities.Rat
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 interface PriceApi {
 
@@ -14,7 +15,7 @@ interface PriceApi {
 class PriceApiImpl : PriceApi {
 
 	override fun getPrice(animal: Animal): Single<Int> =
-		Single.create { emitter ->
+		Single.create<Int> { emitter ->
 			val value = when (animal) {
 				is Cat -> 1
 				is Dog -> 2
@@ -22,5 +23,5 @@ class PriceApiImpl : PriceApi {
 				else   -> throw IllegalArgumentException("Unknown animal")
 			}
 			emitter.onSuccess(value)
-		}
+		}.subscribeOn(Schedulers.io())
 }
