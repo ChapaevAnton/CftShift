@@ -1,17 +1,19 @@
 package com.maxsch.rxjavalecture.api
 
 import com.maxsch.rxjavalecture.entities.Rat
+import io.reactivex.Single
 
 interface RatsApi {
 
-	fun getRats(listener: ResultListener<List<Rat>>)
+	fun getRats(): Single<List<Rat>>
 }
 
 class RatsApiImpl : RatsApi {
 
-	override fun getRats(listener: ResultListener<List<Rat>>) {
-		listener.onSuccess(
-			listOf(Rat("Christie", "1"))
-		)
-	}
+	override fun getRats(): Single<List<Rat>> =
+		Single.create { emitter ->
+			emitter.onSuccess(
+				listOf(Rat("Christie", "1"))
+			)
+		}
 }

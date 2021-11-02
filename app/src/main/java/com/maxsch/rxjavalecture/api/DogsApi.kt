@@ -1,17 +1,19 @@
 package com.maxsch.rxjavalecture.api
 
 import com.maxsch.rxjavalecture.entities.Dog
+import io.reactivex.Single
 
 interface DogsApi {
 
-	fun getDogs(listener: ResultListener<List<Dog>>)
+	fun getDogs(): Single<List<Dog>>
 }
 
 class DogsApiImpl : DogsApi {
 
-	override fun getDogs(listener: ResultListener<List<Dog>>) {
-		listener.onSuccess(
-			listOf(Dog("Michel", "4"))
-		)
-	}
+	override fun getDogs(): Single<List<Dog>> =
+		Single.create { emitter ->
+			emitter.onSuccess(
+				listOf(Dog("Michel", "4"))
+			)
+		}
 }
