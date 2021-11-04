@@ -1,66 +1,20 @@
-package com.w4eret1ckrtb1tch.homework.presentation.fragments.list
+package com.w4eret1ckrtb1tch.homework.data.datasource
 
-import android.Manifest
-import android.app.Application
-import android.content.pm.PackageManager
+import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
 import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.w4eret1ckrtb1tch.homework.data.db.AppDataBase
-import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
-import com.w4eret1ckrtb1tch.homework.presentation.fragments.SingleLiveEvent
+import com.w4eret1ckrtb1tch.homework.domain.datasource.ContentResolver
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
-class ListViewModel(application: Application) : AndroidViewModel(application) {
+class ContentResolverImpl(private val context: Context) : ContentResolver {
 
-    private val database = AppDataBase.getDatabase(application.applicationContext)
-
-    private val contacts = MutableLiveData<List<ContactEntity>>()
-    fun getContacts(): LiveData<List<ContactEntity>> = contacts
-    private val showPermission = SingleLiveEvent<Unit>()
-    fun getPermission(): LiveData<Unit> = showPermission
-
-    fun checkPermission() {
-        if (isPermissionGranted()) {
-            showPermission.value = Unit
-        } else {
-            contacts.value = restoreState()
-        }
-    }
-
-    fun loadContacts() {
-        loadContactsToDataBase()
-        contacts.value = restoreState()
-    }
-
-    fun deleteContact(contact: ContactEntity) {
-        database.contactsDao().delete(contact)
-    }
-
-    private fun isPermissionGranted(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            getApplication(),
-            Manifest.permission.READ_CONTACTS
-        ) != PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun saveState(contacts: List<ContactEntity>) {
-        database.contactsDao().insertAll(contacts)
-    }
-
-    private fun restoreState(): List<ContactEntity> {
-        return database.contactsDao().selectAll()
-    }
-
-    private fun loadContactsToDataBase() {
+    override fun getPhoneContacts(): List<ContactEntity> {
         val contacts = mutableListOf<ContactEntity>()
         val uri: Uri = ContactsContract.Contacts.CONTENT_URI
         val sort = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
         val cursor =
-            getApplication<Application>().contentResolver.query(uri, null, null, null, sort)
+            context.contentResolver.query(uri, null, null, null, sort)
         cursor?.use {
             if (cursor.count > 0) {
                 while (cursor.moveToNext()) {
@@ -70,7 +24,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                     val uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
                     val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} =?"
                     val phoneCursor =
-                        getApplication<Application>().contentResolver.query(
+                        context.contentResolver.query(
                             uriPhone,
                             null,
                             selection,
@@ -101,6 +55,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
-        saveState(contacts)
+        return contacts
     }
+
 }

@@ -17,7 +17,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

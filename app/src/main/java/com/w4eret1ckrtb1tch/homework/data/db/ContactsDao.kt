@@ -1,7 +1,7 @@
 package com.w4eret1ckrtb1tch.homework.data.db
 
 import androidx.room.*
-import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
 @Dao
 interface ContactsDao {
@@ -17,4 +17,7 @@ interface ContactsDao {
 
     @Query("SELECT * FROM contacts ORDER BY id ASC")
     fun selectAll(): List<ContactEntity>
+
+    @Query("SELECT COUNT(*) FROM contacts")
+    fun count():Int
 }

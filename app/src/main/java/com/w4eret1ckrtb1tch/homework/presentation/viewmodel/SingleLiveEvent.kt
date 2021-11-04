@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation.fragments
+package com.w4eret1ckrtb1tch.homework.presentation.viewmodel
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

@@ -1,10 +1,10 @@
-package com.w4eret1ckrtb1tch.homework.presentation.adapters
+package com.w4eret1ckrtb1tch.homework.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.w4eret1ckrtb1tch.homework.databinding.ItemContactBinding
-import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
 class ContactAdapter(
     private val onClickDelete: (contact: ContactEntity, position: Int) -> Unit

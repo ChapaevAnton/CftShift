@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.w4eret1ckrtb1tch.homework.domain.model.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
 
 @Database(entities = [ContactEntity::class], version = 1, exportSchema = false)
@@ -28,6 +28,6 @@ abstract class AppDataBase : RoomDatabase() {
             return instance as AppDataBase
         }
 
-        const val DATABASE_NAME = "app_db"
+        private const val DATABASE_NAME = "app_db"
     }
 }
