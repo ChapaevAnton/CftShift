@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.GetContactsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.RemoveContactUseCase
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.SingleLiveEvent
@@ -22,8 +22,8 @@ class ListViewModel(
     private val removeContactUseCase: RemoveContactUseCase
 ) : ViewModel() {
 
-    private val _contacts = MutableLiveData<List<ContactEntity>>()
-    val contacts: LiveData<List<ContactEntity>> get() = _contacts
+    private val _contacts = MutableLiveData<List<ContactDto>>()
+    val contacts: LiveData<List<ContactDto>> get() = _contacts
     private val _showPermission = SingleLiveEvent<Unit>()
     val showPermission: LiveData<Unit> get() = _showPermission
 
@@ -48,7 +48,7 @@ class ListViewModel(
         }
     }
 
-    fun removeContact(contact: ContactEntity) {
+    fun removeContact(contact: ContactDto) {
         viewModelScope.launch {
             removeContactUseCase(contact)
         }

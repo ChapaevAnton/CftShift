@@ -3,12 +3,12 @@ package com.w4eret1ckrtb1tch.homework.data.datasource
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
-import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 
 class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
 
-    override fun getPhoneContacts(): List<ContactEntity> {
-        val contacts = mutableListOf<ContactEntity>()
+    override fun getPhoneContacts(): List<ContactDto> {
+        val contacts = mutableListOf<ContactDto>()
         val uri: Uri = ContactsContract.Contacts.CONTENT_URI
         val sort = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
         val cursor =
@@ -41,7 +41,7 @@ class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
                                     )
                                 when (phoneCursor.getInt(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))) {
                                     ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> {
-                                        val contact = ContactEntity(name = name, number = number)
+                                        val contact = ContactDto(name = name, number = number)
                                         contacts.add(contact)
                                     }
                                 }

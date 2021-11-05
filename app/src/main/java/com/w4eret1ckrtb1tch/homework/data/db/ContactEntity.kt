@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.domain.entity
+package com.w4eret1ckrtb1tch.homework.data.db
 
 import android.os.Parcelable
 import androidx.room.Entity

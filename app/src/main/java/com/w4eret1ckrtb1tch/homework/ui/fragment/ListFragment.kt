@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.di.Injection
-import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.list.ListViewModel
 import com.w4eret1ckrtb1tch.homework.ui.adapters.ContactAdapter
 import com.w4eret1ckrtb1tch.homework.ui.adapters.RecyclerDecoration
@@ -93,7 +93,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
     }
 
-    private fun deleteContact(contact: ContactEntity, position: Int) {
+    private fun deleteContact(contact: ContactDto, position: Int) {
         viewModel.removeContact(contact)
         contactAdapter.removeItem(position)
     }

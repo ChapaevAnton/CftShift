@@ -1,16 +1,16 @@
 package com.w4eret1ckrtb1tch.homework.domain.repository
 
-import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 
 interface ContactRepository {
 
-    fun addContact(contact: ContactEntity)
+    fun addContact(contact: ContactDto)
 
-    fun addContacts(contacts: List<ContactEntity>)
+    fun addContacts(contacts: List<ContactDto>)
 
-    fun removeContact(contact: ContactEntity)
+    fun removeContact(contact: ContactDto)
 
-    fun getContacts(): List<ContactEntity>
+    fun getContacts(): List<ContactDto>
 
     fun countContacts(): Int
 

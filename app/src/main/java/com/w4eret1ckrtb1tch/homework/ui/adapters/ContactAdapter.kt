@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.w4eret1ckrtb1tch.homework.databinding.ItemContactBinding
-import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 
 class ContactAdapter(
-    private val onClickDelete: (contact: ContactEntity, position: Int) -> Unit
+    private val onClickDelete: (contact: ContactDto, position: Int) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
-    var contacts: MutableList<ContactEntity> = mutableListOf()
+    var contacts: MutableList<ContactDto> = mutableListOf()
         set(value) {
             field = value
             notifyItemRangeInserted(0, field.lastIndex)
@@ -35,16 +35,16 @@ class ContactAdapter(
 
     class ContactViewHolder(
         private val binding: ItemContactBinding,
-        private val onClickDelete: (contact: ContactEntity, position: Int) -> Unit
+        private val onClickDelete: (contact: ContactDto, position: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(contactEntity: ContactEntity) {
+        fun bind(contact: ContactDto) {
             with(binding) {
-                name.text = contactEntity.name
-                number.text = contactEntity.number
+                name.text = contact.name
+                number.text = contact.number
                 delete.setOnClickListener {
-                    onClickDelete.invoke(contactEntity, adapterPosition)
+                    onClickDelete.invoke(contact, adapterPosition)
                 }
             }
         }
