@@ -3,7 +3,6 @@ package com.w4eret1ckrtb1tch.homework.data.datasource
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
-import android.util.Log
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
 class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
@@ -33,7 +32,6 @@ class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
                     // TODO: 29.10.2021 while only the mobile phone is loaded
                     phoneCursor?.use {
                         if (phoneCursor.count > 0) {
-                            Log.d("TAG", "getContacts: ${phoneCursor.count}")
                             if (phoneCursor.moveToNext()) {
                                 val number =
                                     phoneCursor.getString(
@@ -41,7 +39,6 @@ class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
                                             ContactsContract.CommonDataKinds.Phone.NUMBER
                                         )
                                     )
-                                Log.d("TAG", "getContacts: $name $number ${phoneCursor.position}")
                                 when (phoneCursor.getInt(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))) {
                                     ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> {
                                         val contact = ContactEntity(name = name, number = number)

@@ -22,15 +22,18 @@ import com.w4eret1ckrtb1tch.homework.ui.adapters.RecyclerDecoration
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 
-    private var _binding: FragmentListBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentListBinding? = null
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
     private val viewModel: ListViewModel by viewModels(factoryProducer = {
         Injection.provideListViewModel(
             this.requireContext()
         )
     })
-    private lateinit var contactAdapter: ContactAdapter
+    private val contactAdapter by lazy {
+        ContactAdapter(onClickDelete = { contact, position ->
+            deleteContact(contact, position)
+        })
+    }
     private var mPermissionResult: ActivityResultLauncher<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +42,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             RequestPermission()
         ) { granted: Boolean ->
             if (granted) {
-                Log.d("TEST", "Permission granted...!")
-                viewModel.getContacts()
+                Log.d("TAG", "Permission granted...!")
+                viewModel.updateContacts()
             } else {
-                Log.d("TEST", "Permission denied...!")
+                Log.d("TAG", "Permission denied...!")
                 showDescription("Permission denied")
             }
         }
@@ -53,26 +56,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        contactAdapter = ContactAdapter(onClickDelete = { contact, position ->
-            deleteContact(contact, position)
-        })
-        binding.recyclerView.addItemDecoration(decorator)
-        binding.recyclerView.adapter = contactAdapter
-        binding.toolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.add -> {
-                    Snackbar.make(view, getString(R.string.add), Snackbar.LENGTH_SHORT).show()
-                    true
-                }
-                else -> false
-            }
-        }
+        apply()
         viewModel.checkPermission()
         viewModel.contacts
             .observe(viewLifecycleOwner) { contacts ->
@@ -83,12 +73,27 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onDestroyView() {
         mPermissionResult = null
-        _binding = null
+        binding = null
         super.onDestroyView()
     }
 
+    private fun apply() {
+        binding?.apply {
+            recyclerView.addItemDecoration(decorator)
+            recyclerView.adapter = contactAdapter
+            toolbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.add -> {
+                        Snackbar.make(root, getString(R.string.add), Snackbar.LENGTH_SHORT).show()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
     private fun deleteContact(contact: ContactEntity, position: Int) {
-        Log.d("TAG", "deleteContact: $contact $position")
         viewModel.removeContact(contact)
         contactAdapter.removeItem(position)
     }
@@ -98,9 +103,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun showDescription(description: String) {
-        Snackbar.make(binding.root, description, Snackbar.LENGTH_SHORT).setMaxInlineActionWidth(
-            resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width)
-        ).show()
+        binding?.let {
+            Snackbar.make(it.root, description, Snackbar.LENGTH_SHORT).setMaxInlineActionWidth(
+                resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width)
+            ).show()
+        }
     }
 
     companion object {

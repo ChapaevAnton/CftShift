@@ -31,7 +31,7 @@ class ListViewModel(
         if (isPermissionGranted()) {
             _showPermission.value = Unit
         } else {
-            getContacts()
+            updateContacts()
         }
     }
 
@@ -42,7 +42,7 @@ class ListViewModel(
         ) != PackageManager.PERMISSION_GRANTED
     }
 
-    fun getContacts() {
+    fun updateContacts() {
         viewModelScope.launch {
             _contacts.value = getContactsUseCase()
         }
