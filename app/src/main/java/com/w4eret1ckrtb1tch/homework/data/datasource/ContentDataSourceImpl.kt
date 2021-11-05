@@ -6,7 +6,7 @@ import android.provider.ContactsContract
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 
 class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
-
+    // QUESTION: 05.11.2021 Разобраться как оптимизировать этот код? Как вынести cursor?
     override fun getPhoneContacts(): List<ContactDto> {
         val contacts = mutableListOf<ContactDto>()
         val uri: Uri = ContactsContract.Contacts.CONTENT_URI

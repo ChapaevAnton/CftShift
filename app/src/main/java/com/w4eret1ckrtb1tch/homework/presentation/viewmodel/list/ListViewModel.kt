@@ -53,4 +53,9 @@ class ListViewModel(
             removeContactUseCase(contact)
         }
     }
+
+    override fun onCleared() {
+        _showPermission.call()
+        super.onCleared()
+    }
 }
