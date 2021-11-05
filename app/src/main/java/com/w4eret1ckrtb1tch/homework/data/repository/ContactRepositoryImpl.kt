@@ -1,31 +1,31 @@
 package com.w4eret1ckrtb1tch.homework.data.repository
 
-import com.w4eret1ckrtb1tch.homework.data.db.AppDataBase
-import com.w4eret1ckrtb1tch.homework.domain.datasource.ContentResolver
+import com.w4eret1ckrtb1tch.homework.data.datasource.ContactDataSource
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 import com.w4eret1ckrtb1tch.homework.domain.repository.ContactRepository
 
 class ContactRepositoryImpl(
-    private val database: AppDataBase,
-    private val contentResolver: ContentResolver
+    private val contactDataSource: ContactDataSource
 ) : ContactRepository {
 
-    override fun getContacts(): List<ContactEntity> {
-        if (getCount() == 0) {
-            saveState(contentResolver.getPhoneContacts())
-        }
-        return restoreState()
+    override fun addContact(contact: ContactEntity) {
+        contactDataSource.addContact(contact)
     }
 
-    override fun deleteContact(contact: ContactEntity) =
-        database.contactsDao().delete(contact)
+    override fun addContacts(contacts: List<ContactEntity>) {
+        contactDataSource.addContacts(contacts)
+    }
 
-    private fun saveState(contacts: List<ContactEntity>) =
-        database.contactsDao().insertAll(contacts)
+    override fun getContacts(): List<ContactEntity> {
+        return contactDataSource.getContacts()
+    }
 
-    private fun restoreState(): List<ContactEntity> =
-        database.contactsDao().selectAll()
+    override fun removeContact(contact: ContactEntity) {
+        contactDataSource.removeContact(contact)
+    }
 
-    private fun getCount() = database.contactsDao().count()
+    override fun countContacts(): Int {
+        return contactDataSource.countContacts()
+    }
 
 }

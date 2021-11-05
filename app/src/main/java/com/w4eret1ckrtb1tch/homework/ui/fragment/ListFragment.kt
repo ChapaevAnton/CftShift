@@ -89,7 +89,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun deleteContact(contact: ContactEntity, position: Int) {
         Log.d("TAG", "deleteContact: $contact $position")
-        viewModel.deleteContact(contact)
+        viewModel.removeContact(contact)
         contactAdapter.removeItem(position)
     }
 

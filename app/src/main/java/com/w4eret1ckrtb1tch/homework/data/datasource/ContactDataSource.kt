@@ -1,8 +1,8 @@
-package com.w4eret1ckrtb1tch.homework.domain.repository
+package com.w4eret1ckrtb1tch.homework.data.datasource
 
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
-interface ContactRepository {
+interface ContactDataSource {
 
     fun addContact(contact: ContactEntity)
 

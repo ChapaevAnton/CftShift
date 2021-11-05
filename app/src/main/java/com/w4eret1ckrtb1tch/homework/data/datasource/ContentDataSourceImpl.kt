@@ -4,10 +4,9 @@ import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
 import android.util.Log
-import com.w4eret1ckrtb1tch.homework.domain.datasource.ContentResolver
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
 
-class ContentResolverImpl(private val context: Context) : ContentResolver {
+class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
 
     override fun getPhoneContacts(): List<ContactEntity> {
         val contacts = mutableListOf<ContactEntity>()

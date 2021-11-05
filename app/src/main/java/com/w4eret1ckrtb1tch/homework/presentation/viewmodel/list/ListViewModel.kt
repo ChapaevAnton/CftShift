@@ -8,15 +8,18 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactEntity
-import com.w4eret1ckrtb1tch.homework.domain.repository.ContactRepository
+import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.GetContactsUseCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.RemoveContactUseCase
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.SingleLiveEvent
-import java.util.concurrent.Executors
+import kotlinx.coroutines.launch
 
 @SuppressLint("StaticFieldLeak")
 class ListViewModel(
     private val context: Context,
-    private val contactRepository: ContactRepository
+    private val getContactsUseCase: GetContactsUseCase,
+    private val removeContactUseCase: RemoveContactUseCase
 ) : ViewModel() {
 
     private val _contacts = MutableLiveData<List<ContactEntity>>()
@@ -40,15 +43,14 @@ class ListViewModel(
     }
 
     fun getContacts() {
-        Executors.newSingleThreadExecutor().execute {
-            _contacts.postValue(contactRepository.getContacts())
+        viewModelScope.launch {
+            _contacts.value = getContactsUseCase()
         }
     }
 
-    fun deleteContact(contact: ContactEntity) {
-        Executors.newSingleThreadExecutor().execute {
-            contactRepository.deleteContact(contact)
+    fun removeContact(contact: ContactEntity) {
+        viewModelScope.launch {
+            removeContactUseCase(contact)
         }
     }
-
 }
