@@ -13,7 +13,7 @@ import com.w4eret1ckrtb1tch.homework.domain.repository.ContactRepository
 import com.w4eret1ckrtb1tch.homework.domain.repository.ContentRepository
 import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.GetContactsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.RemoveContactUseCase
-import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.list.ListViewModelFactory
+import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.ViewModelFactory
 
 object Injection {
 
@@ -53,7 +53,7 @@ object Injection {
         val contactRepository = provideContactRepository(contactDataSource)
         val getContactsUseCase = provideGetContactsUseCase(contentRepository, contactRepository)
         val removeContactUseCase = provideRemoveContactUseCase(contactRepository)
-        return ListViewModelFactory(context, getContactsUseCase, removeContactUseCase)
+        return ViewModelFactory.getInstance(context, getContactsUseCase, removeContactUseCase)
     }
 
 }
