@@ -26,7 +26,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
     private val viewModel: ListViewModel by viewModels(factoryProducer = {
         Injection.provideListViewModel(
-            this.requireContext()
+            this.requireContext(), this
         )
     })
     private val contactAdapter by lazy {

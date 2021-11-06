@@ -5,10 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.GetContactsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.contacts.RemoveContactUseCase
@@ -17,6 +14,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("StaticFieldLeak")
 class ListViewModel(
+    private val handle: SavedStateHandle,
     private val context: Context,
     private val getContactsUseCase: GetContactsUseCase,
     private val removeContactUseCase: RemoveContactUseCase

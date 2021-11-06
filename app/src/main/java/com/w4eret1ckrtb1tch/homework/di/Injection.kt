@@ -2,6 +2,7 @@ package com.w4eret1ckrtb1tch.homework.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.SavedStateRegistryOwner
 import com.w4eret1ckrtb1tch.homework.data.datasource.ContactDataSource
 import com.w4eret1ckrtb1tch.homework.data.datasource.ContactDataSourceImpl
 import com.w4eret1ckrtb1tch.homework.data.datasource.ContentDataSource
@@ -44,8 +45,10 @@ object Injection {
     ): RemoveContactUseCase = RemoveContactUseCase(contactRepository)
 
     fun provideListViewModel(
-        context: Context
+        context: Context,
+        owner: SavedStateRegistryOwner
     ): ViewModelProvider.Factory {
+
         val provideDataBase = provideDataBase(context)
         val contentDataSource = provideContentDataSource(context)
         val contactDataSource = provideContactDataSource(provideDataBase)
@@ -53,7 +56,12 @@ object Injection {
         val contactRepository = provideContactRepository(contactDataSource)
         val getContactsUseCase = provideGetContactsUseCase(contentRepository, contactRepository)
         val removeContactUseCase = provideRemoveContactUseCase(contactRepository)
-        return ViewModelFactory.getInstance(context, getContactsUseCase, removeContactUseCase)
+        return ViewModelFactory.getInstance(
+            owner,
+            context,
+            getContactsUseCase,
+            removeContactUseCase
+        )
     }
 
 }
