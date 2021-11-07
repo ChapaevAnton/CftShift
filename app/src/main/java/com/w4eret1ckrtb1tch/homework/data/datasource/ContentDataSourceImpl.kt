@@ -1,57 +1,78 @@
 package com.w4eret1ckrtb1tch.homework.data.datasource
 
 import android.content.Context
+import android.database.Cursor
+import android.database.CursorWrapper
 import android.net.Uri
-import android.provider.ContactsContract
+import android.provider.ContactsContract.CommonDataKinds.Phone
+import android.provider.ContactsContract.Contacts
 import com.w4eret1ckrtb1tch.homework.domain.entity.ContactDto
 
 class ContentDataSourceImpl(private val context: Context) : ContentDataSource {
     // QUESTION: 05.11.2021 Разобраться как оптимизировать этот код? Как вынести cursor?
     override fun getPhoneContacts(): List<ContactDto> {
         val contacts = mutableListOf<ContactDto>()
-        val uri: Uri = ContactsContract.Contacts.CONTENT_URI
-        val sort = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
-        val cursor =
-            context.contentResolver.query(uri, null, null, null, sort)
-        cursor?.use {
-            if (cursor.count > 0) {
-                while (cursor.moveToNext()) {
-                    val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                    val name =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                    val uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
-                    val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} =?"
+
+        val uri: Uri = Contacts.CONTENT_URI
+        val uriPhone = Phone.CONTENT_URI
+        val sortOrder = "${Phone.DISPLAY_NAME} ASC"
+        val phoneSelection = "${Phone.CONTACT_ID} =?"
+
+        val cursor = query<ContactCursorWrapper>(uri, null, null, sortOrder)
+        cursor.use { contactTable ->
+            if (contactTable.count > 0) {
+                contactTable.moveToFirst()
+                while (!contactTable.isAfterLast) {
+                    val contact = contactTable.getContact()
+                    val selectionArgs = arrayOf(contact.id.toString())
                     val phoneCursor =
-                        context.contentResolver.query(
-                            uriPhone,
-                            null,
-                            selection,
-                            arrayOf(id),
-                            null
-                        )
+                        query<PhoneCursorWrapper>(uriPhone, phoneSelection, selectionArgs, null)
                     // TODO: 29.10.2021 while only the mobile phone is loaded
-                    phoneCursor?.use {
-                        if (phoneCursor.count > 0) {
-                            if (phoneCursor.moveToNext()) {
-                                val number =
-                                    phoneCursor.getString(
-                                        phoneCursor.getColumnIndex(
-                                            ContactsContract.CommonDataKinds.Phone.NUMBER
-                                        )
-                                    )
-                                when (phoneCursor.getInt(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))) {
-                                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE -> {
-                                        val contact = ContactDto(name = name, number = number)
-                                        contacts.add(contact)
-                                    }
-                                }
-                            }
+                    phoneCursor.use { phoneTable ->
+                        if (phoneTable.count > 0) {
+                            phoneTable.moveToFirst()
+                            val number = phoneTable.getPhone()
+                            val phoneContact = contact.copy(number = number)
+                            contacts.add(phoneContact)
                         }
                     }
+                    contactTable.moveToNext()
                 }
             }
         }
         return contacts
     }
 
+    private inline fun <reified T : CursorWrapper> query(
+        uri: Uri,
+        selection: String?,
+        selectionArgs: Array<String>?,
+        sortOrder: String?
+    ): T {
+        val cursor = context.contentResolver.query(uri, null, selection, selectionArgs, sortOrder)
+        return T::class.java.getConstructor(Cursor::class.java).newInstance(cursor)
+    }
+
+}
+
+class ContactCursorWrapper(cursor: Cursor) : CursorWrapper(cursor) {
+
+    fun getContact(): ContactDto {
+        val id = getLong(getColumnIndex(Contacts._ID))
+        val name = getString(getColumnIndex(Contacts.DISPLAY_NAME))
+        return ContactDto(id = id, name = name)
+    }
+}
+
+class PhoneCursorWrapper(cursor: Cursor) : CursorWrapper(cursor) {
+
+    fun getPhone(): String? {
+        val number = getString(getColumnIndex(Phone.NUMBER))
+        return when (getInt(getColumnIndex(Phone.TYPE))) {
+            Phone.TYPE_MOBILE -> {
+                number
+            }
+            else -> null
+        }
+    }
 }

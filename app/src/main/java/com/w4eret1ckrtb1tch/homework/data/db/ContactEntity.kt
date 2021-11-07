@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 data class ContactEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
-    val number: String
+    val number: String? = null
 ) : Parcelable
 
 
