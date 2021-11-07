@@ -6,4 +6,5 @@
     <string name="icon">иконка</string>
     <string name="accept">принять</string>
     <string name="cancel">отклонить</string>
+    <string name="permission">Permission denied</string>
 </resources>

@@ -46,7 +46,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 viewModel.updateContacts()
             } else {
                 Log.d("TAG", "Permission denied...!")
-                showDescription("Permission denied")
+                showDescription(getString(R.string.permission))
             }
         }
     }
