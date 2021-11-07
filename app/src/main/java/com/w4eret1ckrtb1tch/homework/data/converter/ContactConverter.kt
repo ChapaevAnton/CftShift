@@ -13,6 +13,7 @@ fun ContactEntity.toContactDto(): ContactDto {
 
 fun ContactDto.toContactEntity(): ContactEntity {
     return ContactEntity(
+        id = id,
         name = name,
         number = number
     )
