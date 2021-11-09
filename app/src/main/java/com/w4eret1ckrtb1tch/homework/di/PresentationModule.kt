@@ -2,21 +2,22 @@ package com.w4eret1ckrtb1tch.homework.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.w4eret1ckrtb1tch.homework.presentation.MainViewModel
+import com.w4eret1ckrtb1tch.homework.presentation.ScreenViewModel
+import com.w4eret1ckrtb1tch.homework.presentation.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import javax.inject.Singleton
 
 @Module
 interface PresentationModule {
 
     @Binds
-    @Singleton
+    @FragmentScope
     fun bindsViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
-    @[IntoMap ViewModelKey(MainViewModel::class)]
-    fun bindsMainViewModel(mainViewModel: MainViewModel): ViewModel
+    @FragmentScope
+    @[IntoMap ViewModelKey(ScreenViewModel::class)]
+    fun bindsScreenViewModel(screenViewModel: ScreenViewModel): ViewModel
 
 }

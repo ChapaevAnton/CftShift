@@ -6,9 +6,9 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Singleton
+import javax.inject.Scope
 
-@Singleton
+@AppScope
 @Component(
     modules = [
         DomainModule::class,
@@ -28,3 +28,15 @@ interface AppComponent : AndroidInjector<App> {
         fun build(): AppComponent
     }
 }
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class AppScope
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ActivityScope
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class FragmentScope

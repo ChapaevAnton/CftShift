@@ -9,7 +9,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.Reusable
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
 @Module
 interface DomainModule {
@@ -29,8 +28,8 @@ interface DomainModule {
     ): SampleStringDataSource
 
     @Binds
-    @Singleton
-    fun bindsStringRepository(stringRepository:SampleStringRepositoryImpl):SampleStringRepository
+    @AppScope
+    fun bindsStringRepository(stringRepository: SampleStringRepositoryImpl): SampleStringRepository
 
 }
 

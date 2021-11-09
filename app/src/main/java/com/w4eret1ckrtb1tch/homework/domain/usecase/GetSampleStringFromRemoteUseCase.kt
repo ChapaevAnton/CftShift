@@ -1,8 +1,10 @@
 package com.w4eret1ckrtb1tch.homework.domain.usecase
 
+import com.w4eret1ckrtb1tch.homework.di.FragmentScope
 import com.w4eret1ckrtb1tch.homework.domain.repository.SampleStringRepository
 import javax.inject.Inject
 
+@FragmentScope
 class GetSampleStringFromRemoteUseCase @Inject constructor(
     private val repository: SampleStringRepository
 ) {
