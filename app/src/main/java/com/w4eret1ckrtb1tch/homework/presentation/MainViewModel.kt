@@ -2,14 +2,16 @@ package com.w4eret1ckrtb1tch.homework.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetSampleStringFromLocalUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetSampleStringFromRemoteUseCase
+import javax.inject.Inject
 
-class MainViewModel {
-    //TODO: DI
-    private val getSampleStringFromLocalUseCase = GetSampleStringFromLocalUseCase()
-    private val getSampleStringFromRemoteUseCase = GetSampleStringFromRemoteUseCase()
-
+class MainViewModel @Inject constructor(
+    private val getSampleStringFromLocalUseCase: GetSampleStringFromLocalUseCase,
+    private val getSampleStringFromRemoteUseCase: GetSampleStringFromRemoteUseCase
+) : ViewModel() {
+    //TODO: DI OK
     private val _state: MutableLiveData<MainState> = MutableLiveData<MainState>()
     val state: LiveData<MainState> = _state
 

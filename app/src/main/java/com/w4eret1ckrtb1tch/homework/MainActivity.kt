@@ -2,15 +2,25 @@ package com.w4eret1ckrtb1tch.homework
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.w4eret1ckrtb1tch.homework.di.ViewModelFactory
 import com.w4eret1ckrtb1tch.homework.presentation.MainState
 import com.w4eret1ckrtb1tch.homework.presentation.MainViewModel
+import dagger.Lazy
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
-    //TODO: DI
-    private val viewModel = MainViewModel()
+    //TODO: DI OK
+    @Inject
+    lateinit var viewModelFactory: Lazy<ViewModelFactory>
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory.get()).get(
+            MainViewModel::class.java
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

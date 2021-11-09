@@ -1,13 +1,14 @@
 package com.w4eret1ckrtb1tch.homework.domain.usecase
 
-import com.w4eret1ckrtb1tch.homework.data.repository.SampleStringRepositoryImpl
 import com.w4eret1ckrtb1tch.homework.domain.repository.SampleStringRepository
+import javax.inject.Inject
 
-class GetSampleStringFromLocalUseCase {
+class GetSampleStringFromLocalUseCase @Inject constructor(
+    private val repository: SampleStringRepository
+) {
 
-    //TODO: DI
+    //TODO: DI OK
     //TODO: сделать так, чтобы repository не пересоздавался для каждого UseCase
-    private val repository: SampleStringRepository = SampleStringRepositoryImpl()
 
     operator fun invoke(): String {
         val fromLocal = repository.getFromLocal()

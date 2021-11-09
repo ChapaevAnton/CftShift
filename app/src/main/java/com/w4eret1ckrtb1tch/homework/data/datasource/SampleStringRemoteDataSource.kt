@@ -1,6 +1,8 @@
 package com.w4eret1ckrtb1tch.homework.data.datasource
 
-class SampleStringRemoteDataSource : SampleStringDataSource {
+import javax.inject.Inject
+
+class SampleStringRemoteDataSource @Inject constructor() : SampleStringDataSource {
 
     private val mockedAnswer = "String from remote data source"
 
