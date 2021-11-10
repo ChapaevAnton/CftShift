@@ -7,21 +7,20 @@ import com.w4eret1ckrtb1tch.homework.data.repository.SampleStringRepositoryImpl
 import com.w4eret1ckrtb1tch.homework.domain.repository.SampleStringRepository
 import dagger.Binds
 import dagger.Module
-import dagger.Reusable
 import javax.inject.Qualifier
 
 @Module
 interface DomainModule {
 
     @Binds
-    @Reusable
+    @AppScope
     @LocalDataSource
     fun bindsStringLocalDataSource(
         stringLocalDataSource: SampleStringLocalDataSource
     ): SampleStringDataSource
 
     @Binds
-    @Reusable
+    @AppScope
     @RemoteDataSource
     fun bindsStringRemoteDataSource(
         stringRemoteDataSource: SampleStringRemoteDataSource

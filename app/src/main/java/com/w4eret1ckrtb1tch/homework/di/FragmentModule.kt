@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-interface PresentationModule {
+interface FragmentModule {
 
     @Binds
     @FragmentScope
