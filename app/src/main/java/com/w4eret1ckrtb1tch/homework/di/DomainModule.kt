@@ -29,7 +29,6 @@ interface DomainModule {
     @Binds
     @AppScope
     fun bindsStringRepository(stringRepository: SampleStringRepositoryImpl): SampleStringRepository
-
 }
 
 @Qualifier

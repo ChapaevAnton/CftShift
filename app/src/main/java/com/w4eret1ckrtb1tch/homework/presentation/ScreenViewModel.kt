@@ -8,6 +8,7 @@ import com.w4eret1ckrtb1tch.homework.domain.usecase.GetSampleStringFromLocalUseC
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetSampleStringFromRemoteUseCase
 import javax.inject.Inject
 
+
 @FragmentScope
 class ScreenViewModel @Inject constructor(
     private val getSampleStringFromLocalUseCase: GetSampleStringFromLocalUseCase,
