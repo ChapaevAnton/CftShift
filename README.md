@@ -17,3 +17,5 @@
 - 03.11.21 Архитектура. Дизайн паттерны (ветка 08_architecture_design_patterns)
 
 - 08.11.21 "Dependency Injection" (ветка 09_dependency_injection) - вариант №1
+
+- 08.11.21 "Dependency Injection" (ветка 09_dependency_injection_dagger_android) - вариант №2
