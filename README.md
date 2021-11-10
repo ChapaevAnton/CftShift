@@ -1,6 +1,6 @@
 # Домашняя работа
 
-- 08.11.21 "Dependency Injection" (ветка 09_dependency_injection)
+- 08.11.21 "Dependency Injection" (ветка 09_dependency_injection) - вариант №1
 
 Домашнее задание:
 
