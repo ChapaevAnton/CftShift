@@ -9,6 +9,7 @@ import javax.inject.Scope
 @Component(
     modules = [
         DomainModule::class,
+        ViewModelBuilder::class,
         AppSubcomponent::class
     ]
 )
