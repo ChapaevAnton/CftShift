@@ -1,22 +1,18 @@
 # Домашняя работа
 
-- 25.10.21 Анатомия UI-компонентов (ветка 05_anatomy_ui_components) 
+- 10.11.21 Анимация в Android (ветка 10_animation_in_android) 
 
 Домашнее задание:
 
-Сверстать экран согласно макету [https://www.figma.com/file/fLxQYJ9iTXMoK7wOTevAlR/FocusStart?node-id=0%3A1](https://www.figma.com/file/fLxQYJ9iTXMoK7wOTevAlR/FocusStart?node-id=0%3A1)
+- В домашнем задании с лекции по UI открываем новый экран по тапу на “+”. 
+  Экран выезжает снизу вверх, а закрываясь уезжает обратно вниз.
 
-- Не использовать findViewById()!
+- На экране располагаются поле ввода и кнопка. При нажатии на кнопку:
 
-- Поддержка тёмной темы
-  
-- Переиспользуемость ресурсов
+    - если поле пустое, оно покачивается вправо-влево и возвращается в исходное положение;
 
-Ознакомиться с Material Design Guidelines
+    - если поле не пустое, содержимое экрана через фейд заменяется на прогрессбар. Прогрессбар виден 1 с, после чего экран закрывается.
 
-- [https://material.io/components](https://material.io/components)
-- [https://material.io/design](https://material.io/design)
+* Сделать анимацию переиспользуемой
 
-Тест “Практикуем UI/UX”
-
-- [https://t.me/QuizBot?start=p7ua5omt](https://t.me/QuizBot?start=p7ua5omt)
+* ViewModel для этого экрана
