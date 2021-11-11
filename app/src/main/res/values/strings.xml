@@ -6,4 +6,6 @@
     <string name="icon">иконка</string>
     <string name="accept">принять</string>
     <string name="cancel">отклонить</string>
+    <string name="edit_field">введите текст</string>
+
 </resources>

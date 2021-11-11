@@ -11,6 +11,7 @@ import com.w4eret1ckrtb1tch.homework.data.Data
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.ItemAdapter
 import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
+import com.w4eret1ckrtb1tch.homework.presentation.fragments.added.AddedFragment
 
 
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -47,7 +48,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.add -> {
-                    Snackbar.make(view, getString(R.string.add), Snackbar.LENGTH_SHORT).show()
+                    openAddedFragment(null)
                     true
                 }
                 else -> false
@@ -67,11 +68,28 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         ).show()
     }
 
+    private fun openAddedFragment(bundle: Bundle?) {
+        val fragment = AddedFragment.newInstance(bundle)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.slide_out,
+                R.anim.slide_in,
+                R.anim.slide_out
+            )
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(fragment::class.simpleName)
+            .commit()
+    }
+
+
     companion object {
         fun newInstance(bundle: Bundle?): ListFragment {
             return ListFragment().apply {
                 arguments = bundle
             }
         }
+
+        const val KEY_LIST_FRAGMENT = "com.homework.list_fragment.arguments"
     }
 }
