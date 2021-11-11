@@ -1,6 +1,7 @@
 package com.w4eret1ckrtb1tch.homework.presentation.fragments.list
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        exitTransition = inflater.inflateTransition(R.transition.slide_top)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,12 +78,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private fun openAddedFragment(bundle: Bundle?) {
         val fragment = AddedFragment.newInstance(bundle)
         requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in,
-                R.anim.slide_out,
-                R.anim.slide_in,
-                R.anim.slide_out
-            )
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(fragment::class.simpleName)
             .commit()
