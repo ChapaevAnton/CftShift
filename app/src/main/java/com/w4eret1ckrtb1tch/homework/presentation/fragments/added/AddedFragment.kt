@@ -1,5 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.presentation.fragments.added
 
+import android.animation.AnimatorInflater
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +26,13 @@ class AddedFragment : Fragment(R.layout.fragment_added) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.add.setOnClickListener {
+        val animatorSet =
+            AnimatorInflater.loadAnimator(requireContext(), R.animator.wiggle_button).apply {
+                setTarget(binding.editField)
+            }
 
+        binding.add.setOnClickListener {
+            animatorSet.start()
         }
     }
 
@@ -41,6 +47,7 @@ class AddedFragment : Fragment(R.layout.fragment_added) {
                 arguments = bundle
             }
         }
+
         const val KEY_ADDED_FRAGMENT = "com.homework.added_fragment.arguments"
     }
 }
