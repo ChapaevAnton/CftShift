@@ -17,14 +17,13 @@ import com.w4eret1ckrtb1tch.homework.presentation.fragments.added.AddedFragment
 
 class ListFragment : Fragment(R.layout.fragment_list) {
 
-    private var _binding: FragmentListBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentListBinding? = null
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
-        exitTransition = inflater.inflateTransition(R.transition.slide_top)
+        exitTransition = inflater.inflateTransition(R.transition.slide_fade)
     }
 
     override fun onCreateView(
@@ -32,8 +31,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,27 +49,28 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             }
         )
         itemAdapter.listItem = (0..100).map { Data.data }.flatten()
-        binding.recyclerView.addItemDecoration(decorator)
-        binding.recyclerView.adapter = itemAdapter
-        binding.toolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.add -> {
-                    openAddedFragment(null)
-                    true
+        binding?.apply {
+            recyclerView.addItemDecoration(decorator)
+            recyclerView.adapter = itemAdapter
+            toolbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.add -> {
+                        openAddedFragment(null)
+                        true
+                    }
+                    else -> false
                 }
-                else -> false
             }
-
         }
     }
 
     override fun onDestroyView() {
-        _binding = null
+        binding = null
         super.onDestroyView()
     }
 
     private fun showDescription(description: String) {
-        Snackbar.make(binding.root, description, Snackbar.LENGTH_SHORT).setMaxInlineActionWidth(
+        Snackbar.make(binding?.root!!, description, Snackbar.LENGTH_SHORT).setMaxInlineActionWidth(
             resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width)
         ).show()
     }
@@ -83,14 +83,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             .commit()
     }
 
-
     companion object {
         fun newInstance(bundle: Bundle?): ListFragment {
             return ListFragment().apply {
                 arguments = bundle
             }
         }
-
         const val KEY_LIST_FRAGMENT = "com.homework.list_fragment.arguments"
     }
 }

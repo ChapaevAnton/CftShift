@@ -21,6 +21,8 @@
         <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
         <item name="snackbarButtonStyle">@style/Widget.App.SnackbarButton</item>
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
-
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="background">@color/dark</item>
+        <item name="progressBarStyle">@style/Widget.App.ProgressBar</item>
     </style>
 </resources>

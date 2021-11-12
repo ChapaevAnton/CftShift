@@ -9,13 +9,12 @@ import com.w4eret1ckrtb1tch.homework.presentation.fragments.list.ListFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         val fragmentManager = supportFragmentManager
         var fragment: Fragment? = fragmentManager.findFragmentById(R.id.fragment_container)
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        _binding = null
+        binding = null
         super.onDestroy()
     }
 }

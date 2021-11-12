@@ -3,18 +3,21 @@ package com.w4eret1ckrtb1tch.homework.presentation.fragments.added
 import android.animation.AnimatorInflater
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.transition.doOnEnd
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAddedBinding
+import com.w4eret1ckrtb1tch.homework.presentation.transition.FadeTransition
 
 class AddedFragment : Fragment(R.layout.fragment_added) {
 
-    private var _binding: FragmentAddedBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentAddedBinding? = null
+    private val fadeTransition by lazy { FadeTransition(durationOut = 1000L, durationIn = 1000L) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,22 +30,26 @@ class AddedFragment : Fragment(R.layout.fragment_added) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddedBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentAddedBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.add.setOnClickListener {
-            if (!binding.editField.emptyTextInput()) {
-
+        binding?.apply {
+            fadeTransition.doOnEnd {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+            add.setOnClickListener {
+                if (!editField.emptyTextInput()) {
+                    runFadeTransition()
+                }
             }
         }
     }
 
     override fun onDestroyView() {
-        _binding = null
+        binding = null
         super.onDestroyView()
     }
 
@@ -52,7 +59,6 @@ class AddedFragment : Fragment(R.layout.fragment_added) {
                 arguments = bundle
             }
         }
-
         const val KEY_ADDED_FRAGMENT = "com.homework.added_fragment.arguments"
     }
 
@@ -61,11 +67,20 @@ class AddedFragment : Fragment(R.layout.fragment_added) {
         if (text.isEmpty()) {
             val animatorSet =
                 AnimatorInflater.loadAnimator(requireContext(), R.animator.wiggle_button).apply {
-                    setTarget(binding.editField)
+                    setTarget(binding?.editField)
                 }
             animatorSet.start()
             return true
         }
         return false
+    }
+
+    private fun runFadeTransition() {
+        binding?.apply {
+            TransitionManager.beginDelayedTransition(root, fadeTransition)
+            editField.visibility = View.INVISIBLE
+            add.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+        }
     }
 }
