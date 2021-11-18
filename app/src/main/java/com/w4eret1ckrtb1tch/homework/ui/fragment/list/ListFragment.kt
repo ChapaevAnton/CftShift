@@ -5,9 +5,9 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
+import com.w4eret1ckrtb1tch.homework.BuildConfig
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.presentation.utils.ViewModelFactory
@@ -74,6 +74,8 @@ class ListFragment : DaggerFragment(R.layout.fragment_list) {
             )
             recyclerView.addItemDecoration(decorator)
             recyclerView.adapter = adapter
+            if (BuildConfig.DEBUG) toolbar.title =
+                "${toolbar.title} ${getString(R.string.app_name)}"
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.add -> {
