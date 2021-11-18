@@ -2,15 +2,14 @@ package com.w4eret1ckrtb1tch.homework.presentation.screen
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.w4eret1ckrtb1tch.homework.ui.fragment.list.ListFragment
+import com.w4eret1ckrtb1tch.homework.presentation.fragment.added.AddedFragment
 
-object MainScreen {
+object AddedScreen {
 
-    fun createListFragment(factory: FragmentFactory): Fragment {
+    fun createAddedFragment(factory: FragmentFactory): Fragment {
         return factory.instantiate(
             ClassLoader.getSystemClassLoader(),
-            ListFragment::class.java.name
+            AddedFragment::class.java.name
         )
     }
-
 }

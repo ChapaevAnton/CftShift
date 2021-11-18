@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.BuildConfig
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
-import com.w4eret1ckrtb1tch.homework.presentation.utils.ViewModelFactory
+import com.w4eret1ckrtb1tch.homework.presentation.utils.ViewModelFactoryImpl
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.ListViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.adapter.ItemAdapter
@@ -27,7 +27,7 @@ class ListFragment @Inject constructor() : DaggerFragment(R.layout.fragment_list
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
 
     @Inject
-    lateinit var viewModelFactory: Lazy<ViewModelFactory>
+    lateinit var viewModelFactory: Lazy<ViewModelFactoryImpl>
     private val viewModel by viewModels<ListViewModel>(factoryProducer = { viewModelFactory.get() })
 
     override fun onCreate(savedInstanceState: Bundle?) {

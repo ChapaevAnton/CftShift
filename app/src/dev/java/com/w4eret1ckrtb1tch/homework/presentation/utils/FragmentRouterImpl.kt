@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.commit
 import com.w4eret1ckrtb1tch.homework.R
+import com.w4eret1ckrtb1tch.homework.presentation.screen.AddedScreen
 import com.w4eret1ckrtb1tch.homework.presentation.screen.MainScreen
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class FragmentRouterImpl @Inject constructor(
         activity: MainActivity,
         bundle: Bundle?
     ) {
-        val fragment = MainScreen.createAddedFragment(fragmentFactory).apply {
+        val fragment = AddedScreen.createAddedFragment(fragmentFactory).apply {
             arguments = bundle
         }
         activity.supportFragmentManager.commit {
