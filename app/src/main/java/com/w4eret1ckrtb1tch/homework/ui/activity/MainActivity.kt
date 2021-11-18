@@ -1,13 +1,13 @@
-package com.w4eret1ckrtb1tch.homework.presentation
+package com.w4eret1ckrtb1tch.homework.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.ActivityMainBinding
-import com.w4eret1ckrtb1tch.homework.presentation.fragments.list.ListFragment
+import com.w4eret1ckrtb1tch.homework.ui.fragment.list.ListFragment
+import dagger.android.support.DaggerAppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
 

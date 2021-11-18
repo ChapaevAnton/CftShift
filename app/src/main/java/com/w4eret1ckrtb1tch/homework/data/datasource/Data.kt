@@ -1,8 +1,8 @@
-package com.w4eret1ckrtb1tch.homework.data
+package com.w4eret1ckrtb1tch.homework.data.datasource
 
-import com.w4eret1ckrtb1tch.homework.domain.ListItem
-import com.w4eret1ckrtb1tch.homework.domain.ListItem.BannerItem
-import com.w4eret1ckrtb1tch.homework.domain.ListItem.StudentItem
+import com.w4eret1ckrtb1tch.homework.domain.entity.ListItem
+import com.w4eret1ckrtb1tch.homework.domain.entity.ListItem.BannerItem
+import com.w4eret1ckrtb1tch.homework.domain.entity.ListItem.StudentItem
 
 object Data {
 

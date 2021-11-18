@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation.fragments.list
+package com.w4eret1ckrtb1tch.homework.ui.fragment.list
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -6,19 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.R
-import com.w4eret1ckrtb1tch.homework.data.Data
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
-import com.w4eret1ckrtb1tch.homework.presentation.adapters.ItemAdapter
-import com.w4eret1ckrtb1tch.homework.presentation.adapters.RecyclerDecoration
-import com.w4eret1ckrtb1tch.homework.presentation.fragments.added.AddedFragment
+import com.w4eret1ckrtb1tch.homework.presentation.utils.ViewModelFactory
+import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.ListViewModel
+import com.w4eret1ckrtb1tch.homework.ui.adapter.ItemAdapter
+import com.w4eret1ckrtb1tch.homework.ui.adapter.RecyclerDecoration
+import com.w4eret1ckrtb1tch.homework.ui.fragment.added.AddedFragment
+import dagger.Lazy
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 
-class ListFragment : Fragment(R.layout.fragment_list) {
+class ListFragment : DaggerFragment(R.layout.fragment_list) {
 
     private var binding: FragmentListBinding? = null
+    private lateinit var adapter: ItemAdapter
     private val decorator by lazy { RecyclerDecoration(sidePagingDp = 8, bottomPagingDp = 8) }
+
+    @Inject
+    lateinit var viewModelFactory: Lazy<ViewModelFactory>
+    private val viewModel by viewModels<ListViewModel>(factoryProducer = { viewModelFactory.get() })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +47,33 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemAdapter = ItemAdapter(
-            onClickPortfolio = { name ->
-                showDescription(name)
-            },
-            onClickBannerAccept = {
-                Snackbar.make(view, getString(R.string.accept), Snackbar.LENGTH_SHORT).show()
-            },
-            onClickBannerCancel = {
-                Snackbar.make(view, getString(R.string.cancel), Snackbar.LENGTH_SHORT).show()
-            }
-        )
-        itemAdapter.listItem = (0..100).map { Data.data }.flatten()
+        apply()
+
+        viewModel.getItems.observe(viewLifecycleOwner) { items ->
+            adapter.listItem = items
+        }
+    }
+
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
+    }
+
+    private fun apply() {
         binding?.apply {
+            adapter = ItemAdapter(
+                onClickPortfolio = { name ->
+                    showDescription(name)
+                },
+                onClickBannerAccept = {
+                    Snackbar.make(root, getString(R.string.accept), Snackbar.LENGTH_SHORT).show()
+                },
+                onClickBannerCancel = {
+                    Snackbar.make(root, getString(R.string.cancel), Snackbar.LENGTH_SHORT).show()
+                }
+            )
             recyclerView.addItemDecoration(decorator)
-            recyclerView.adapter = itemAdapter
+            recyclerView.adapter = adapter
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.add -> {
@@ -62,11 +84,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 
     private fun showDescription(description: String) {
@@ -89,6 +106,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 arguments = bundle
             }
         }
+
         const val KEY_LIST_FRAGMENT = "com.homework.list_fragment.arguments"
     }
 }

@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation.adapters
+package com.w4eret1ckrtb1tch.homework.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.w4eret1ckrtb1tch.homework.databinding.ItemBannerBinding
 import com.w4eret1ckrtb1tch.homework.databinding.ItemStudentBinding
-import com.w4eret1ckrtb1tch.homework.domain.ListItem
+import com.w4eret1ckrtb1tch.homework.domain.entity.ListItem
 
 class ItemAdapter(
     private val onClickPortfolio: (String) -> Unit,
@@ -26,15 +26,13 @@ class ItemAdapter(
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
+
         return when (viewType) {
             STUDENT_VIEW_TYPE -> {
-                val binding = ItemStudentBinding.inflate(inflater, parent, false)
-                StudentViewHolder(binding, onClickPortfolio)
+                StudentViewHolder(parent, onClickPortfolio)
             }
             BANNER_VIEW_TYPE -> {
-                val binding = ItemBannerBinding.inflate(inflater, parent, false)
-                BannerViewHolder(binding, onClickBannerAccept, onClickBannerCancel)
+                BannerViewHolder(parent, onClickBannerAccept, onClickBannerCancel)
             }
             else -> throw IllegalArgumentException("Wrong viewType: $viewType")
         }
@@ -56,11 +54,21 @@ class ItemAdapter(
         }
     }
 
-    class StudentViewHolder(
+    class StudentViewHolder private constructor(
         private val binding: ItemStudentBinding,
         private val onClickPortfolio: (String) -> Unit
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        companion object {
+            operator fun invoke(
+                parent: ViewGroup,
+                onClickPortfolio: (String) -> Unit
+            ): StudentViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val binding = ItemStudentBinding.inflate(inflater, parent, false)
+                return StudentViewHolder(binding, onClickPortfolio)
+            }
+        }
 
         fun bind(student: ListItem) {
             if (student is ListItem.StudentItem) {
@@ -76,12 +84,23 @@ class ItemAdapter(
         }
     }
 
-    class BannerViewHolder(
+    class BannerViewHolder private constructor(
         private val binding: ItemBannerBinding,
         private val onClickBannerAccept: () -> Unit,
         private val onClickBannerCancel: () -> Unit
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        companion object {
+            operator fun invoke(
+                parent: ViewGroup,
+                onClickBannerAccept: () -> Unit,
+                onClickBannerCancel: () -> Unit
+            ): BannerViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
+                val binding = ItemBannerBinding.inflate(inflater, parent, false)
+                return BannerViewHolder(binding, onClickBannerAccept, onClickBannerCancel)
+            }
+        }
 
         fun bind(banner: ListItem) {
             if (banner is ListItem.BannerItem) {

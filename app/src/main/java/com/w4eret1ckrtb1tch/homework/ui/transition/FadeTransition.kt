@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation.transition
+package com.w4eret1ckrtb1tch.homework.ui.transition
 
 import android.transition.ChangeBounds
 import android.transition.Fade

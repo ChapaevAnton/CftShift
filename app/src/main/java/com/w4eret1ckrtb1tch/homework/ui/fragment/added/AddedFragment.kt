@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation.fragments.added
+package com.w4eret1ckrtb1tch.homework.ui.fragment.added
 
 import android.animation.AnimatorInflater
 import android.content.Context
@@ -10,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.transition.doOnEnd
-import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAddedBinding
-import com.w4eret1ckrtb1tch.homework.presentation.transition.FadeTransition
+import com.w4eret1ckrtb1tch.homework.ui.transition.FadeTransition
+import dagger.android.support.DaggerFragment
 
-class AddedFragment : Fragment(R.layout.fragment_added) {
+class AddedFragment : DaggerFragment(R.layout.fragment_added) {
 
     private var binding: FragmentAddedBinding? = null
     private val fadeTransition by lazy { FadeTransition(durationOut = 1000L, durationIn = 1000L) }
