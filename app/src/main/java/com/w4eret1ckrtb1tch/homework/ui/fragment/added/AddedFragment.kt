@@ -15,8 +15,9 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAddedBinding
 import com.w4eret1ckrtb1tch.homework.ui.transition.FadeTransition
 import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class AddedFragment : DaggerFragment(R.layout.fragment_added) {
+class AddedFragment @Inject constructor() : DaggerFragment(R.layout.fragment_added) {
 
     private var binding: FragmentAddedBinding? = null
     private val fadeTransition by lazy { FadeTransition(durationOut = 1000L, durationIn = 1000L) }
@@ -82,16 +83,6 @@ class AddedFragment : DaggerFragment(R.layout.fragment_added) {
             setTarget(this@animateWiggle)
             start()
         }
-    }
-
-    companion object {
-        fun newInstance(bundle: Bundle?): AddedFragment {
-            return AddedFragment().apply {
-                arguments = bundle
-            }
-        }
-
-        const val KEY_ADDED_FRAGMENT = "com.homework.added_fragment.arguments"
     }
 
 }

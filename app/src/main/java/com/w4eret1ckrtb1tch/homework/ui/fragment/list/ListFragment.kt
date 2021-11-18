@@ -12,15 +12,15 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentListBinding
 import com.w4eret1ckrtb1tch.homework.presentation.utils.ViewModelFactory
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.ListViewModel
+import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.adapter.ItemAdapter
 import com.w4eret1ckrtb1tch.homework.ui.adapter.RecyclerDecoration
-import com.w4eret1ckrtb1tch.homework.ui.fragment.added.AddedFragment
 import dagger.Lazy
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class ListFragment : DaggerFragment(R.layout.fragment_list) {
+class ListFragment @Inject constructor() : DaggerFragment(R.layout.fragment_list) {
 
     private var binding: FragmentListBinding? = null
     private lateinit var adapter: ItemAdapter
@@ -79,7 +79,9 @@ class ListFragment : DaggerFragment(R.layout.fragment_list) {
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.add -> {
-                        openAddedFragment(null)
+                        (requireActivity() as MainActivity).let {
+                            it.fragmentRouter.get().openAddedFragment(it, null)
+                        }
                         true
                     }
                     else -> false
@@ -92,23 +94,5 @@ class ListFragment : DaggerFragment(R.layout.fragment_list) {
         Snackbar.make(binding?.root!!, description, Snackbar.LENGTH_SHORT).setMaxInlineActionWidth(
             resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width)
         ).show()
-    }
-
-    private fun openAddedFragment(bundle: Bundle?) {
-        val fragment = AddedFragment.newInstance(bundle)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(fragment::class.simpleName)
-            .commit()
-    }
-
-    companion object {
-        fun newInstance(bundle: Bundle?): ListFragment {
-            return ListFragment().apply {
-                arguments = bundle
-            }
-        }
-
-        const val KEY_LIST_FRAGMENT = "com.homework.list_fragment.arguments"
     }
 }

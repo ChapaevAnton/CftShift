@@ -13,10 +13,10 @@ import dagger.multibindings.IntoMap
 @Module
 interface FragmentModule {
 
-    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
+    @ContributesAndroidInjector(modules = [ViewModelFactoryModule::class])
     fun listFragment(): ListFragment
 
-    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
+    @ContributesAndroidInjector(modules = [ViewModelFactoryModule::class])
     fun addedFragment(): AddedFragment
 
     @Binds
