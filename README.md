@@ -23,3 +23,5 @@
 - 10.11.21 Анимация в Android (ветка 10_animation_in_android) 
 
 - 15.11.21 Сборка и артефакты (ветка 11_build_and_artifacts) 
+
+- 17.10.21 Многопоточность + Сервисы (ветка 12_multithreading_services)
