@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
@@ -16,12 +19,28 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.presentation.ImageLoadViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
 
     private val viewModel by viewModels<ImageLoadViewModel>()
     private var binding: FragmentImageLoadBinding? = null
     private var selectedImageUri: Uri? = null
+    private lateinit var someActivityResultLauncher: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        someActivityResultLauncher = registerForActivityResult(
+            StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.let {
+                    selectedImageUri = it.data
+                    binding?.image?.setImageURI(selectedImageUri)
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,19 +77,6 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
         super.onDestroyView()
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                REQUEST_CODE_PICK_IMAGE -> {
-                    selectedImageUri = data?.data
-                    binding?.image?.setImageURI(selectedImageUri)
-                }
-            }
-        }
-    }
-
     private fun resolveSuccess(url: String?) {
         url?.let { binding?.root?.showMessage(it) }
     }
@@ -80,7 +86,8 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
     }
 
     private fun View.showMessage(description: String) {
-        val snackBar = Snackbar.make(this, description, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = Snackbar
+            .make(this, description, Snackbar.LENGTH_INDEFINITE)
         snackBar
             .setMaxInlineActionWidth(resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width))
             .setAction(R.string.ok) { snackBar.dismiss() }
@@ -92,12 +99,7 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
             it.type = "image/*"
             val mimeTypes = arrayOf("image/jpeg", "image/png")
             it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-            startActivityForResult(it, REQUEST_CODE_PICK_IMAGE)
+            someActivityResultLauncher.launch(it)
         }
     }
-
-    companion object {
-        const val REQUEST_CODE_PICK_IMAGE = 101
-    }
-
 }
