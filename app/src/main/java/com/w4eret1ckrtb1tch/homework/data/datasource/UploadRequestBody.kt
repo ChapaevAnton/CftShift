@@ -1,7 +1,5 @@
 package com.w4eret1ckrtb1tch.homework.data.datasource
 
-import android.os.Handler
-import android.os.Looper
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -21,31 +19,24 @@ class UploadRequestBody(
 
     override fun writeTo(sink: BufferedSink) {
         val length = file.length()
-        var uploaded = INIT_UPLOAD
-        val handler = Handler(Looper.getMainLooper())
+        var uploaded = UPLOAD_STARTED
         val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
         val fileInputStream = FileInputStream(file)
         fileInputStream.use { inputStream ->
             var read: Int
             while (inputStream.read(buffer).also { read = it } != -1) {
-                handler.post(ProgressUpdater(uploaded, length))
                 uploaded += read
                 sink.write(buffer, 0, read)
+                uploadCallback.invoke((UPLOAD_COMPLETE * uploaded / length).toInt())
             }
+            uploadCallback.invoke(UPLOAD_COMPLETE.toInt())
         }
     }
 
     companion object {
         private const val DEFAULT_BUFFER_SIZE = 2048
-        const val INIT_UPLOAD = 0L
+        const val UPLOAD_STARTED = 0L
+        const val UPLOAD_COMPLETE = 100L
     }
 
-    inner class ProgressUpdater(
-        private val uploaded: Long,
-        private val total: Long
-    ) : Runnable {
-        override fun run() {
-            uploadCallback.invoke((100 * uploaded / total).toInt())
-        }
-    }
 }

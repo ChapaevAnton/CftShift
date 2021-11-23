@@ -26,7 +26,6 @@ class UploadRepositoryImpl @Inject constructor(
         uploadCallback: (uploadPercentage: Int) -> Unit
     ) {
         if (selectedImageUri == null) return
-
         val file = contentDataSource.getFile(selectedImageUri) ?: return
         val body = UploadRequestBody(file, CONTENT_TYPE, uploadCallback)
         api.uploadImage(

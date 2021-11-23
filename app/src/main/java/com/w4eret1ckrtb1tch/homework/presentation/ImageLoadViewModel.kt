@@ -5,10 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.w4eret1ckrtb1tch.homework.data.dto.UploadResponse
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.repository.UploadRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,12 +27,15 @@ class ImageLoadViewModel @Inject constructor(
     val getUploadProgress: LiveData<Int> = uploadProgress
 
     fun uploadImage(selectedImageUri: Uri?) {
-        repository.uploadImage(selectedImageUri, { result ->
-            Log.d("TAG", "uploadImage: $result")
-            uploadResponse.value = result
-        }, { uploadPercentage ->
-            Log.d("TAG", "uploadImage: $uploadPercentage")
-            uploadProgress.value = uploadPercentage
-        })
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.uploadImage(selectedImageUri, { result ->
+                Log.d("TAG", "uploadImage: $result")
+                uploadResponse.value = result
+            }, { uploadPercentage ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    uploadProgress.value = uploadPercentage
+                }
+            })
+        }
     }
 }
