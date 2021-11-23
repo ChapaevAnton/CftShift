@@ -12,5 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="snackbarTextViewStyle">@style/Snackbar.TextView</item>
+    </style>
+
+    <style name="Snackbar.TextView" parent="@style/Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:maxLines">10</item>
     </style>
 </resources>

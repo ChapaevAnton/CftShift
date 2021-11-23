@@ -63,7 +63,7 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
         }
         viewModel.getUploadResponse.observe(viewLifecycleOwner) {
             when (it) {
-                is Result.Success -> resolveSuccess(it.value.url)
+                is Result.Success -> resolveSuccess("${it.value.fileName}\n${it.value.url}")
                 is Result.Failure -> resolveFailure(it.exception)
             }
         }
