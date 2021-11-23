@@ -1,6 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.di
 
-import com.w4eret1ckrtb1tch.homework.data.datasource.ConvertApi
+import com.w4eret1ckrtb1tch.homework.data.datasource.remote.ConvertApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,9 +1,9 @@
 package com.w4eret1ckrtb1tch.homework.data.repository
 
 import android.net.Uri
-import com.w4eret1ckrtb1tch.homework.data.datasource.ContentDataSource
-import com.w4eret1ckrtb1tch.homework.data.datasource.ConvertApi
-import com.w4eret1ckrtb1tch.homework.data.datasource.UploadRequestBody
+import com.w4eret1ckrtb1tch.homework.data.datasource.local.ContentDataSource
+import com.w4eret1ckrtb1tch.homework.data.datasource.remote.ConvertApi
+import com.w4eret1ckrtb1tch.homework.data.datasource.remote.UploadRequestBody
 import com.w4eret1ckrtb1tch.homework.data.dto.UploadResponse
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.repository.UploadRepository

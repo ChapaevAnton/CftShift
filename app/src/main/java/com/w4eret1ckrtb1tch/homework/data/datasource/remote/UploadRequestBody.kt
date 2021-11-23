@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.data.datasource
+package com.w4eret1ckrtb1tch.homework.data.datasource.remote
 
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
