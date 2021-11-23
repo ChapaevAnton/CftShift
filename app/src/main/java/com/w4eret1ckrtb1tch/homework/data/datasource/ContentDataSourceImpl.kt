@@ -14,6 +14,16 @@ class ContentDataSourceImpl @Inject constructor(
     private val context: Context
 ) : ContentDataSource {
 
+    override fun getFile(fileUri: Uri): File? {
+        val parcelFileDescriptor =
+            context.contentResolver.openFileDescriptor(fileUri, OPEN_MODE, null) ?: return null
+        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+        val file = File(context.cacheDir, getFileName(fileUri))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
+        return file
+    }
+
     private fun getFileName(fileUri: Uri): String {
         var name = ""
         val returnCursor = context.contentResolver.query(fileUri, null, null, null, null)
@@ -26,13 +36,7 @@ class ContentDataSourceImpl @Inject constructor(
         return name
     }
 
-    override fun getFile(fileUri: Uri): File? {
-        val parcelFileDescriptor =
-            context.contentResolver.openFileDescriptor(fileUri, "r", null) ?: return null
-        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-        val file = File(context.cacheDir, getFileName(fileUri))
-        val outputStream = FileOutputStream(file)
-        inputStream.copyTo(outputStream)
-        return file
+    private companion object {
+        const val OPEN_MODE = "r"
     }
 }

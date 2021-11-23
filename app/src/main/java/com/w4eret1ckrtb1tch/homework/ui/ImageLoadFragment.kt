@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentImageLoadBinding
+import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.presentation.ImageLoadViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,15 +35,21 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-
             image.setOnClickListener {
                 openImageChooser()
             }
-
             upload.setOnClickListener {
                 viewModel.uploadImage(selectedImageUri)
             }
-
+        }
+        viewModel.getUploadResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> resolveSuccess(it.value.url)
+                is Result.Failure -> resolveFailure(it.exception)
+            }
+        }
+        viewModel.getUploadProgress.observe(viewLifecycleOwner) {
+            binding?.apply { progressBar.progress = it }
         }
     }
 
@@ -61,6 +69,22 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
                 }
             }
         }
+    }
+
+    private fun resolveSuccess(url: String?) {
+        url?.let { binding?.root?.showMessage(it) }
+    }
+
+    private fun resolveFailure(exception: Throwable?) {
+        exception?.let { binding?.root?.showMessage(it.message.toString()) }
+    }
+
+    private fun View.showMessage(description: String) {
+        val snackBar = Snackbar.make(this, description, Snackbar.LENGTH_INDEFINITE)
+        snackBar
+            .setMaxInlineActionWidth(resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width))
+            .setAction(R.string.ok) { snackBar.dismiss() }
+            .show()
     }
 
     private fun openImageChooser() {
