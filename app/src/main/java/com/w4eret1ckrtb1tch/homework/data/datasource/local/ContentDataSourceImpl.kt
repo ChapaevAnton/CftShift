@@ -19,19 +19,18 @@ class ContentDataSourceImpl @Inject constructor(
             context.contentResolver.openFileDescriptor(fileUri, OPEN_MODE, null) ?: return null
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val file = File(context.cacheDir, getFileName(fileUri))
-        val outputStream = FileOutputStream(file)
-        inputStream.copyTo(outputStream)
+        val cacheOutputStream = FileOutputStream(file)
+        inputStream.copyTo(cacheOutputStream)
         return file
     }
 
     private fun getFileName(fileUri: Uri): String {
         var name = ""
         val returnCursor = context.contentResolver.query(fileUri, null, null, null, null)
-        if (returnCursor != null) {
-            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            returnCursor.moveToFirst()
-            name = returnCursor.getString(nameIndex)
-            returnCursor.close()
+        returnCursor?.use {
+            val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            it.moveToFirst()
+            name = it.getString(nameIndex)
         }
         return name
     }

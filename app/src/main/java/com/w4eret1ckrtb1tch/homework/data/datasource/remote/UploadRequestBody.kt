@@ -25,8 +25,8 @@ class UploadRequestBody(
         fileInputStream.use { inputStream ->
             var read: Int
             while (inputStream.read(buffer).also { read = it } != -1) {
-                uploaded += read
                 sink.write(buffer, 0, read)
+                uploaded += read
                 uploadCallback.invoke((UPLOAD_COMPLETE * uploaded / length).toInt())
             }
             uploadCallback.invoke(UPLOAD_COMPLETE.toInt())

@@ -2,13 +2,11 @@ package com.w4eret1ckrtb1tch.homework.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,19 +23,12 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
 
     private val viewModel by viewModels<ImageLoadViewModel>()
     private var binding: FragmentImageLoadBinding? = null
-    private var selectedImageUri: Uri? = null
-    private lateinit var someActivityResultLauncher: ActivityResultLauncher<Intent>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        someActivityResultLauncher = registerForActivityResult(
-            StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.let {
-                    selectedImageUri = it.data
-                    binding?.image?.setImageURI(selectedImageUri)
-                }
+    private val someActivityResultLauncher = registerForActivityResult(
+        StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.let {
+                viewModel.setImageUri(it.data)
             }
         }
     }
@@ -58,17 +49,21 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
                 openImageChooser()
             }
             upload.setOnClickListener {
-                viewModel.uploadImage(selectedImageUri)
+                viewModel.uploadImage()
             }
-        }
-        viewModel.getUploadResponse.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> resolveSuccess("${it.value.fileName}\n${it.value.url}")
-                is Result.Failure -> resolveFailure(it.exception)
+
+            viewModel.getUploadResponse.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Success -> resolveSuccess("${it.value.fileName}\n${it.value.url}")
+                    is Result.Failure -> resolveFailure(it.exception)
+                }
             }
-        }
-        viewModel.getUploadProgress.observe(viewLifecycleOwner) {
-            binding?.apply { progressBar.progress = it }
+            viewModel.getImageUri.observe(viewLifecycleOwner) {
+                image.setImageURI(it)
+            }
+            viewModel.getUploadProgress.observe(viewLifecycleOwner) {
+                progressBar.progress = it
+            }
         }
     }
 

@@ -26,9 +26,15 @@ class ImageLoadViewModel @Inject constructor(
     private val uploadProgress: MutableLiveData<Int> = MutableLiveData(0)
     val getUploadProgress: LiveData<Int> = uploadProgress
 
-    fun uploadImage(selectedImageUri: Uri?) {
+    private val imageUri: MutableLiveData<Uri> = MutableLiveData()
+    val getImageUri: LiveData<Uri> = imageUri
+    fun setImageUri(value: Uri?) {
+        imageUri.value = value
+    }
+
+    fun uploadImage() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.uploadImage(selectedImageUri, { result ->
+            repository.uploadImage(imageUri.value, { result ->
                 Log.d("TAG", "uploadImage: $result")
                 uploadResponse.value = result
             }, { uploadPercentage ->
