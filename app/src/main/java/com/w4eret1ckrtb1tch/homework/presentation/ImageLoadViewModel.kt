@@ -1,7 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.presentation
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,8 +9,6 @@ import com.w4eret1ckrtb1tch.homework.data.dto.UploadResponse
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.repository.UploadRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,12 +30,11 @@ class ImageLoadViewModel @Inject constructor(
     }
 
     fun uploadImage() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.uploadImage(imageUri.value, { result ->
-                Log.d("TAG", "uploadImage: $result")
                 uploadResponse.value = result
             }, { uploadPercentage ->
-                CoroutineScope(Dispatchers.Main).launch {
+                viewModelScope.launch {
                     uploadProgress.value = uploadPercentage
                 }
             })

@@ -13,6 +13,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.FileNotFoundException
 import javax.inject.Inject
 
 class UploadRepositoryImpl @Inject constructor(
@@ -25,8 +26,15 @@ class UploadRepositoryImpl @Inject constructor(
         resultCallback: (result: Result<UploadResponse>) -> Unit,
         uploadCallback: (uploadPercentage: Int) -> Unit
     ) {
-        if (selectedImageUri == null) return
-        val file = contentDataSource.getFile(selectedImageUri) ?: return
+        if (selectedImageUri == null) {
+            resultCallback.invoke(Result.Failure(IllegalArgumentException(FILE_NOT_SELECTED)))
+            return
+        }
+        val file = contentDataSource.getFile(selectedImageUri)
+        if (file == null) {
+            resultCallback.invoke(Result.Failure(FileNotFoundException(FILE_NOT_FOUND)))
+            return
+        }
         val body = UploadRequestBody(file, CONTENT_TYPE, uploadCallback)
         api.uploadImage(
             MultipartBody.Part.createFormData(
@@ -55,5 +63,7 @@ class UploadRepositoryImpl @Inject constructor(
         const val CONTENT_TYPE = "image"
         const val MEDIA_TYPE = "multipart/form-data"
         const val RESPONSE_TYPE = "json"
+        const val FILE_NOT_FOUND = "File not found"
+        const val FILE_NOT_SELECTED = "File not selected"
     }
 }
