@@ -51,7 +51,6 @@ class ImageLoadFragment : Fragment(R.layout.fragment_image_load) {
             upload.setOnClickListener {
                 viewModel.uploadImage()
             }
-
             viewModel.getUploadResponse.observe(viewLifecycleOwner) {
                 when (it) {
                     is Result.Success -> resolveSuccess("${it.value.fileName}\n${it.value.url}")

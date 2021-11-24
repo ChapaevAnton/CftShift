@@ -20,7 +20,6 @@ class UploadRepositoryImpl @Inject constructor(
     private val contentDataSource: ContentDataSource
 ) : UploadRepository {
 
-    // FIXME: 24.11.2021 Нужно result вынести в возращаемый тип
     override fun uploadImage(
         selectedImageUri: Uri?,
         resultCallback: (result: Result<UploadResponse>) -> Unit,
