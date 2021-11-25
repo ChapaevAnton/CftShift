@@ -2,6 +2,7 @@ package com.example.rxjava
 
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
+import kotlin.math.sign
 
 object MaybeOperators {
 
@@ -35,7 +36,7 @@ object MaybeOperators {
          * Возвращать значение, если оно будет положительным.
          */
         fun solve(source: Single<Int>): Maybe<Int> =
-            TODO()
+            source.toMaybe().filter { it.sign == 1 }
     }
 
     object Task4 {
@@ -44,6 +45,6 @@ object MaybeOperators {
          * Если [first] поток не вернет значение, то переключить на [second] поток.
          */
         fun solve(first: Maybe<Int>, second: Single<Int>): Single<Int> =
-            TODO()
+            first.switchIfEmpty(second)
     }
 }
