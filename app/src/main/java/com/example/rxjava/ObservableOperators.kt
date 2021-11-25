@@ -83,9 +83,15 @@ object ObservableOperators {
          * Установить слушателя и преобразовать сообщения, получемые из чата в поток сообщений.
          * При фатальной ошибке чата завершать поток с ошибкой.
          */
-        fun solve(chat: Chat): Observable<String> {
-            TODO()
-        }
+        fun solve(chat: Chat): Observable<String> =
+            Observable.create { emitter ->
+                val messageListener = MessageListener(
+                    onMessage = emitter::onNext,
+                    onFatalError = emitter::onError
+                )
+                chat.setMessageListener(messageListener)
+            }
+
 
         interface Chat {
 
@@ -104,7 +110,7 @@ object ObservableOperators {
          * Оставить только нечетные числа из [source].
          */
         fun solve(source: Observable<Int>): Observable<Int> =
-            source.filter { it % 2 != 0 }
+            source.filter { it.mod(2) != 0 }
     }
 
     object Task8 {

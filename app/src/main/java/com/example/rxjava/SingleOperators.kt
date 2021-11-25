@@ -26,7 +26,13 @@ object SingleOperators {
          * При фатальной ошибке инициализации завершать поток с ошибкой.
          */
         fun solve(chat: Chat): Single<String> =
-            TODO()
+            Single.create { emitter ->
+                val messageListener = MessageListener(
+                    onSuccess = emitter::onSuccess,
+                    onFatalError = emitter::onError
+                )
+                chat.setInitListener(messageListener)
+            }
 
         interface Chat {
 

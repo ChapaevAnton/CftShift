@@ -21,7 +21,11 @@ object MaybeOperators {
          * Преобразовать результат получаемый из [worker] в Maybe поток.
          */
         fun solve(worker: Worker): Maybe<String> =
-            TODO()
+            Maybe.create { emitter ->
+                val listener =
+                    { str: String? -> str?.let { emitter.onSuccess(str) } ?: emitter.onComplete() }
+                worker.setResultListener(listener)
+            }
 
         interface Worker {
 
