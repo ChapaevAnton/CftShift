@@ -1,4 +1,4 @@
-package com.maxsch.rxjavalecture.entities
+package com.maxsch.rxjavalecture.domain.entities
 
 interface Animal {
 
