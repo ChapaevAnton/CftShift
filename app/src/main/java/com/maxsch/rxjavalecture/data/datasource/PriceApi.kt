@@ -4,13 +4,14 @@ import com.maxsch.rxjavalecture.domain.entities.Animal
 import com.maxsch.rxjavalecture.domain.entities.Cat
 import com.maxsch.rxjavalecture.domain.entities.Dog
 import com.maxsch.rxjavalecture.domain.entities.Rat
+import javax.inject.Inject
 
 interface PriceApi {
 
     fun getPrice(animal: Animal): Int
 }
 
-class PriceApiImpl : PriceApi {
+class PriceApiImpl @Inject constructor() : PriceApi {
 
     override fun getPrice(animal: Animal): Int =
         when (animal) {

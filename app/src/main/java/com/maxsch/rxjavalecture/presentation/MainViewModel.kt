@@ -8,11 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.maxsch.rxjavalecture.domain.entities.Animal
 import com.maxsch.rxjavalecture.domain.usecase.GetCatsUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetPriceUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+@HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCatsUseCase: GetCatsUseCase,
     private val getPriceUseCase: GetPriceUseCase
