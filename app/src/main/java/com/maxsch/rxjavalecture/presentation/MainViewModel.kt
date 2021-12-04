@@ -11,8 +11,7 @@ import com.maxsch.rxjavalecture.domain.usecase.GetDogsUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetPriceUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetRatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
@@ -40,12 +39,19 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun getAnimals(): Map<Animal, Int> =
-        listOf(getCatsUseCase(), getDogsUseCase(), getRatsUseCase())
-            .flatten()
-            .map { animal ->
-                val price = getPriceUseCase(animal)
-                return@map Pair(animal, price)
-            }.toMap()
+        supervisorScope {
+            val cats = runCatching { getCatsUseCase() }.getOrDefault(emptyList())
+            val dogs = runCatching { getDogsUseCase() }.getOrDefault(emptyList())
+            val rats = runCatching { getRatsUseCase() }.getOrDefault(emptyList())
+
+            return@supervisorScope listOf(cats, dogs, rats)
+                .flatten()
+                .map { animal ->
+                    val price = getPriceUseCase(animal)
+                    return@map Pair(animal, price)
+                }.toMap()
+        }
+
 
     private fun handleAnimalPrices(animalToPriceMap: Map<Animal, Int>) {
         _result.value = animalToPriceMap
