@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxsch.rxjavalecture.domain.entities.Animal
 import com.maxsch.rxjavalecture.domain.usecase.GetCatsUseCase
+import com.maxsch.rxjavalecture.domain.usecase.GetDogsUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetPriceUseCase
+import com.maxsch.rxjavalecture.domain.usecase.GetRatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -17,7 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCatsUseCase: GetCatsUseCase,
-    private val getPriceUseCase: GetPriceUseCase
+    private val getPriceUseCase: GetPriceUseCase,
+    private val getDogsUseCase: GetDogsUseCase,
+    private val getRatsUseCase: GetRatsUseCase
 ) : ViewModel() {
 
     private val _result = MutableLiveData<Map<Animal, Int>>()
@@ -35,19 +39,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getAnimals(): Map<Animal, Int> = (getCatsUseCase()).map { animal ->
-        val price = getPriceUseCase(animal)
-        return@map Pair(animal, price)
-    }.toMap()
-
-//        disposable = Singles.zip(catsApi.getCats(), dogsApi.getDogs(), ratsApi.getRats())
-//            .map { (cats, dogs, rats) -> cats + dogs + rats }
-//            .flattenAsObservable { it }
-//            .flatMapSingle { animal -> priceApi.getPrice(animal).map { price -> animal to price } }
-//            .toMap()
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(::handleAnimalPrices, ::handleLoadingError)
-
+    private suspend fun getAnimals(): Map<Animal, Int> =
+        listOf(getCatsUseCase(), getDogsUseCase(), getRatsUseCase())
+            .flatten()
+            .map { animal ->
+                val price = getPriceUseCase(animal)
+                return@map Pair(animal, price)
+            }.toMap()
 
     private fun handleAnimalPrices(animalToPriceMap: Map<Animal, Int>) {
         _result.value = animalToPriceMap
