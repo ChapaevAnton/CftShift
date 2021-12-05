@@ -5,9 +5,8 @@ import com.maxsch.rxjavalecture.domain.entities.Cat
 import com.maxsch.rxjavalecture.domain.repository.CatsRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import javax.inject.Inject
 
-class CatsRepositoryImpl @Inject constructor(private val catsApi: CatsApi) : CatsRepository {
+class CatsRepositoryImpl(private val catsApi: CatsApi) : CatsRepository {
 
     override suspend fun getCats(): List<Cat> {
         return coroutineScope {

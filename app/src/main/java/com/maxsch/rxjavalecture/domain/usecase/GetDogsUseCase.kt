@@ -4,9 +4,8 @@ import com.maxsch.rxjavalecture.domain.entities.Dog
 import com.maxsch.rxjavalecture.domain.repository.DogsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class GetDogsUseCase @Inject constructor(private val dogsRepository: DogsRepository) {
+class GetDogsUseCase(private val dogsRepository: DogsRepository) {
 
     suspend operator fun invoke(): List<Dog> {
         return withContext(Dispatchers.IO) {

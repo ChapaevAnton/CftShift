@@ -10,13 +10,10 @@ import com.maxsch.rxjavalecture.domain.usecase.GetCatsUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetDogsUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetPriceUseCase
 import com.maxsch.rxjavalecture.domain.usecase.GetRatsUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import javax.inject.Inject
 
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val getCatsUseCase: GetCatsUseCase,
     private val getPriceUseCase: GetPriceUseCase,
     private val getDogsUseCase: GetDogsUseCase,

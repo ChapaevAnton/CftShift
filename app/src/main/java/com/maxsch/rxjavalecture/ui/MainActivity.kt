@@ -2,20 +2,20 @@ package com.maxsch.rxjavalecture.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.maxsch.rxjavalecture.R
 import com.maxsch.rxjavalecture.presentation.MainViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
+
 class MainActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel: MainViewModel by viewModels()
+        val viewModel: MainViewModel by viewModel()
 
         viewModel.getResult()
 
