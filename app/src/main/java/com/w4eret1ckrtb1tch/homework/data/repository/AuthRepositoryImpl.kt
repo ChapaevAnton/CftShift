@@ -6,6 +6,7 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.mapper.UserResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.repository.AuthRepository
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -15,9 +16,10 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun registerUser(userAuth: UserAuth): Single<UserEntity> {
         return api.registerUser(userAuth).map { mapper.mapResponse(it) }
+            .subscribeOn(Schedulers.io())
     }
 
     override fun loginUser(userAuth: UserAuth): Single<String> {
-        return api.loginUser(userAuth)
+        return api.loginUser(userAuth).subscribeOn(Schedulers.io())
     }
 }

@@ -1,34 +1,39 @@
 package com.w4eret1ckrtb1tch.homework.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthorizationViewModel @Inject constructor(
     private val userLoginCase: PostLoginUserCase
 ) : ViewModel() {
+    private var userLogin: Disposable? = null
 
-    private val hash: MutableLiveData<String> = MutableLiveData()
-    val getHash: LiveData<String> = hash
 
-    fun loginUser() {
-        val user = UserAuth(name = "user", password = "123321")
-        userLoginCase(user)
-            .subscribeOn(Schedulers.io())
+    private val hash: MutableLiveData<Result<String>> = MutableLiveData()
+    val getHash: LiveData<Result<String>> = hash
+
+    fun signInUser(name: String, password: String) {
+        hash.value = Result.Loading
+        userLogin = userLoginCase(UserAuth(name = name, password = password))
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ hashResult ->
-                hash.value = hashResult
+            .subscribe({ result ->
+                hash.value = Result.Success(result)
             }, { error ->
-                Log.d("TAG", "loginUser: ${error.localizedMessage}")
+                hash.value = Result.Failure(error)
             })
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        userLogin?.dispose()
+    }
 }
