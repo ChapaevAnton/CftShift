@@ -8,6 +8,36 @@
     <fragment
         android:id="@+id/auth_user"
         android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.AuthorizationFragment"
-        tools:layout="@layout/fragment_authorization" />
+        android:label="auth_user"
+        tools:layout="@layout/fragment_authorization">
+
+        <action
+            android:id="@+id/action_auth_user_to_loan_list"
+            app:destination="@id/loan_list"
+            app:popUpTo="@id/auth_user"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_auth_user_to_reg_user"
+            app:destination="@id/reg_user" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loan_list"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.LoanListFragment"
+        android:label="loan_list"
+        tools:layout="@layout/fragment_loan_list" />
+
+    <fragment
+        android:id="@+id/reg_user"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.RegistrationUserFragment"
+        android:label="reg_user"
+        tools:layout="@layout/fragment_user_registration" >
+        <action
+            android:id="@+id/action_reg_user_to_auth_user"
+            app:destination="@id/auth_user"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/auth_user"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>

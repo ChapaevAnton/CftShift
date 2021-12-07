@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAuthorizationBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
@@ -32,8 +33,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             signIn.setOnClickListener { signInUser() }
-
-
+            registration.setOnClickListener { openAuthUserToRegUser() }
         }
 
         viewModel.getHash.observe(viewLifecycleOwner) { userAuthorization(it) }
@@ -51,7 +51,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     private fun userAuthorization(result: Result<String>) {
         when (result) {
             is Result.Success -> {
-                TODO()
+                openAuthUserToLoanList()
             }
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
@@ -61,9 +61,19 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
                 )
             }
             is Result.Loading -> {
-
+                // TODO: 07.12.2021 Добавить индикатор загрузки
             }
         }
+    }
+
+    private fun openAuthUserToLoanList() {
+        val action = AuthorizationFragmentDirections.actionAuthUserToLoanList()
+        findNavController().navigate(action)
+    }
+
+    private fun openAuthUserToRegUser() {
+        val action = AuthorizationFragmentDirections.actionAuthUserToRegUser()
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
