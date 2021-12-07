@@ -1,6 +1,8 @@
 package com.w4eret1ckrtb1tch.homework.data.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class UserResponse(
-    val name: String,
-    val role: String
+    @field:SerializedName("name") val name: String,
+    @field:SerializedName("role") val role: String
 )

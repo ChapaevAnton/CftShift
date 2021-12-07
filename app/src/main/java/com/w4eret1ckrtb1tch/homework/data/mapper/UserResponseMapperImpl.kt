@@ -5,8 +5,9 @@ import com.w4eret1ckrtb1tch.homework.data.dto.UserResponse
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserRole
 import com.w4eret1ckrtb1tch.homework.domain.mapper.UserResponseMapper
+import javax.inject.Inject
 
-class UserResponseMapperImpl : UserResponseMapper {
+class UserResponseMapperImpl @Inject constructor() : UserResponseMapper {
 
     override fun mapResponse(userResponse: UserResponse): UserEntity {
         return with(userResponse) {

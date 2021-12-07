@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_graph"
+    app:startDestination="@id/auth_user">
+
+    <fragment
+        android:id="@+id/auth_user"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.AuthorizationFragment"
+        tools:layout="@layout/fragment_authorization" />
+
+</navigation>

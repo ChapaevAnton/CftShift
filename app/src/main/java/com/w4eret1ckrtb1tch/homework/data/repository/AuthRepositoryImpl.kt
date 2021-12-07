@@ -14,10 +14,10 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override fun registerUser(userAuth: UserAuth): Single<UserEntity> {
-        TODO("Not yet implemented")
+        return api.registerUser(userAuth).map { mapper.mapResponse(it) }
     }
 
     override fun loginUser(userAuth: UserAuth): Single<String> {
-        TODO("Not yet implemented")
+        return api.loginUser(userAuth)
     }
 }
