@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Auth(
+data class UserAuth(
     val name: String,
     val password: String
 ) : Parcelable
