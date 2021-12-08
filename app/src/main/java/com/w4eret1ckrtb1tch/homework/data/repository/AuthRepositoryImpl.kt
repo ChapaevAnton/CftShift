@@ -15,8 +15,10 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override fun registerUser(userAuth: UserAuth): Single<UserEntity> {
-        return api.registerUser(userAuth).map { mapper.mapResponse(it) }
+        return api.registerUser(userAuth)
             .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
+            .map { mapper.mapResponse(it) }
     }
 
     override fun loginUser(userAuth: UserAuth): Single<String> {

@@ -1,5 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +30,16 @@ class AuthorizationViewModel @Inject constructor(
             .subscribe({ result ->
                 hash.value = Result.Success(result)
             }, { error ->
+                // FIXME: 08.12.2021 Определять разные коды ошибок...
+                //  https://medium.com/@janczar/http-errors-with-kotlin-rx-and-retrofit-34e905aa91dd
+                if (error is HttpException) {
+                    val response = error.response()
+                    val body = response?.message()
+                    val code = response?.code()
+                    val raw = response?.errorBody()?.string()
+
+                    Log.d("TAG", "signInUser: $code $body $raw")
+                }
                 hash.value = Result.Failure(error)
             })
     }
