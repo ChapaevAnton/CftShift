@@ -5,7 +5,7 @@ import com.w4eret1ckrtb1tch.homework.domain.repository.AuthRepository
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
-class PostLoginUserCase @Inject constructor(
+class PostLoginUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
     operator fun invoke(userAuth: UserAuth): Single<String> {

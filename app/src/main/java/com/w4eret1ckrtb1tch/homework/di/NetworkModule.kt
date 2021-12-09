@@ -58,7 +58,10 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesGsonClient(): Gson = GsonBuilder().setLenient().create()
+    fun providesGsonClient(): Gson = GsonBuilder()
+        .setLenient()
+        .setDateFormat(FocusStartApi.DATE_FORMAT_PATTERN)
+        .create()
 
     @Singleton
     @Provides

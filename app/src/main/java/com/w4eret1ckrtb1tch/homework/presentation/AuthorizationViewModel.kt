@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
-import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthorizationViewModel @Inject constructor(
-    private val userLoginCase: PostLoginUserCase
+    private val userLoginCase: PostLoginUseCase
 ) : ViewModel() {
     private var userLogin: Disposable? = null
 

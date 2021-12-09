@@ -22,10 +22,12 @@ interface FocusStartApi {
 
     companion object {
         const val BASE_URL = "http://focusstart.appspot.com/"
+        const val DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
         const val ROLE_ADMIN = "ADMIN"
         const val ROLE_USER = "USER"
         const val LOAN_STATE_APPROVED = "APPROVED"
         const val LOAN_STATE_REGISTERED = "REGISTERED"
         const val LOAN_STATE_REJECTED = "REJECTED"
+
     }
 }
