@@ -36,7 +36,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             registration.setOnClickListener { openAuthUserToRegUser() }
         }
 
-        viewModel.getHash.observe(viewLifecycleOwner) { userAuthorization(it) }
+        viewModel.getHash.observe(viewLifecycleOwner) { resolveUserAuthorization(it) }
     }
 
     private fun signInUser() {
@@ -48,10 +48,10 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
     }
 
-    private fun userAuthorization(result: Result<String>) {
+    private fun resolveUserAuthorization(result: Result<String>) {
         when (result) {
             is Result.Success -> {
-                openAuthUserToLoanList()
+                openAuthUserToLoanList(result.value)
             }
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
@@ -66,8 +66,8 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
     }
 
-    private fun openAuthUserToLoanList() {
-        val action = AuthorizationFragmentDirections.actionAuthUserToLoanList()
+    private fun openAuthUserToLoanList(authToken: String) {
+        val action = AuthorizationFragmentDirections.actionAuthUserToLoanList(authToken)
         findNavController().navigate(action)
     }
 

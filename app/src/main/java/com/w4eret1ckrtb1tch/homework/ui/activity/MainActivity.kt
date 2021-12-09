@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showMessage(description: String, view: View, dataLoad: (() -> Unit)?) {
-        val snackBar = Snackbar.make(view, description, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = Snackbar.make(view, description, Snackbar.LENGTH_LONG)
         snackBar
             .setMaxInlineActionWidth(resources.getDimensionPixelSize(R.dimen.design_snackbar_action_inline_max_width))
             .setAction(R.string.ok) { dataLoad?.invoke(); snackBar.dismiss() }

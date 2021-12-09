@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
+import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoansListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -19,17 +20,20 @@ class LoansListViewModel @Inject constructor(
 
     private var loanList: Disposable? = null
 
-    private val loans: MutableLiveData<List<LoanEntity>> = MutableLiveData()
-    val getLoans: LiveData<List<LoanEntity>> = loans
+    private val loans: MutableLiveData<Result<List<LoanEntity>>> = MutableLiveData()
+    val getLoans: LiveData<Result<List<LoanEntity>>> = loans
 
     fun getLoansList(authToken: String) {
+        loans.value = Result.Loading
         loanList = getLoansListUseCase(authToken)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { result ->
-                    loans.value = result
+                    loans.value = Result.Success(result)
                 },
                 onError = { error ->
+                    // FIXME: 09.12.2021 Определять разные коды ошибок...
+                    loans.value = Result.Failure(error)
                     Log.d("TAG", "getLoansList: ${error.message}")
                 })
     }
