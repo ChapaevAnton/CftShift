@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/auth_user"
-        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.AuthorizationFragment"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.auth.AuthorizationFragment"
         android:label="auth_user"
         tools:layout="@layout/fragment_authorization">
 
@@ -23,13 +23,13 @@
 
     <fragment
         android:id="@+id/loan_list"
-        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.LoanListFragment"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.loanslist.LoansListFragment"
         android:label="loan_list"
-        tools:layout="@layout/fragment_loan_list" />
+        tools:layout="@layout/fragment_loans_list" />
 
     <fragment
         android:id="@+id/reg_user"
-        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.RegistrationUserFragment"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.reg.RegistrationUserFragment"
         android:label="reg_user"
         tools:layout="@layout/fragment_user_registration" >
         <action

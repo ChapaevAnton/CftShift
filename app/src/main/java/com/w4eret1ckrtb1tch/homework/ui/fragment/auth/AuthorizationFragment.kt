@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.ui.fragment
+package com.w4eret1ckrtb1tch.homework.ui.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
