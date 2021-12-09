@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAuthorizationBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
+import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.presentation.AuthorizationViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +21,15 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private var binding: FragmentAuthorizationBinding? = null
     private val viewModel by viewModels<AuthorizationViewModel>()
+    private val args: AuthorizationFragmentArgs? by navArgs()
+    private var user: UserEntity? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        args?.let {
+            user = it.user
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +43,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
+            user?.let { userLogin.editText?.setText(it.name) }
             signIn.setOnClickListener { signInUser() }
             registration.setOnClickListener { openAuthUserToRegUser() }
         }
@@ -66,7 +78,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
     }
 
-    private fun openAuthUserToLoanList(authToken: String) {
+    private fun openAuthUserToLoanList(authToken: String?) {
         val action = AuthorizationFragmentDirections.actionAuthUserToLoanList(authToken)
         findNavController().navigate(action)
     }

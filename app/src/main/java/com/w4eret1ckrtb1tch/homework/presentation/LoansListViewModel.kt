@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoansListViewModel @Inject constructor(
-    private val getLoansListUseCase: GetLoansListUseCase
+    private val loansListUseCase: GetLoansListUseCase
 ) : ViewModel() {
 
     private var loanList: Disposable? = null
@@ -25,7 +25,7 @@ class LoansListViewModel @Inject constructor(
 
     fun getLoansList(authToken: String) {
         loans.value = Result.Loading
-        loanList = getLoansListUseCase(authToken)
+        loanList = loansListUseCase(authToken)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { result ->

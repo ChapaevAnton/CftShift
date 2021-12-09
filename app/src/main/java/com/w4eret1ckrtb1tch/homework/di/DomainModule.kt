@@ -3,7 +3,8 @@ package com.w4eret1ckrtb1tch.homework.di
 import com.w4eret1ckrtb1tch.homework.domain.repository.AuthRepository
 import com.w4eret1ckrtb1tch.homework.domain.repository.LoanRepository
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoansListUseCase
-import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUseCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserUseCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.PostRegisterUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +15,12 @@ import dagger.hilt.components.SingletonComponent
 object DomainModule {
 
     @Provides
-    fun providesPostLoginUserCase(repository: AuthRepository): PostLoginUseCase =
-        PostLoginUseCase(repository)
+    fun providesPostLoginUserCase(repository: AuthRepository): PostLoginUserUseCase =
+        PostLoginUserUseCase(repository)
+
+    @Provides
+    fun providesPostRegisterUserUseCase(repository: AuthRepository): PostRegisterUserUseCase =
+        PostRegisterUserUseCase(repository)
 
     @Provides
     fun providesGetLoansListUseCase(repository: LoanRepository): GetLoansListUseCase =

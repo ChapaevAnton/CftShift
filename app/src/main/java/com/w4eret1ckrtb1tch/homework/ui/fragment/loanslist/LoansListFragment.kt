@@ -20,13 +20,15 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
 
     private var binding: FragmentLoansListBinding? = null
     private val viewModel by viewModels<LoansListViewModel>()
-    private val args: LoansListFragmentArgs by navArgs()
+    private val args: LoansListFragmentArgs? by navArgs()
     private var authToken: String? = null
     private val adapter by lazy { LoansAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        authToken = args.authToken
+        args?.let {
+            authToken = it.authToken
+        }
         authToken?.let { viewModel.getLoansList(it) }
     }
 
