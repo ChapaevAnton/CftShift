@@ -6,7 +6,7 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Parcelize
-data class Loan(
+data class LoanEntity(
     val amount: BigDecimal,
     val date: LocalDateTime,
     val firstName: String,
