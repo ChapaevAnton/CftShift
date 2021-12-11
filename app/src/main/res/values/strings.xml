@@ -10,4 +10,10 @@
     <string name="reg_register">register</string>
     <string name="reg_user_password">password</string>
     <string name="reg_user_login">login</string>
+    <string name="create_new_loan">arrange a cash loan</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">last name</string>
+    <string name="phone_number">phone number</string>
+    <string name="amount">amount</string>
+    <string name="send_new_loan">send an application</string>
 </resources>

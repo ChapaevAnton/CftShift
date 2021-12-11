@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_loan_list_to_loan_data"
             app:destination="@id/loan_data" />
+        <action
+            android:id="@+id/action_loan_list_to_new_loan"
+            app:destination="@id/new_loan" />
     </fragment>
 
     <fragment
@@ -58,5 +61,10 @@
             android:name="idLoan"
             app:argType="long" />
     </fragment>
+
+    <fragment android:id="@+id/new_loan"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.newloan.NewLoanFragment"
+        android:label="new_loan"
+        tools:layout="@layout/fragment_new_loan"/>
 
 </navigation>

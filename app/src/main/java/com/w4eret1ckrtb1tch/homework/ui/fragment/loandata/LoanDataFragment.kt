@@ -1,10 +1,7 @@
 package com.w4eret1ckrtb1tch.homework.ui.fragment.loandata
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.w4eret1ckrtb1tch.homework.R
@@ -13,12 +10,15 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.presentation.LoanDataViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
+import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoanDataFragment : Fragment(R.layout.fragment_loan_data) {
+class LoanDataFragment : BaseFragment<FragmentLoanDataBinding>(
+    FragmentLoanDataBinding::inflate,
+    R.layout.fragment_loan_data
+) {
 
-    private var binding: FragmentLoanDataBinding? = null
     private val viewModel by viewModels<LoanDataViewModel>()
     private val args: LoanDataFragmentArgs by navArgs()
     private var idLoan: Long? = null
@@ -29,23 +29,9 @@ class LoanDataFragment : Fragment(R.layout.fragment_loan_data) {
         idLoan?.let { viewModel.getLoanData(it) }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLoanDataBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLoan.observe(viewLifecycleOwner) { resolveLoanData(it) }
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 
     private fun resolveLoanData(result: Result<LoanEntity>) {
@@ -56,7 +42,7 @@ class LoanDataFragment : Fragment(R.layout.fragment_loan_data) {
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
                     result.toString(),
-                    binding?.root!!,
+                    binding.root,
                     null
                 )
             }
@@ -67,7 +53,7 @@ class LoanDataFragment : Fragment(R.layout.fragment_loan_data) {
     }
 
     private fun setLoanData(loan: LoanEntity) {
-        binding?.apply {
+        binding.apply {
             state.text = loan.state.name
             idLoan.text = loan.id.toString()
             date.text = loan.date.toString()

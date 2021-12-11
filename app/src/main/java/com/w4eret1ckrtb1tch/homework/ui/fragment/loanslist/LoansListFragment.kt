@@ -1,10 +1,7 @@
 package com.w4eret1ckrtb1tch.homework.ui.fragment.loanslist
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.w4eret1ckrtb1tch.homework.R
@@ -13,37 +10,26 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.presentation.LoansListViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
+import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
+class LoansListFragment : BaseFragment<FragmentLoansListBinding>(
+    FragmentLoansListBinding::inflate,
+    R.layout.fragment_loans_list
+) {
 
-    private var binding: FragmentLoansListBinding? = null
     private val viewModel by viewModels<LoansListViewModel>()
     private lateinit var adapter: LoansAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLoansListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = LoansAdapter { idLoan -> idLoan?.let { openLoanListToLoanData(it) } }
-
-        binding?.apply {
+        binding.apply {
             if (this@LoansListFragment::adapter.isInitialized) loansList.adapter = adapter
+            createNewLoan.setOnClickListener { openLoanListToNewLoan() }
         }
         viewModel.getLoans.observe(viewLifecycleOwner) { resolveLoansList(it) }
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 
     private fun resolveLoansList(result: Result<List<LoanEntity>>) {
@@ -54,7 +40,7 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
                     result.toString(),
-                    binding?.root!!,
+                    binding.root,
                     null
                 )
             }
@@ -66,6 +52,11 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
 
     private fun openLoanListToLoanData(idLoan: Long) {
         val action = LoansListFragmentDirections.actionLoanListToLoanData(idLoan)
+        findNavController().navigate(action)
+    }
+
+    private fun openLoanListToNewLoan() {
+        val action = LoansListFragmentDirections.actionLoanListToNewLoan()
         findNavController().navigate(action)
     }
 }
