@@ -21,6 +21,9 @@ class PreferenceStorageImpl @Inject constructor(
             }.subscribeOn(Schedulers.io())
     }
 
+    // QUESTION: 11.12.2021 Нужно ли тут обработать ошибки записи токена?
+    //  https://developer.android.com/topic/libraries/architecture/datastore#java
+    //  https://stackoverflow.com/questions/64036701/is-new-jetpack-datastore-only-for-kotlin
     override fun writeAuthToken(authToken: String) {
         dataStore.updateDataAsync { prefs ->
             val mutablePreferences = prefs.toMutablePreferences()
