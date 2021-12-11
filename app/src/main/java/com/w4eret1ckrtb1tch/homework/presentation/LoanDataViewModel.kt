@@ -12,9 +12,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import javax.inject.Inject
 
 @HiltViewModel
-class LoanDataViewModel(
+class LoanDataViewModel @Inject constructor(
     private val getLoanDataUseCase: GetLoanDataUseCase,
     private val readAuthTokenUseCase: ReadAuthTokenUseCase
 ) : ViewModel() {
