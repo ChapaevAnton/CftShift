@@ -1,5 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.di
 
+import com.w4eret1ckrtb1tch.homework.data.datasource.storage.PreferenceStorageImpl
 import com.w4eret1ckrtb1tch.homework.data.mapper.LoanResponseMapperImpl
 import com.w4eret1ckrtb1tch.homework.data.mapper.UserResponseMapperImpl
 import com.w4eret1ckrtb1tch.homework.data.repository.AuthRepositoryImpl
@@ -8,6 +9,7 @@ import com.w4eret1ckrtb1tch.homework.domain.mapper.LoanResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.mapper.UserResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.repository.AuthRepository
 import com.w4eret1ckrtb1tch.homework.domain.repository.LoanRepository
+import com.w4eret1ckrtb1tch.homework.domain.storage.PreferenceStorage
 import dagger.Binds
 import dagger.Module
 import dagger.Reusable
@@ -33,4 +35,8 @@ interface DataModule {
     @Reusable
     @Binds
     fun bindsLoanRepository(loanRepository: LoanRepositoryImpl): LoanRepository
+
+    @Reusable
+    @Binds
+    fun bindsPreferenceStorage(preferenceStorage: PreferenceStorageImpl): PreferenceStorage
 }

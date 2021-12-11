@@ -48,7 +48,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             registration.setOnClickListener { openAuthUserToRegUser() }
         }
 
-        viewModel.getHash.observe(viewLifecycleOwner) { resolveUserAuthorization(it) }
+        viewModel.getAuthToken.observe(viewLifecycleOwner) { resolveUserAuthorization(it) }
     }
 
     private fun signInUser() {

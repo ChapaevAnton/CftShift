@@ -1,6 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.data.repository
 
-import com.w4eret1ckrtb1tch.homework.data.datasource.FocusStartApi
+import com.w4eret1ckrtb1tch.homework.data.datasource.network.FocusStartApi
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.mapper.LoanResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.repository.LoanRepository

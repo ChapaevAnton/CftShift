@@ -3,7 +3,7 @@ package com.w4eret1ckrtb1tch.homework.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.w4eret1ckrtb1tch.homework.BuildConfig
-import com.w4eret1ckrtb1tch.homework.data.datasource.FocusStartApi
+import com.w4eret1ckrtb1tch.homework.data.datasource.network.FocusStartApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

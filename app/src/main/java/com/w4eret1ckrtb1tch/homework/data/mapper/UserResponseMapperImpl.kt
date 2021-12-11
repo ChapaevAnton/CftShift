@@ -1,6 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.data.mapper
 
-import com.w4eret1ckrtb1tch.homework.data.datasource.FocusStartApi
+import com.w4eret1ckrtb1tch.homework.data.datasource.network.FocusStartApi
 import com.w4eret1ckrtb1tch.homework.data.dto.UserResponse
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserRole

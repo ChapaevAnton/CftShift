@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserUseCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.WriteAuthTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -16,21 +17,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthorizationViewModel @Inject constructor(
-    private val userLoginCase: PostLoginUserUseCase
+    private val userLoginCase: PostLoginUserUseCase,
+    private val writeAuthTokenUseCase: WriteAuthTokenUseCase
 ) : ViewModel() {
     private var userLogin: Disposable? = null
 
 
-    private val hash: MutableLiveData<Result<String>> = MutableLiveData()
-    val getHash: LiveData<Result<String>> = hash
+    private val authToken: MutableLiveData<Result<String>> = MutableLiveData()
+    val getAuthToken: LiveData<Result<String>> = authToken
 
     fun signInUser(name: String, password: String) {
-        hash.value = Result.Loading
+        authToken.value = Result.Loading
         userLogin = userLoginCase(UserAuth(name = name, password = password))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { result ->
-                    hash.value = Result.Success(result)
+                    writeAuthTokenUseCase(result)
+                    authToken.value = Result.Success(result)
                 },
                 onError = { error ->
                     // FIXME: 08.12.2021 Определять разные коды ошибок...
@@ -43,7 +46,7 @@ class AuthorizationViewModel @Inject constructor(
 
                         Log.d("TAG", "signInUser: $code $body $raw")
                     }
-                    hash.value = Result.Failure(error)
+                    authToken.value = Result.Failure(error)
                 })
     }
 
