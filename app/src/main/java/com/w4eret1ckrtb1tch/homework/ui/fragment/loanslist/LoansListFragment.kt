@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoansListBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
@@ -20,17 +19,7 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
 
     private var binding: FragmentLoansListBinding? = null
     private val viewModel by viewModels<LoansListViewModel>()
-    private val args: LoansListFragmentArgs? by navArgs()
-    private var authToken: String? = null
     private val adapter by lazy { LoansAdapter() }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        args?.let {
-            authToken = it.authToken
-        }
-        authToken?.let { viewModel.getLoansList(it) }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

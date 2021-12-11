@@ -30,12 +30,7 @@
         android:id="@+id/loan_list"
         android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.loanslist.LoansListFragment"
         android:label="loan_list"
-        tools:layout="@layout/fragment_loans_list" >
-        <argument
-            android:name="authToken"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
+        tools:layout="@layout/fragment_loans_list" />
 
     <fragment
         android:id="@+id/reg_user"

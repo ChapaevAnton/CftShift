@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoansListUseCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -15,17 +16,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoansListViewModel @Inject constructor(
-    private val loansListUseCase: GetLoansListUseCase
+    private val loansListUseCase: GetLoansListUseCase,
+    private val readAuthTokenUseCase: ReadAuthTokenUseCase
 ) : ViewModel() {
 
-    private var loanList: Disposable? = null
+    private var loansList: Disposable? = null
 
     private val loans: MutableLiveData<Result<List<LoanEntity>>> = MutableLiveData()
     val getLoans: LiveData<Result<List<LoanEntity>>> = loans
 
-    fun getLoansList(authToken: String) {
+    init {
+        getLoansList()
+    }
+
+    private fun getLoansList() {
         loans.value = Result.Loading
-        loanList = loansListUseCase(authToken)
+        loansList = readAuthTokenUseCase()
+            .firstOrError()
+            .flatMap { loansListUseCase(it) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { result ->
@@ -39,7 +47,7 @@ class LoansListViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        loanList?.dispose()
+        loansList?.dispose()
         super.onCleared()
     }
 }

@@ -2,7 +2,6 @@ package com.w4eret1ckrtb1tch.homework.presentation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
@@ -23,8 +22,8 @@ class AuthorizationViewModel @Inject constructor(
     private var userLogin: Disposable? = null
 
 
-    private val authToken: MutableLiveData<Result<String>> = MutableLiveData()
-    val getAuthToken: LiveData<Result<String>> = authToken
+    private val authToken: SingleLiveEvent<Result<Unit>> = SingleLiveEvent()
+    val getAuthToken: LiveData<Result<Unit>> = authToken
 
     fun signInUser(name: String, password: String) {
         authToken.value = Result.Loading
@@ -33,7 +32,7 @@ class AuthorizationViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { result ->
                     writeAuthTokenUseCase(result)
-                    authToken.value = Result.Success(result)
+                    authToken.value = Result.Success(Unit)
                 },
                 onError = { error ->
                     // FIXME: 08.12.2021 Определять разные коды ошибок...

@@ -60,10 +60,10 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
     }
 
-    private fun resolveUserAuthorization(result: Result<String>) {
+    private fun resolveUserAuthorization(result: Result<Unit>) {
         when (result) {
             is Result.Success -> {
-                openAuthUserToLoanList(result.value)
+                openAuthUserToLoanList()
             }
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
@@ -78,8 +78,8 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
     }
 
-    private fun openAuthUserToLoanList(authToken: String?) {
-        val action = AuthorizationFragmentDirections.actionAuthUserToLoanList(authToken)
+    private fun openAuthUserToLoanList() {
+        val action = AuthorizationFragmentDirections.actionAuthUserToLoanList()
         findNavController().navigate(action)
     }
 
