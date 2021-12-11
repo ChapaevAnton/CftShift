@@ -10,6 +10,5 @@ interface PreferenceStorage {
 
     companion object {
         const val PREFERENCE_STORAGE_FILE_NAME = "setting"
-        const val AUTH_TOKEN_KEY = "focus_start_auth_token_key"
     }
 }

@@ -17,7 +17,7 @@ class PreferenceStorageImpl @Inject constructor(
     override fun readAuthToken(): Flowable<String> {
         return dataStore.data()
             .map { prefs ->
-                prefs[stringPreferencesKey(PreferenceStorage.AUTH_TOKEN_KEY)] ?: ""
+                prefs[stringPreferencesKey(AUTH_TOKEN_KEY)] ?: ""
             }.subscribeOn(Schedulers.io())
     }
 
@@ -27,8 +27,12 @@ class PreferenceStorageImpl @Inject constructor(
     override fun writeAuthToken(authToken: String) {
         dataStore.updateDataAsync { prefs ->
             val mutablePreferences = prefs.toMutablePreferences()
-            mutablePreferences[stringPreferencesKey(PreferenceStorage.AUTH_TOKEN_KEY)] = authToken
+            mutablePreferences[stringPreferencesKey(AUTH_TOKEN_KEY)] = authToken
             return@updateDataAsync Single.just(mutablePreferences)
         }.subscribeOn(Schedulers.io()).subscribe()
+    }
+
+    private companion object {
+        const val AUTH_TOKEN_KEY = "focus_start_auth_token_key"
     }
 }
