@@ -9,7 +9,7 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAuthorizationBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
-import com.w4eret1ckrtb1tch.homework.presentation.AuthorizationViewModel
+import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.AuthorizationViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

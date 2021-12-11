@@ -8,7 +8,7 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoanDataBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
-import com.w4eret1ckrtb1tch.homework.presentation.LoanDataViewModel
+import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.LoanDataViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

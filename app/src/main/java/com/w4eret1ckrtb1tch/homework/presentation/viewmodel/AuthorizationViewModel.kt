@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation
+package com.w4eret1ckrtb1tch.homework.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,6 +7,7 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.WriteAuthTokenUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable

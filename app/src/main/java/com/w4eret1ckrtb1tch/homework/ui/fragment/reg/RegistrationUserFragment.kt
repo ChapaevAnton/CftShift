@@ -9,7 +9,7 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentUserRegistrationBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
-import com.w4eret1ckrtb1tch.homework.presentation.RegistrationUserViewModel
+import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.RegistrationUserViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

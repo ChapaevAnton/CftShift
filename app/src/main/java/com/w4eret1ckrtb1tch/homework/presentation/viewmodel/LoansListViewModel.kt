@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation
+package com.w4eret1ckrtb1tch.homework.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
