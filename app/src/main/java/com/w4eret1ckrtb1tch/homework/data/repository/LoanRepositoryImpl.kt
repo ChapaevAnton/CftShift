@@ -12,8 +12,16 @@ class LoanRepositoryImpl @Inject constructor(
     private val api: FocusStartApi,
     private val mapper: LoanResponseMapper
 ) : LoanRepository {
+
     override fun getLoans(authToken: String): Single<List<LoanEntity>> {
         return api.getLoans(authToken)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.computation())
+            .map { mapper.mapResponse(it) }
+    }
+
+    override fun getLoan(authToken: String, id: Long): Single<LoanEntity> {
+        return api.getLoan(authToken, id)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())
             .map { mapper.mapResponse(it) }

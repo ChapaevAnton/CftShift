@@ -1,13 +1,11 @@
 package com.w4eret1ckrtb1tch.homework.data.datasource.network
 
-import com.w4eret1ckrtb1tch.homework.data.dto.LoansResponse
+import com.w4eret1ckrtb1tch.homework.data.dto.LoanDataResponse
+import com.w4eret1ckrtb1tch.homework.data.dto.LoansListResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.UserResponse
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import io.reactivex.rxjava3.core.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface FocusStartApi {
 
@@ -18,7 +16,13 @@ interface FocusStartApi {
     fun loginUser(@Body userAuth: UserAuth): Single<String>
 
     @GET("loans/all")
-    fun getLoans(@Header("Authorization") authToken: String): Single<LoansResponse>
+    fun getLoans(@Header("Authorization") authToken: String): Single<LoansListResponse>
+
+    @GET("loans/{id}")
+    fun getLoan(
+        @Header("Authorization") authToken: String,
+        @Path("id") id: Long
+    ): Single<LoanDataResponse>
 
     companion object {
         const val BASE_URL = "https://focusstart.appspot.com/"

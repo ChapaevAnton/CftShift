@@ -3,7 +3,7 @@ package com.w4eret1ckrtb1tch.homework.data.dto
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class LoanDto(
+data class LoanDataResponse(
     @field:SerializedName("amount") val amount: Double,
     @field:SerializedName("date") val date: Date,
     @field:SerializedName("firstName") val firstName: String,

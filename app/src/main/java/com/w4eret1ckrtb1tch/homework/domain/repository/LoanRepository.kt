@@ -7,4 +7,6 @@ interface LoanRepository {
 
     fun getLoans(authToken: String): Single<List<LoanEntity>>
 
+    fun getLoan(authToken: String, id: Long): Single<LoanEntity>
+
 }
