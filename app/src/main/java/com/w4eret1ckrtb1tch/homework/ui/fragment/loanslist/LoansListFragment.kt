@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoansListBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
@@ -32,7 +33,7 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = LoansAdapter { id -> TODO("id") }
+        adapter = LoansAdapter { idLoan -> idLoan?.let { openLoanListToLoanData(it) } }
 
         binding?.apply {
             if (this@LoansListFragment::adapter.isInitialized) loansList.adapter = adapter
@@ -61,5 +62,10 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
                 // TODO: 07.12.2021 Добавить индикатор загрузки
             }
         }
+    }
+
+    private fun openLoanListToLoanData(idLoan: Long) {
+        val action = LoansListFragmentDirections.actionLoanListToLoanData(idLoan)
+        findNavController().navigate(action)
     }
 }
