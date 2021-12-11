@@ -47,7 +47,7 @@
 
 - Написать UI тесты
 
-###1.3  API
+### 1.3  API
 
 - Ссылка на API: https://focusstart.appspot.com/
 
@@ -65,5 +65,4 @@
 
 ### 1.5  Доп информация
 
-Аутентификация по токену https://swagger.io/docs/specification/authentication/bearer-authentication/
-You are using an UNLICENSED copy of Scroll PDF Exporter for Confluence. Do you find Scroll PDF Exporter useful? Consider purchasing it today: https://www.k15t.com/software/scroll-pdf-exporter
+Аутентификация по токену https://swagger.io/docs/specification/authentication/bearer-authentication/
