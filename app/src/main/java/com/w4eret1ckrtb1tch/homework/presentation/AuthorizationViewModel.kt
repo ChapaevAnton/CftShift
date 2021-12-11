@@ -51,6 +51,7 @@ class AuthorizationViewModel @Inject constructor(
 
     override fun onCleared() {
         userLogin?.dispose()
+        authToken.call()
         super.onCleared()
     }
 }

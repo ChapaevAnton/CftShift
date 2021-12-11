@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.w4eret1ckrtb1tch.homework.databinding.ItemLoansListBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 
-class LoansAdapter : RecyclerView.Adapter<LoansAdapter.LoansHolder>() {
+class LoansAdapter(
+    private val clickLoan: (id: Long?) -> Unit
+) : RecyclerView.Adapter<LoansAdapter.LoansHolder>() {
 
     var loans: List<LoanEntity> = emptyList()
         set(value) {
@@ -15,21 +17,27 @@ class LoansAdapter : RecyclerView.Adapter<LoansAdapter.LoansHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoansHolder =
-        LoansHolder(parent)
+        LoansHolder(parent, clickLoan)
 
     override fun onBindViewHolder(holder: LoansHolder, position: Int) =
         holder.bind(loans[position])
 
     override fun getItemCount(): Int = loans.size
 
-    class LoansHolder private constructor(private val binding: ItemLoansListBinding) :
+    class LoansHolder private constructor(
+        private val binding: ItemLoansListBinding,
+        private val clickLoan: (id: Long?) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         companion object {
-            operator fun invoke(parent: ViewGroup): LoansHolder {
+            operator fun invoke(
+                parent: ViewGroup,
+                clickLoan: (id: Long?) -> Unit
+            ): LoansHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val binding = ItemLoansListBinding.inflate(inflater, parent, false)
-                return LoansHolder(binding)
+                return LoansHolder(binding, clickLoan)
             }
         }
 
@@ -40,6 +48,8 @@ class LoansAdapter : RecyclerView.Adapter<LoansAdapter.LoansHolder>() {
                     date.text = loan.date.toString()
                     loan.amount.toString().also { amount.text = it }
                     state.text = loan.state.name
+
+                    root.setOnClickListener { clickLoan(loan.id) }
                 }
             }
         }

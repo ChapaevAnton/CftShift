@@ -19,7 +19,7 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
 
     private var binding: FragmentLoansListBinding? = null
     private val viewModel by viewModels<LoansListViewModel>()
-    private val adapter by lazy { LoansAdapter() }
+    private lateinit var adapter: LoansAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +32,10 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = LoansAdapter { id -> TODO("id") }
+
         binding?.apply {
-            loansList.adapter = adapter
+            if (this@LoansListFragment::adapter.isInitialized) loansList.adapter = adapter
         }
         viewModel.getLoans.observe(viewLifecycleOwner) { resolveLoansList(it) }
     }
@@ -46,7 +48,7 @@ class LoansListFragment : Fragment(R.layout.fragment_loans_list) {
     private fun resolveLoansList(result: Result<List<LoanEntity>>) {
         when (result) {
             is Result.Success -> {
-                adapter.loans = result.value
+                if (this@LoansListFragment::adapter.isInitialized) adapter.loans = result.value
             }
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
