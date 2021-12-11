@@ -6,48 +6,44 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
-import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoansListUseCase
+import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoanDataUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import javax.inject.Inject
 
 @HiltViewModel
-class LoansListViewModel @Inject constructor(
-    private val loansListUseCase: GetLoansListUseCase,
+class LoanDataViewModel(
+    private val getLoanDataUseCase: GetLoanDataUseCase,
     private val readAuthTokenUseCase: ReadAuthTokenUseCase
 ) : ViewModel() {
 
-    private var loansListDisposable: Disposable? = null
+    private var loanDataDisposable: Disposable? = null
 
-    private val loans: MutableLiveData<Result<List<LoanEntity>>> = MutableLiveData()
-    val getLoans: LiveData<Result<List<LoanEntity>>> = loans
+    private val loan: MutableLiveData<Result<LoanEntity>> = MutableLiveData()
+    val getLoan: LiveData<Result<LoanEntity>> = loan
 
-    init {
-        getLoansList()
-    }
-
-    private fun getLoansList() {
-        loans.value = Result.Loading
-        loansListDisposable = readAuthTokenUseCase()
+    fun getLoanData(idLoan: Long) {
+        loanDataDisposable = readAuthTokenUseCase()
             .firstOrError()
-            .flatMap { authToken -> loansListUseCase(authToken) }
+            .flatMap { authToken -> getLoanDataUseCase(authToken, idLoan) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onSuccess = { loansList ->
-                    loans.value = Result.Success(loansList)
+                onSuccess = { loanData ->
+                    loan.value = Result.Success(loanData)
                 },
                 onError = { error ->
                     // FIXME: 09.12.2021 Определять разные коды ошибок...
-                    loans.value = Result.Failure(error)
+                    loan.value = Result.Failure(error)
                     Log.d("TAG", "getLoansList: ${error.message}")
-                })
+                }
+            )
     }
 
     override fun onCleared() {
-        loansListDisposable?.dispose()
+        loanDataDisposable?.dispose()
         super.onCleared()
     }
+
 }

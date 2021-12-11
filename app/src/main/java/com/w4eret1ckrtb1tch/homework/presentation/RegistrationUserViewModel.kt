@@ -10,6 +10,7 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostRegisterUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
@@ -18,12 +19,14 @@ class RegistrationUserViewModel @Inject constructor(
     private val registerUserUseCase: PostRegisterUserUseCase
 ) : ViewModel() {
 
+    private var userDisposable: Disposable? = null
+
     private val user: MutableLiveData<Result<UserEntity>> = MutableLiveData()
     val getUser: LiveData<Result<UserEntity>> = user
 
     fun registerUser(name: String, password: String) {
         user.value = Result.Loading
-        registerUserUseCase(UserAuth(name = name, password = password))
+        userDisposable = registerUserUseCase(UserAuth(name = name, password = password))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { result ->
@@ -35,5 +38,10 @@ class RegistrationUserViewModel @Inject constructor(
                     Log.d("TAG", "registerUser: ${error.message}")
                 }
             )
+    }
+
+    override fun onCleared() {
+        userDisposable?.dispose()
+        super.onCleared()
     }
 }

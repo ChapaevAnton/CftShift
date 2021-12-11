@@ -9,7 +9,7 @@ class GetLoanDataUseCase @Inject constructor(
     private val repository: LoanRepository
 ) {
 
-    operator fun invoke(authToken: String, id: Long): Single<LoanEntity> {
-        return repository.getLoan(authToken, id)
+    operator fun invoke(authToken: String, idLoan: Long): Single<LoanEntity> {
+        return repository.getLoan(authToken, idLoan)
     }
 }

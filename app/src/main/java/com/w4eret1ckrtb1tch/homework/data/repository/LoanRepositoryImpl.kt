@@ -20,8 +20,8 @@ class LoanRepositoryImpl @Inject constructor(
             .map { mapper.mapResponse(it) }
     }
 
-    override fun getLoan(authToken: String, id: Long): Single<LoanEntity> {
-        return api.getLoan(authToken, id)
+    override fun getLoan(authToken: String, idLoan: Long): Single<LoanEntity> {
+        return api.getLoan(authToken, idLoan)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.computation())
             .map { mapper.mapResponse(it) }

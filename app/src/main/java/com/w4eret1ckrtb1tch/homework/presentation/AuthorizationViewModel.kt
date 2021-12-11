@@ -19,7 +19,7 @@ class AuthorizationViewModel @Inject constructor(
     private val userLoginCase: PostLoginUserUseCase,
     private val writeAuthTokenUseCase: WriteAuthTokenUseCase
 ) : ViewModel() {
-    private var userLogin: Disposable? = null
+    private var userLoginDisposable: Disposable? = null
 
 
     private val authToken: SingleLiveEvent<Result<Unit>> = SingleLiveEvent()
@@ -27,7 +27,7 @@ class AuthorizationViewModel @Inject constructor(
 
     fun signInUser(name: String, password: String) {
         authToken.value = Result.Loading
-        userLogin = userLoginCase(UserAuth(name = name, password = password))
+        userLoginDisposable = userLoginCase(UserAuth(name = name, password = password))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { result ->
@@ -50,7 +50,7 @@ class AuthorizationViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        userLogin?.dispose()
+        userLoginDisposable?.dispose()
         authToken.call()
         super.onCleared()
     }

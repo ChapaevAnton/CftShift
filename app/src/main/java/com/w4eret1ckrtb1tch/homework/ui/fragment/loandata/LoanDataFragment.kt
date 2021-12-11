@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoanDataBinding
+import com.w4eret1ckrtb1tch.homework.presentation.LoanDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoanDataFragment : Fragment(R.layout.fragment_loan_data) {
 
     private var binding: FragmentLoanDataBinding? = null
+    private val viewModel by viewModels<LoanDataViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
