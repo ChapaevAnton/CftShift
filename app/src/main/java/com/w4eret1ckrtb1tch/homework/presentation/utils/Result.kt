@@ -8,10 +8,7 @@ sealed class Result<out T> {
 
     data class Failure(val exception: Throwable?) : Result<Nothing>() {
         private val message = when (exception) {
-            is HttpException -> {
-                val response = exception.response()
-                response?.errorBody()?.string()
-            }
+            is HttpException -> parseHttpException(exception)
             else -> exception?.message
         }
 
@@ -28,6 +25,13 @@ sealed class Result<out T> {
             is Failure -> "Failure[exception=$exception]"
             is Loading -> "Loading..."
         }
+    }
+
+    fun parseHttpException(exception: HttpException): String? {
+        val regex = """\"[^\"]*\"""".toRegex()
+        val response = exception.response()
+        val match = response?.errorBody()?.string()?.let { regex.find(it) }
+        return match?.value
     }
 }
 
