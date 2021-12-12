@@ -62,9 +62,24 @@
             app:argType="long" />
     </fragment>
 
-    <fragment android:id="@+id/new_loan"
+    <fragment
+        android:id="@+id/new_loan"
         android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.newloan.NewLoanFragment"
         android:label="new_loan"
-        tools:layout="@layout/fragment_new_loan"/>
+        tools:layout="@layout/fragment_new_loan">
+        <action
+            android:id="@+id/action_new_loan_to_send_loan"
+            app:destination="@id/send_loan" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/send_loan"
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.newloan.SendLoanDialogFragment"
+        tools:layout="@layout/dialog_send_loan">
+        <argument
+            android:name="loanEntity"
+            app:argType="com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity"
+            app:nullable="true" />
+    </dialog>
 
 </navigation>

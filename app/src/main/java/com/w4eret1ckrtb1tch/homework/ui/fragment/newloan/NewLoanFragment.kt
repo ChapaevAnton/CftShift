@@ -3,9 +3,11 @@ package com.w4eret1ckrtb1tch.homework.ui.fragment.newloan
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentNewLoanBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanConditions
+import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.NewLoanViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
@@ -26,12 +28,31 @@ class NewLoanFragment : BaseFragment<FragmentNewLoanBinding>(
             sendNewLoan.setOnClickListener { createLoan() }
         }
         viewModel.getConditions.observe(viewLifecycleOwner) { resolveLoanConditions(it) }
+        viewModel.getLoanInfo.observe(viewLifecycleOwner) { resolveLoanInfo(it) }
     }
 
     private fun resolveLoanConditions(result: Result<LoanConditions>) {
         when (result) {
             is Result.Success -> {
                 setLoanConditions(result.value)
+            }
+            is Result.Failure -> {
+                (requireActivity() as MainActivity).showMessage(
+                    result.toString(),
+                    binding.root,
+                    null
+                )
+            }
+            is Result.Loading -> {
+                // TODO: 07.12.2021 Добавить индикатор загрузки
+            }
+        }
+    }
+
+    private fun resolveLoanInfo(result: Result<LoanEntity>) {
+        when (result) {
+            is Result.Success -> {
+                openNewLoanToSendLoan(result.value)
             }
             is Result.Failure -> {
                 (requireActivity() as MainActivity).showMessage(
@@ -62,5 +83,10 @@ class NewLoanFragment : BaseFragment<FragmentNewLoanBinding>(
             val amount = amount.editText?.text.toString().toLong()
             viewModel.createLoan(firstName, lastName, phoneNumber, amount)
         }
+    }
+
+    private fun openNewLoanToSendLoan(loanEntity: LoanEntity) {
+        val action = NewLoanFragmentDirections.actionNewLoanToSendLoan(loanEntity)
+        findNavController().navigate(action)
     }
 }

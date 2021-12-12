@@ -29,8 +29,8 @@ class NewLoanViewModel @Inject constructor(
 
     private val conditions: MutableLiveData<Result<LoanConditions>> = MutableLiveData()
     val getConditions: LiveData<Result<LoanConditions>> = conditions
-    private val loan: MutableLiveData<Result<LoanEntity>> = MutableLiveData()
-    val getLoan: LiveData<Result<LoanEntity>> = loan
+    private val loanInfo: MutableLiveData<Result<LoanEntity>> = MutableLiveData()
+    val getLoanInfo: LiveData<Result<LoanEntity>> = loanInfo
 
     init {
         getLoanConditions()
@@ -59,7 +59,7 @@ class NewLoanViewModel @Inject constructor(
 
     private fun postCreateLoanRequest(loanRequest: LoanRequest) {
         Log.d("TAG", "postCreateLoanRequest: $loanRequest ")
-        loan.value = Result.Loading
+        loanInfo.value = Result.Loading
         compositeDisposable.add(
             readAuthTokenUseCase()
                 .firstOrError()
@@ -67,10 +67,10 @@ class NewLoanViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                     onSuccess = { result ->
-                        loan.value = Result.Success(result)
+                        loanInfo.value = Result.Success(result)
                     },
                     onError = { error ->
-                        loan.value = Result.Failure(error)
+                        loanInfo.value = Result.Failure(error)
                         Log.d("TAG", "postCreateLoanRequest: ${error.message}")
                     }
                 )
