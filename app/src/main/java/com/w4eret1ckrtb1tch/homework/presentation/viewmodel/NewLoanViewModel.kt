@@ -58,6 +58,7 @@ class NewLoanViewModel @Inject constructor(
     }
 
     private fun postCreateLoanRequest(loanRequest: LoanRequest) {
+        Log.d("TAG", "postCreateLoanRequest: $loanRequest ")
         loan.value = Result.Loading
         compositeDisposable.add(
             readAuthTokenUseCase()

@@ -29,7 +29,7 @@ interface FocusStartApi {
     @GET("loans/conditions")
     fun getConditions(@Header("Authorization") authToken: String): Single<LoanConditionsResponse>
 
-    @GET("/loans")
+    @POST("/loans")
     fun createLoan(
         @Header("Authorization") authToken: String,
         @Body loanRequest: LoanRequest

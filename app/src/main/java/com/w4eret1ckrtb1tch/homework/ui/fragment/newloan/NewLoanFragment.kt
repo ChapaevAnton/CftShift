@@ -10,7 +10,9 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.NewLoanViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewLoanFragment : BaseFragment<FragmentNewLoanBinding>(
     FragmentNewLoanBinding::inflate,
     R.layout.fragment_new_loan
