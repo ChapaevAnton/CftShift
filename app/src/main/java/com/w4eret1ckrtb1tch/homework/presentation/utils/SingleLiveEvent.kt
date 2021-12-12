@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation
+package com.w4eret1ckrtb1tch.homework.presentation.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

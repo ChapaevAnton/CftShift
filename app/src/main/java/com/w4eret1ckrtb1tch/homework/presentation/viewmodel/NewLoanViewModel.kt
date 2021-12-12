@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanConditions
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanRequest
-import com.w4eret1ckrtb1tch.homework.domain.entity.Result
+import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetConditionsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostCreateLoanUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
-import com.w4eret1ckrtb1tch.homework.presentation.SingleLiveEvent
+import com.w4eret1ckrtb1tch.homework.presentation.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

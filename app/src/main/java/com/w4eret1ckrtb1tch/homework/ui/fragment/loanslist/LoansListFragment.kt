@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoansListBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
-import com.w4eret1ckrtb1tch.homework.domain.entity.Result
+import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.LoansListViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment

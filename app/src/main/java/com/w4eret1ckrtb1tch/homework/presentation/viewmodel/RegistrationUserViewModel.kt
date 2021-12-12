@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.w4eret1ckrtb1tch.homework.domain.entity.Result
+import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostRegisterUserUseCase
