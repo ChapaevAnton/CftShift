@@ -19,6 +19,7 @@
         android:hint="@string/auth_user_login">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -31,6 +32,7 @@
         android:hint="@string/auth_user_password">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -44,10 +46,9 @@
 
     <Button
         android:id="@+id/registration"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/auth_register_account"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        />
+        android:text="@string/auth_register_account" />
 
 </LinearLayout>
