@@ -2,10 +2,11 @@ package com.w4eret1ckrtb1tch.homework.domain.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.math.BigDecimal
 
 @Parcelize
 data class LoanRequest(
-    val amount: Long,
+    val amount: BigDecimal,
     val firstName: String,
     val lastName: String,
     val percent: Double,
