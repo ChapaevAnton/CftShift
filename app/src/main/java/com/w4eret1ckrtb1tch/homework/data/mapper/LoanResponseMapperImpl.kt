@@ -1,8 +1,10 @@
 package com.w4eret1ckrtb1tch.homework.data.mapper
 
 import com.w4eret1ckrtb1tch.homework.data.datasource.network.FocusStartApi
+import com.w4eret1ckrtb1tch.homework.data.dto.LoanConditionsResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.LoanDataResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.LoansListResponse
+import com.w4eret1ckrtb1tch.homework.domain.entity.LoanConditions
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanState
 import com.w4eret1ckrtb1tch.homework.domain.mapper.LoanResponseMapper
@@ -29,6 +31,16 @@ class LoanResponseMapperImpl @Inject constructor() : LoanResponseMapper {
 
     override fun mapResponse(loansListResponse: LoansListResponse): List<LoanEntity> {
         return loansListResponse.map { mapResponse(it) }
+    }
+
+    override fun mapResponse(loanConditionsResponse: LoanConditionsResponse): LoanConditions {
+        return with(loanConditionsResponse) {
+            LoanConditions(
+                maxAmount = maxAmount,
+                percent = percent,
+                period = period
+            )
+        }
     }
 
     private fun getState(state: String): LoanState {

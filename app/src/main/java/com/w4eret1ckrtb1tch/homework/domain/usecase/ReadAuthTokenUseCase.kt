@@ -8,7 +8,7 @@ class ReadAuthTokenUseCase @Inject constructor(
     private val preferenceStorage: PreferenceStorage
 ) {
 
-    operator fun invoke(): Flowable<String> {
-        return preferenceStorage.readAuthToken()
-    }
+    operator fun invoke(): Flowable<String> =
+        preferenceStorage.readAuthToken()
+
 }

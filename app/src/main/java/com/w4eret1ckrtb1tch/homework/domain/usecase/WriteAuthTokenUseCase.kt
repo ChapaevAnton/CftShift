@@ -7,7 +7,7 @@ class WriteAuthTokenUseCase @Inject constructor(
     private val preferenceStorage: PreferenceStorage
 ) {
 
-    operator fun invoke(authToken: String) {
+    operator fun invoke(authToken: String) =
         preferenceStorage.writeAuthToken(authToken)
-    }
+
 }

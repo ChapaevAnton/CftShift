@@ -9,7 +9,7 @@ import javax.inject.Inject
 class PostRegisterUserUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
-    operator fun invoke(userAuth: UserAuth): Single<UserEntity>{
-        return repository.registerUser(userAuth)
-    }
+    operator fun invoke(userAuth: UserAuth): Single<UserEntity> =
+        repository.registerUser(userAuth)
+
 }

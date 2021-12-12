@@ -1,8 +1,10 @@
 package com.w4eret1ckrtb1tch.homework.data.datasource.network
 
+import com.w4eret1ckrtb1tch.homework.data.dto.LoanConditionsResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.LoanDataResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.LoansListResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.UserResponse
+import com.w4eret1ckrtb1tch.homework.domain.entity.LoanRequest
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
@@ -24,6 +26,15 @@ interface FocusStartApi {
         @Path("id") id: Long
     ): Single<LoanDataResponse>
 
+    @GET("loans/conditions")
+    fun getConditions(@Header("Authorization") authToken: String): Single<LoanConditionsResponse>
+
+    @GET("/loans")
+    fun createLoan(
+        @Header("Authorization") authToken: String,
+        @Body loanRequest: LoanRequest
+    ): Single<LoanDataResponse>
+
     companion object {
         const val BASE_URL = "https://focusstart.appspot.com/"
         const val DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
@@ -32,6 +43,5 @@ interface FocusStartApi {
         const val LOAN_STATE_APPROVED = "APPROVED"
         const val LOAN_STATE_REGISTERED = "REGISTERED"
         const val LOAN_STATE_REJECTED = "REJECTED"
-
     }
 }

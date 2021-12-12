@@ -8,7 +8,7 @@ import javax.inject.Inject
 class PostLoginUserUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
-    operator fun invoke(userAuth: UserAuth): Single<String> {
-        return repository.loginUser(userAuth)
-    }
+    operator fun invoke(userAuth: UserAuth): Single<String> =
+        repository.loginUser(userAuth)
+
 }
