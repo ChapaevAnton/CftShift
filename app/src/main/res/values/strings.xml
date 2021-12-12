@@ -16,4 +16,5 @@
     <string name="phone_number">phone number</string>
     <string name="amount">amount</string>
     <string name="send_new_loan">send new loan request</string>
+    <string name="title_send_loan_dialog">New request send successfully</string>
 </resources>

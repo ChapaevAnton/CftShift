@@ -11,6 +11,7 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.Result
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetConditionsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostCreateLoanUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -29,7 +30,7 @@ class NewLoanViewModel @Inject constructor(
 
     private val conditions: MutableLiveData<Result<LoanConditions>> = MutableLiveData()
     val getConditions: LiveData<Result<LoanConditions>> = conditions
-    private val loanInfo: MutableLiveData<Result<LoanEntity>> = MutableLiveData()
+    private val loanInfo: SingleLiveEvent<Result<LoanEntity>> = SingleLiveEvent()
     val getLoanInfo: LiveData<Result<LoanEntity>> = loanInfo
 
     init {

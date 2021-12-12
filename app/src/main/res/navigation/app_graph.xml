@@ -74,12 +74,17 @@
 
     <dialog
         android:id="@+id/send_loan"
-        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.newloan.SendLoanDialogFragment"
-        tools:layout="@layout/dialog_send_loan">
+        android:name="com.w4eret1ckrtb1tch.homework.ui.fragment.newloan.SendDialogFragment"
+        tools:layout="@layout/dialog_send">
         <argument
             android:name="loanEntity"
             app:argType="com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_send_loan_to_loan_list"
+            app:destination="@id/loan_list"
+            app:popUpTo="@id/loan_list"
+            app:popUpToInclusive="true" />
     </dialog>
 
 </navigation>
