@@ -15,10 +15,18 @@
     <string name="last_name">last name</string>
     <string name="phone_number">phone number</string>
     <string name="amount">amount</string>
+    <string name="current_loan_conditions">Current loan conditions</string>
+    <string name="create_new_loan_title">Fill out the form please</string>
     <string name="send_new_loan">send new loan request</string>
     <string name="title_send_loan_dialog">New request send successfully</string>
     <string name="user_name_empty">please enter username</string>
     <string name="user_password_empty">please enter password</string>
+    <string name="first_name_empty">please enter first name</string>
+    <string name="last_name_empty">please enter last name</string>
+    <string name="phone_number_empty">please enter phone number</string>
+    <string name="amount_empty">please enter amount</string>
+    <string name="amount_max_value">amount exceeds the maximum value</string>
+    <string name="amount_zero">amount is zero</string>
     <string name="unknown_error">unknown error</string>
     <string name="state_data">State:%1$s</string>
     <string name="id_loan_data">Id:%1$d</string>
@@ -29,5 +37,7 @@
     <string name="period_data">Period: %1$d month</string>
     <string name="percent_data">Percent: %1$.2f %%</string>
     <string name="amount_data">Amount: %1$.4f ₽</string>
+    <string name="max_amount_data">Max amount: %1$.4f ₽</string>
+    <string name="zero">0</string>
 
 </resources>

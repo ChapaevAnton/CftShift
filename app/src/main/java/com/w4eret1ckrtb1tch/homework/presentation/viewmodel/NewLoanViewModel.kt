@@ -10,6 +10,7 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.LoanRequest
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetConditionsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostCreateLoanUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.model.InputFieldError
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import com.w4eret1ckrtb1tch.homework.presentation.model.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,34 +33,37 @@ class NewLoanViewModel @Inject constructor(
     val getConditions: LiveData<Result<LoanConditions>> = conditions
     private val loanInfo: SingleLiveEvent<Result<LoanEntity>> = SingleLiveEvent()
     val getLoanInfo: LiveData<Result<LoanEntity>> = loanInfo
+    private val incorrectInputField: SingleLiveEvent<InputFieldError> = SingleLiveEvent()
+    val getIncorrectInputField: LiveData<InputFieldError> = incorrectInputField
 
     init {
         getLoanConditions()
     }
 
-    fun createLoan(firstName: String, lastName: String, phoneNumber: String, amount: Long) {
-        when (val conditions = conditions.value) {
+    fun createLoan(firstName: String, lastName: String, phoneNumber: String, amount: String) {
+        if (!validateInputField(firstName, lastName, phoneNumber, amount)) return
+        if (!validateMaxAmount(amount.toDouble())) return
+        when (val condition = conditions.value) {
             is Result.Success -> {
                 postCreateLoanRequest(
                     LoanRequest(
                         firstName = firstName,
                         lastName = lastName,
                         phoneNumber = phoneNumber,
-                        percent = conditions.value.percent,
-                        period = conditions.value.period,
-                        amount = BigDecimal(amount)
+                        percent = condition.value.percent,
+                        period = condition.value.period,
+                        amount = BigDecimal.valueOf(amount.toDouble())
                     )
                 )
             }
             is Result.Failure -> {
-                Log.d("TAG", "createLoan: ${conditions.exception}")
+                conditions.value = Result.Failure(condition.exception)
             }
             else -> throw ClassCastException("Result missing")
         }
     }
 
     private fun postCreateLoanRequest(loanRequest: LoanRequest) {
-        Log.d("TAG", "postCreateLoanRequest: $loanRequest ")
         loanInfo.value = Result.Loading
         compositeDisposable.add(
             readAuthTokenUseCase()
@@ -95,6 +99,44 @@ class NewLoanViewModel @Inject constructor(
                     }
                 )
         )
+    }
+
+    private fun validateInputField(
+        firstName: String,
+        lastName: String,
+        phoneNumber: String,
+        amount: String
+    ): Boolean {
+        if (firstName.isBlank()) {
+            incorrectInputField.value = InputFieldError.FIRST_NAME_EMPTY
+            return false
+        }
+        if (lastName.isBlank()) {
+            incorrectInputField.value = InputFieldError.LAST_NAME_EMPTY
+            return false
+        }
+        if (phoneNumber.isEmpty()) {
+            incorrectInputField.value = InputFieldError.PHONE_NUMBER_EMPTY
+        }
+        if (amount.isEmpty()) {
+            incorrectInputField.value = InputFieldError.AMOUNT_EMPTY
+        }
+        return true
+    }
+
+    private fun validateMaxAmount(amount: Double): Boolean {
+        val maxAmount = conditions.value?.let { (it as Result.Success).value.maxAmount.toDouble() }
+        maxAmount?.let {
+            if (amount > it) {
+                incorrectInputField.value = InputFieldError.AMOUNT_MAX_VALUE
+                return@validateMaxAmount false
+            }
+            if (amount == 0.0) {
+                incorrectInputField.value = InputFieldError.AMOUNT_ZERO
+                return@validateMaxAmount false
+            }
+        }
+        return true
     }
 
     override fun onCleared() {
