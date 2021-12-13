@@ -1,5 +1,6 @@
 package com.w4eret1ckrtb1tch.homework.presentation.model
 
+import com.w4eret1ckrtb1tch.homework.presentation.utils.ErrorParserHelper.parseHttpException
 import retrofit2.HttpException
 
 sealed class Result<out T> {
@@ -25,13 +26,6 @@ sealed class Result<out T> {
             is Failure -> "Failure[exception=$exception]"
             is Loading -> "Loading..."
         }
-    }
-
-    fun parseHttpException(exception: HttpException): String? {
-        val regex = """\"[^\"]*\"""".toRegex()
-        val response = exception.response()
-        val match = response?.errorBody()?.string()?.let { regex.find(it) }
-        return match?.value
     }
 }
 

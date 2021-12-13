@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostLoginUserUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.WriteAuthTokenUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.model.InputFieldError
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import com.w4eret1ckrtb1tch.homework.presentation.model.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,8 +25,11 @@ class AuthorizationViewModel @Inject constructor(
 
     private val authToken: SingleLiveEvent<Result<Unit>> = SingleLiveEvent()
     val getAuthToken: LiveData<Result<Unit>> = authToken
+    private val incorrectInputField: SingleLiveEvent<InputFieldError> = SingleLiveEvent()
+    val getIncorrectInputField: LiveData<InputFieldError> = incorrectInputField
 
     fun signInUser(name: String, password: String) {
+        if (!validateInputField(name, password)) return
         authToken.value = Result.Loading
         compositeDisposable.add(
             userLoginCase(UserAuth(name = name, password = password))
@@ -52,6 +56,18 @@ class AuthorizationViewModel @Inject constructor(
                     Log.d("TAG", "writeAuthToken: ${error.message}")
                 }
             ))
+    }
+
+    private fun validateInputField(name: String, password: String): Boolean {
+        if (name.isBlank()) {
+            incorrectInputField.value = InputFieldError.USER_NAME_EMPTY
+            return false
+        }
+        if (password.isBlank()) {
+            incorrectInputField.value = InputFieldError.USER_PASS_EMPTY
+            return false
+        }
+        return true
     }
 
     override fun onCleared() {

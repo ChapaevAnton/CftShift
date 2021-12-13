@@ -17,4 +17,8 @@
     <string name="amount">amount</string>
     <string name="send_new_loan">send new loan request</string>
     <string name="title_send_loan_dialog">New request send successfully</string>
+    <string name="user_name_empty">please enter username</string>
+    <string name="user_password_empty">please enter password</string>
+    <string name="unknown_error">unknown error</string>
+
 </resources>
