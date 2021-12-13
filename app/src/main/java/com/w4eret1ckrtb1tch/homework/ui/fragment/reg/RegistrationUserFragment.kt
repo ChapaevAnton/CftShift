@@ -14,7 +14,7 @@ import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.RegistrationUserViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
-import com.w4eret1ckrtb1tch.homework.ui.utils.ResolveResultHelper
+import com.w4eret1ckrtb1tch.homework.presentation.utils.ResolveResultHelper
 import com.w4eret1ckrtb1tch.homework.ui.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 

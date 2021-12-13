@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.ui.utils
+package com.w4eret1ckrtb1tch.homework.presentation.utils
 
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 
