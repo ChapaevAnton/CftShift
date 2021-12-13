@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostRegisterUserUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.model.InputFieldError
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
+import com.w4eret1ckrtb1tch.homework.presentation.model.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -23,8 +25,11 @@ class RegistrationUserViewModel @Inject constructor(
 
     private val user: MutableLiveData<Result<UserEntity>> = MutableLiveData()
     val getUser: LiveData<Result<UserEntity>> = user
+    private val incorrectInputField: SingleLiveEvent<InputFieldError> = SingleLiveEvent()
+    val getIncorrectInputField: LiveData<InputFieldError> = incorrectInputField
 
     fun registerUser(name: String, password: String) {
+        if (!validateInputField(name, password)) return
         user.value = Result.Loading
         compositeDisposable.add(registerUserUseCase(UserAuth(name = name, password = password))
             .observeOn(AndroidSchedulers.mainThread())
@@ -38,6 +43,18 @@ class RegistrationUserViewModel @Inject constructor(
                     Log.d("TAG", "registerUser: ${error.message}")
                 }
             ))
+    }
+
+    private fun validateInputField(name: String, password: String): Boolean {
+        if (name.isBlank()) {
+            incorrectInputField.value = InputFieldError.USER_NAME_EMPTY
+            return false
+        }
+        if (password.isBlank()) {
+            incorrectInputField.value = InputFieldError.USER_PASS_EMPTY
+            return false
+        }
+        return true
     }
 
     override fun onCleared() {

@@ -6,12 +6,12 @@ object ResolveResultHelper {
 
     fun <TYPE> resolveResult(
         result: Result<TYPE>,
-        success: (() -> Unit)?,
+        success: ((result: TYPE) -> Unit)?,
         failure: (() -> Unit)?,
         loading: (() -> Unit)?
     ) {
         when (result) {
-            is Result.Success -> success?.invoke()
+            is Result.Success -> success?.invoke(result.value)
             is Result.Failure -> failure?.invoke()
             is Result.Loading -> loading?.invoke()
         }
