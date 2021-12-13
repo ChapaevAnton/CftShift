@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 enum class UserRole : Parcelable {
     ADMIN,
-    USER
+    USER,
+    UNKNOWN
 }

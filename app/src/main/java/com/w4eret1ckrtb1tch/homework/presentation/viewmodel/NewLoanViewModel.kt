@@ -10,8 +10,8 @@ import com.w4eret1ckrtb1tch.homework.domain.entity.LoanRequest
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetConditionsUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostCreateLoanUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
-import com.w4eret1ckrtb1tch.homework.presentation.utils.SingleLiveEvent
+import com.w4eret1ckrtb1tch.homework.presentation.model.Result
+import com.w4eret1ckrtb1tch.homework.presentation.model.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

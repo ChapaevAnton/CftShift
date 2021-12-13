@@ -17,7 +17,7 @@ class LoansAdapter(
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoansHolder =
-        LoansHolder(parent, clickLoan)
+        LoansHolder.create(parent, clickLoan)
 
     override fun onBindViewHolder(holder: LoansHolder, position: Int) =
         holder.bind(loans[position])
@@ -31,7 +31,7 @@ class LoansAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         companion object {
-            operator fun invoke(
+            fun create(
                 parent: ViewGroup,
                 clickLoan: (id: Long?) -> Unit
             ): LoansHolder {
@@ -53,5 +53,4 @@ class LoansAdapter(
             }
         }
     }
-
 }

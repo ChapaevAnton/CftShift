@@ -8,7 +8,7 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentNewLoanBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanConditions
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
+import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.NewLoanViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment

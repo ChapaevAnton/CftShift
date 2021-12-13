@@ -1,10 +1,12 @@
 package com.w4eret1ckrtb1tch.homework.di
 
 import com.w4eret1ckrtb1tch.homework.data.datasource.storage.PreferenceStorageImpl
+import com.w4eret1ckrtb1tch.homework.data.mapper.ConditionsResponseMapperImpl
 import com.w4eret1ckrtb1tch.homework.data.mapper.LoanResponseMapperImpl
 import com.w4eret1ckrtb1tch.homework.data.mapper.UserResponseMapperImpl
 import com.w4eret1ckrtb1tch.homework.data.repository.AuthRepositoryImpl
 import com.w4eret1ckrtb1tch.homework.data.repository.LoanRepositoryImpl
+import com.w4eret1ckrtb1tch.homework.domain.mapper.ConditionsResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.mapper.LoanResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.mapper.UserResponseMapper
 import com.w4eret1ckrtb1tch.homework.domain.repository.AuthRepository
@@ -27,6 +29,10 @@ interface DataModule {
     @Reusable
     @Binds
     fun bindsLoanResponseMapper(loanResponseMapper: LoanResponseMapperImpl): LoanResponseMapper
+
+    @Reusable
+    @Binds
+    fun bindsConditionsResponseMapper(conditionsResponseMapper: ConditionsResponseMapperImpl): ConditionsResponseMapper
 
     @Reusable
     @Binds

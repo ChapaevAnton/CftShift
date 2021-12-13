@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentUserRegistrationBinding
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
+import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.RegistrationUserViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity

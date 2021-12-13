@@ -22,7 +22,7 @@ class UserResponseMapperImpl @Inject constructor() : UserResponseMapper {
         return when (role) {
             FocusStartApi.ROLE_ADMIN -> UserRole.ADMIN
             FocusStartApi.ROLE_USER -> UserRole.USER
-            else -> throw IllegalArgumentException("Role missing")
+            else -> UserRole.UNKNOWN
         }
     }
 }

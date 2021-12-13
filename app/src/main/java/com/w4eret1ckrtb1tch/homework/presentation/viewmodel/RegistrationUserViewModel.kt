@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserAuth
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.domain.usecase.PostRegisterUserUseCase
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
+import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable

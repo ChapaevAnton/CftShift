@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 enum class LoanState : Parcelable {
     APPROVED,
     REGISTERED,
-    REJECTED
+    REJECTED,
+    UNKNOWN
 }

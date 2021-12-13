@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentAuthorizationBinding
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
+import com.w4eret1ckrtb1tch.homework.presentation.model.Result
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.AuthorizationViewModel
 import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity

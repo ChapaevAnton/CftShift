@@ -1,10 +1,8 @@
 package com.w4eret1ckrtb1tch.homework.data.mapper
 
 import com.w4eret1ckrtb1tch.homework.data.datasource.network.FocusStartApi
-import com.w4eret1ckrtb1tch.homework.data.dto.LoanConditionsResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.LoanDataResponse
 import com.w4eret1ckrtb1tch.homework.data.dto.LoansListResponse
-import com.w4eret1ckrtb1tch.homework.domain.entity.LoanConditions
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanState
 import com.w4eret1ckrtb1tch.homework.domain.mapper.LoanResponseMapper
@@ -33,22 +31,12 @@ class LoanResponseMapperImpl @Inject constructor() : LoanResponseMapper {
         return loansListResponse.map { mapResponse(it) }
     }
 
-    override fun mapResponse(loanConditionsResponse: LoanConditionsResponse): LoanConditions {
-        return with(loanConditionsResponse) {
-            LoanConditions(
-                maxAmount = maxAmount,
-                percent = percent,
-                period = period
-            )
-        }
-    }
-
     private fun getState(state: String): LoanState {
         return when (state) {
             FocusStartApi.LOAN_STATE_APPROVED -> LoanState.APPROVED
             FocusStartApi.LOAN_STATE_REGISTERED -> LoanState.REGISTERED
             FocusStartApi.LOAN_STATE_REJECTED -> LoanState.REJECTED
-            else -> throw IllegalArgumentException("State missing")
+            else -> LoanState.UNKNOWN
         }
     }
 }

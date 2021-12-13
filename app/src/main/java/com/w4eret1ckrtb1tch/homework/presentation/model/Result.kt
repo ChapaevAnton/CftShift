@@ -1,4 +1,4 @@
-package com.w4eret1ckrtb1tch.homework.presentation.utils
+package com.w4eret1ckrtb1tch.homework.presentation.model
 
 import retrofit2.HttpException
 
