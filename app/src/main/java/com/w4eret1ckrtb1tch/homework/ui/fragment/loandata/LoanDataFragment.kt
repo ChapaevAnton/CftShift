@@ -8,9 +8,10 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoanDataBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
+import com.w4eret1ckrtb1tch.homework.presentation.utils.ResolveResultHelper
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.LoanDataViewModel
-import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
+import com.w4eret1ckrtb1tch.homework.ui.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,34 +36,28 @@ class LoanDataFragment : BaseFragment<FragmentLoanDataBinding>(
     }
 
     private fun resolveLoanData(result: Result<LoanEntity>) {
-        when (result) {
-            is Result.Success -> {
-                setLoanData(result.value)
-            }
-            is Result.Failure -> {
-                (requireActivity() as MainActivity).showMessage(
-                    result.toString(),
-                    binding.root,
-                    null
-                )
-            }
-            is Result.Loading -> {
-                // TODO: 07.12.2021 Добавить индикатор загрузки
-            }
-        }
+        ResolveResultHelper.resolveResult(result,
+            success = { setLoanData(it);loading(false) },
+            failure = { showMessage(it, binding.root, null);loading(false) },
+            loading = { loading(true) }
+        )
+    }
+
+    private fun loading(load: Boolean) {
+        binding.loading.visibility = if (load) View.VISIBLE else View.GONE
     }
 
     private fun setLoanData(loan: LoanEntity) {
         binding.apply {
-            state.text = loan.state.name
-            idLoan.text = loan.id.toString()
-            date.text = loan.date.toString()
-            firstName.text = loan.firstName
-            lastName.text = loan.lastName
-            phoneNumber.text = loan.phoneNumber
-            period.text = loan.period.toString()
-            percent.text = loan.percent.toString()
-            loan.amount.toString().also { amount.text = it }
+            state.text = getString(R.string.state_data, loan.state.name)
+            idLoan.text = getString(R.string.id_loan_data, loan.id)
+            date.text = getString(R.string.date_data, loan.date)
+            firstName.text = getString(R.string.first_name_data, loan.firstName)
+            lastName.text = getString(R.string.last_name_data, loan.lastName)
+            phoneNumber.text = getString(R.string.phone_number_data, loan.phoneNumber)
+            period.text = getString(R.string.period_data, loan.period)
+            percent.text = getString(R.string.percent_data, loan.percent)
+            amount.text = getString(R.string.amount_data, loan.amount)
         }
     }
 }

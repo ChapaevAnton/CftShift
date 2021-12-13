@@ -20,5 +20,14 @@
     <string name="user_name_empty">please enter username</string>
     <string name="user_password_empty">please enter password</string>
     <string name="unknown_error">unknown error</string>
+    <string name="state_data">State:%1$s</string>
+    <string name="id_loan_data">Id:%1$d</string>
+    <string name="date_data">Date: %1$s</string>
+    <string name="first_name_data">First name: %1$s</string>
+    <string name="last_name_data">Last name: %1$s</string>
+    <string name="phone_number_data">Phone number: %1$s</string>
+    <string name="period_data">Period: %1$d month</string>
+    <string name="percent_data">Percent: %1$.2f %%</string>
+    <string name="amount_data">Amount: %1$.4f ₽</string>
 
 </resources>

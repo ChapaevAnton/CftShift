@@ -39,7 +39,7 @@ class LoansListFragment : BaseFragment<FragmentLoansListBinding>(
                 if (this@LoansListFragment::adapter.isInitialized) adapter.loans = it;loading(false)
             },
             failure = {
-                showMessage(result.toString(), binding.root, null)
+                showMessage(it, binding.root, null)
                 loading(false)
             },
             loading = { loading(true) })

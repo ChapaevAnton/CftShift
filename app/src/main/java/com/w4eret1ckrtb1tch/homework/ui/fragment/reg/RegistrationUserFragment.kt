@@ -60,7 +60,7 @@ class RegistrationUserFragment : BaseFragment<FragmentUserRegistrationBinding>(
         ResolveResultHelper.resolveResult(result,
             success = { openRegistrationUserToAuthUser(it);loading(false) },
             failure = {
-                showMessage(result.toString(), binding.root, null)
+                showMessage(it, binding.root, null)
                 loading(false)
             },
             loading = { loading(true) })

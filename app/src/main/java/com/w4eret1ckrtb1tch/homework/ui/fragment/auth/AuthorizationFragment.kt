@@ -73,7 +73,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>(
         ResolveResultHelper.resolveResult(result,
             success = { openAuthUserToLoanList();loading(false) },
             failure = {
-                showMessage(result.toString(), binding.root, null)
+                showMessage(it, binding.root, null)
                 loading(false)
             },
             loading = { loading(true) })

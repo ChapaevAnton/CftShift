@@ -7,12 +7,12 @@ object ResolveResultHelper {
     fun <TYPE> resolveResult(
         result: Result<TYPE>,
         success: ((result: TYPE) -> Unit)?,
-        failure: (() -> Unit)?,
+        failure: ((result: String) -> Unit)?,
         loading: (() -> Unit)?
     ) {
         when (result) {
             is Result.Success -> success?.invoke(result.value)
-            is Result.Failure -> failure?.invoke()
+            is Result.Failure -> failure?.invoke(result.toString())
             is Result.Loading -> loading?.invoke()
         }
     }
