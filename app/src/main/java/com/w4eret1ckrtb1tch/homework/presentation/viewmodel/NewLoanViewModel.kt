@@ -117,9 +117,11 @@ class NewLoanViewModel @Inject constructor(
         }
         if (phoneNumber.isEmpty()) {
             incorrectInputField.value = InputFieldError.PHONE_NUMBER_EMPTY
+            return false
         }
         if (amount.isEmpty()) {
             incorrectInputField.value = InputFieldError.AMOUNT_EMPTY
+            return false
         }
         return true
     }

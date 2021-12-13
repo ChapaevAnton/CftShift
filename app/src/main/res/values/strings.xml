@@ -38,6 +38,6 @@
     <string name="percent_data">Percent: %1$.2f %%</string>
     <string name="amount_data">Amount: %1$.4f ₽</string>
     <string name="max_amount_data">Max amount: %1$.4f ₽</string>
-    <string name="zero">0</string>
+    <string name="info_for_client">Wait, a bank employee will contact you as soon as possible to clarify the details</string>
 
 </resources>

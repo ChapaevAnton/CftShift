@@ -55,15 +55,15 @@ class SendDialogFragment : DialogFragment(R.layout.dialog_send) {
 
     private fun setLoanInfo(loan: LoanEntity) {
         binding?.apply {
-            state.text = loan.state.name
-            idLoan.text = loan.id.toString()
-            date.text = loan.date.toString()
-            firstName.text = loan.firstName
-            lastName.text = loan.lastName
-            phoneNumber.text = loan.phoneNumber
-            period.text = loan.period.toString()
-            percent.text = loan.percent.toString()
-            loan.amount.toString().also { amount.text = it }
+            state.text = getString(R.string.state_data, loan.state.name)
+            idLoan.text = getString(R.string.id_loan_data, loan.id)
+            date.text = getString(R.string.date_data, loan.date)
+            firstName.text = getString(R.string.first_name_data, loan.firstName)
+            lastName.text = getString(R.string.last_name_data, loan.lastName)
+            phoneNumber.text = getString(R.string.phone_number_data, loan.phoneNumber)
+            period.text = getString(R.string.period_data, loan.period)
+            percent.text = getString(R.string.percent_data, loan.percent)
+            amount.text = getString(R.string.amount_data, loan.amount)
         }
     }
 

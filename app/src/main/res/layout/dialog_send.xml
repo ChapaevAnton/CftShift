@@ -9,57 +9,81 @@
 
     <TextView
         android:id="@+id/state"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/lorem" />
 
     <TextView
         android:id="@+id/id_loan"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/us_zipcodes" />
 
     <TextView
         android:id="@+id/date"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/date/ddmmyy" />
 
     <TextView
         android:id="@+id/first_name"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/first_names" />
 
     <TextView
         android:id="@+id/last_name"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/last_names" />
 
     <TextView
         android:id="@+id/phone_number"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/us_phones" />
 
     <TextView
         android:id="@+id/period"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/us_zipcodes" />
 
     <TextView
         android:id="@+id/percent"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/us_zipcodes" />
 
     <TextView
         android:id="@+id/amount"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@tools:sample/us_zipcodes" />
 
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:text="@string/info_for_client"
+        android:id="@+id/info_for_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
