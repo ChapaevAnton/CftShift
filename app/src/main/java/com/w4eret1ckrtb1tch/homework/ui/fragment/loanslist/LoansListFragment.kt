@@ -8,9 +8,10 @@ import com.w4eret1ckrtb1tch.homework.R
 import com.w4eret1ckrtb1tch.homework.databinding.FragmentLoansListBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
+import com.w4eret1ckrtb1tch.homework.presentation.utils.ResolveResultHelper
 import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.LoansListViewModel
-import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
 import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
+import com.w4eret1ckrtb1tch.homework.ui.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,20 +34,22 @@ class LoansListFragment : BaseFragment<FragmentLoansListBinding>(
     }
 
     private fun resolveLoansList(result: Result<List<LoanEntity>>) {
-        when (result) {
-            is Result.Success -> {
-                if (this@LoansListFragment::adapter.isInitialized) adapter.loans = result.value
-            }
-            is Result.Failure -> {
-                (requireActivity() as MainActivity).showMessage(
-                    result.toString(),
-                    binding.root,
-                    null
-                )
-            }
-            is Result.Loading -> {
-                // TODO: 07.12.2021 Добавить индикатор загрузки
-            }
+        ResolveResultHelper.resolveResult(result,
+            success = {
+                if (this@LoansListFragment::adapter.isInitialized) adapter.loans = it;loading(false)
+            },
+            failure = {
+                showMessage(result.toString(), binding.root, null)
+                loading(false)
+            },
+            loading = { loading(true) })
+    }
+
+    private fun loading(load: Boolean) {
+        binding.apply {
+            loading.visibility = if (load) View.VISIBLE else View.GONE
+            loansList.visibility = if (load) View.GONE else View.VISIBLE
+            createNewLoan.visibility = if (load) View.GONE else View.VISIBLE
         }
     }
 

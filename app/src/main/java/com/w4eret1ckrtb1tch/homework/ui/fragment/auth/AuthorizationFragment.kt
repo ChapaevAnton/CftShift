@@ -11,10 +11,9 @@ import com.w4eret1ckrtb1tch.homework.databinding.FragmentAuthorizationBinding
 import com.w4eret1ckrtb1tch.homework.domain.entity.UserEntity
 import com.w4eret1ckrtb1tch.homework.presentation.model.InputFieldError
 import com.w4eret1ckrtb1tch.homework.presentation.model.Result
-import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.AuthorizationViewModel
-import com.w4eret1ckrtb1tch.homework.ui.activity.MainActivity
-import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import com.w4eret1ckrtb1tch.homework.presentation.utils.ResolveResultHelper
+import com.w4eret1ckrtb1tch.homework.presentation.viewmodel.AuthorizationViewModel
+import com.w4eret1ckrtb1tch.homework.ui.fragment.BaseFragment
 import com.w4eret1ckrtb1tch.homework.ui.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,11 +63,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>(
                 binding.userPassword.error = getString(R.string.user_password_empty)
             }
             else -> {
-                (requireActivity() as MainActivity).showMessage(
-                    getString(R.string.unknown_error),
-                    binding.root,
-                    null
-                )
+                showMessage(getString(R.string.unknown_error), binding.root, null)
             }
 
         }
@@ -78,11 +73,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>(
         ResolveResultHelper.resolveResult(result,
             success = { openAuthUserToLoanList();loading(false) },
             failure = {
-                requireActivity().showMessage(
-                    result.toString(),
-                    binding.root,
-                    null
-                )
+                showMessage(result.toString(), binding.root, null)
                 loading(false)
             },
             loading = { loading(true) })

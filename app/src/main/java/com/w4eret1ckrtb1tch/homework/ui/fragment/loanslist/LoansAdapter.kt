@@ -46,7 +46,8 @@ class LoansAdapter(
                 with(binding) {
                     id.text = loan.id.toString()
                     date.text = loan.date.toString()
-                    loan.amount.toString().also { amount.text = it }
+                    firstName.text = loan.firstName
+                    lastName.text = loan.lastName
                     state.text = loan.state.name
                     root.setOnClickListener { clickLoan(loan.id) }
                 }

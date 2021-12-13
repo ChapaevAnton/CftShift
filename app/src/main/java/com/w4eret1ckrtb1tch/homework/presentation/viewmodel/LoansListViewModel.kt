@@ -1,6 +1,5 @@
 package com.w4eret1ckrtb1tch.homework.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,7 +41,6 @@ class LoansListViewModel @Inject constructor(
                 onError = { error ->
                     // FIXME: 09.12.2021 Определять разные коды ошибок...
                     loans.value = Result.Failure(error)
-                    Log.d("TAG", "getLoansList: ${error.message}")
                 })
         )
     }

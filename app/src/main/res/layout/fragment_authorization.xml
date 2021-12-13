@@ -8,6 +8,13 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
     <TextView
         style="@style/TextAppearance.MaterialComponents.Headline4"
         android:layout_width="wrap_content"
@@ -58,10 +65,4 @@
         android:layout_height="wrap_content"
         android:text="@string/auth_register_account" />
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        tools:visibility="visible" />
 </LinearLayout>
