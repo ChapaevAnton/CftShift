@@ -4,6 +4,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.rxjava3.RxDataStore
 import com.w4eret1ckrtb1tch.homework.domain.storage.PreferenceStorage
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -21,15 +22,12 @@ class PreferenceStorageImpl @Inject constructor(
             }.subscribeOn(Schedulers.io())
     }
 
-    // QUESTION: 11.12.2021 Нужно ли тут обработать ошибки записи токена? Completable
-    //  https://developer.android.com/topic/libraries/architecture/datastore#java
-    //  https://stackoverflow.com/questions/64036701/is-new-jetpack-datastore-only-for-kotlin
-    override fun writeAuthToken(authToken: String) {
-        dataStore.updateDataAsync { prefs ->
+    override fun writeAuthToken(authToken: String): Completable {
+        return dataStore.updateDataAsync { prefs ->
             val mutablePreferences = prefs.toMutablePreferences()
             mutablePreferences[stringPreferencesKey(AUTH_TOKEN_KEY)] = authToken
             return@updateDataAsync Single.just(mutablePreferences)
-        }.subscribeOn(Schedulers.io()).subscribe()
+        }.flatMapCompletable { Completable.complete() }.subscribeOn(Schedulers.io())
     }
 
     private companion object {

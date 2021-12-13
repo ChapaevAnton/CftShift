@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoanDataUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
@@ -20,13 +20,13 @@ class LoanDataViewModel @Inject constructor(
     private val readAuthTokenUseCase: ReadAuthTokenUseCase
 ) : ViewModel() {
 
-    private var loanDataDisposable: Disposable? = null
+    private val compositeDisposable = CompositeDisposable()
 
     private val loan: MutableLiveData<Result<LoanEntity>> = MutableLiveData()
     val getLoan: LiveData<Result<LoanEntity>> = loan
 
     fun getLoanData(idLoan: Long) {
-        loanDataDisposable = readAuthTokenUseCase()
+        compositeDisposable.add(readAuthTokenUseCase()
             .firstOrError()
             .flatMap { authToken -> getLoanDataUseCase(authToken, idLoan) }
             .observeOn(AndroidSchedulers.mainThread())
@@ -39,11 +39,11 @@ class LoanDataViewModel @Inject constructor(
                     loan.value = Result.Failure(error)
                     Log.d("TAG", "getLoansList: ${error.message}")
                 }
-            )
+            ))
     }
 
     override fun onCleared() {
-        loanDataDisposable?.dispose()
+        compositeDisposable.clear()
         super.onCleared()
     }
 

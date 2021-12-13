@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4eret1ckrtb1tch.homework.domain.entity.LoanEntity
-import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import com.w4eret1ckrtb1tch.homework.domain.usecase.GetLoansListUseCase
 import com.w4eret1ckrtb1tch.homework.domain.usecase.ReadAuthTokenUseCase
+import com.w4eret1ckrtb1tch.homework.presentation.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class LoansListViewModel @Inject constructor(
     private val readAuthTokenUseCase: ReadAuthTokenUseCase
 ) : ViewModel() {
 
-    private var loansListDisposable: Disposable? = null
+    private val compositeDisposable = CompositeDisposable()
 
     private val loans: MutableLiveData<Result<List<LoanEntity>>> = MutableLiveData()
     val getLoans: LiveData<Result<List<LoanEntity>>> = loans
@@ -31,7 +31,7 @@ class LoansListViewModel @Inject constructor(
 
     private fun getLoansList() {
         loans.value = Result.Loading
-        loansListDisposable = readAuthTokenUseCase()
+        compositeDisposable.add(readAuthTokenUseCase()
             .firstOrError()
             .flatMap { authToken -> loansListUseCase(authToken) }
             .observeOn(AndroidSchedulers.mainThread())
@@ -44,10 +44,11 @@ class LoansListViewModel @Inject constructor(
                     loans.value = Result.Failure(error)
                     Log.d("TAG", "getLoansList: ${error.message}")
                 })
+        )
     }
 
     override fun onCleared() {
-        loansListDisposable?.dispose()
+        compositeDisposable.clear()
         super.onCleared()
     }
 }
