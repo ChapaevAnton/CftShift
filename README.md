@@ -27,3 +27,9 @@
 - 17.10.21 Многопоточность + Сервисы (ветка 12_multithreading_services)
 
 - 22.11.21 Работа с сетью (ветка 13_networking)
+
+- 24.11.21 RxJava (ветка 14_reactive_programming)
+
+- 01.12.21 Kotlin Coroutines (ветка 15_reactive_programming_coroutine)
+
+- 15.12.21 Финальный проект (ветка final_project)
