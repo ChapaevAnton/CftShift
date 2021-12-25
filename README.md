@@ -1,4 +1,10 @@
 # Финальный проект
+![image](https://user-images.githubusercontent.com/69672210/147383669-524c0fde-6e31-4c09-8d24-2e498f5ad5f2.png)
+![image](https://user-images.githubusercontent.com/69672210/147383722-c596b44e-1a43-4958-a487-eeafc704f0a8.png)
+![image](https://user-images.githubusercontent.com/69672210/147383690-e6f83591-e815-44d0-8512-0456312486a4.png)
+![image](https://user-images.githubusercontent.com/69672210/147383708-8df70822-d3db-4a22-9423-4e2a5eb054da.png)
+
+
 
 ### Постановка задачи
 
