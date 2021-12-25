@@ -4,7 +4,7 @@
     <string name="auth_sign_in">sign in</string>
     <string name="auth_user_login">login</string>
     <string name="auth_user_password">password</string>
-    <string name="auth_register_account">Already have an account?</string>
+    <string name="auth_register_account">Don\'t have an account?</string>
     <string name="ok">ok</string>
     <string name="reg_form_title">Registration form</string>
     <string name="reg_register">register</string>
