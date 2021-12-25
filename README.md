@@ -1,4 +1,7 @@
-# Домашняя работа
+
+# Финальный проект (ветка final_project) https://github.com/ChapaevAnton/CftShift/tree/final_project
+
+### Прочие домашние работы
 
 - 14.10.21 Kotlin, Unit-testing (ветка 01_kotlin_unit_testing) 
 
@@ -31,5 +34,3 @@
 - 24.11.21 RxJava (ветка 14_reactive_programming)
 
 - 01.12.21 Kotlin Coroutines (ветка 15_reactive_programming_coroutine)
-
-- 15.12.21 Финальный проект (ветка final_project)
