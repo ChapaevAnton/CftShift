@@ -1,6 +1,8 @@
 
 ## Финальный проект (ветка final_project) https://github.com/ChapaevAnton/CftShift/tree/final_project
 
+![image](https://user-images.githubusercontent.com/69672210/147867397-66c2c3ff-63f8-4623-9b41-860287997de4.png)
+
 ### Прочие домашние работы
 
 - 14.10.21 Kotlin, Unit-testing (ветка 01_kotlin_unit_testing) 
